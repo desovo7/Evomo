@@ -15,10 +15,11 @@ M0 is deliberately split into small, independently testable parts:
    a portable JSONL manifest.
 3. **Environment adapter (implemented):** map one `TaskSpec` through real
    ALFWorld/TextWorld `reset/step` calls without involving a language model.
-4. **Policy contract:** map an observation to an `ActionDecision`, first with
-   random and scripted policies.
-5. **Rollout runner:** connect task, environment, policy, and recorder for one
-   episode.
+4. **Policy contract (implemented):** map observations and history to an
+   auditable `ActionDecision`; the first baseline samples admissible actions
+   reproducibly.
+5. **Rollout runner (implemented):** connect task, environment, policy,
+   recorder, and JSONL storage for one complete episode.
 6. **Persistence and resume:** manifests, deduplication, interrupted-run
    recovery, and batch output layout.
 7. **Configuration and observability:** validated configs, structured logs,
@@ -26,7 +27,7 @@ M0 is deliberately split into small, independently testable parts:
 8. **Baseline CLI:** execute reproducible random, expert, and later Qwen
    baselines over selected splits.
 
-Parts 1 through 3 now exist. The executable data path is:
+Parts 1 through 5 now exist. The executable data path is:
 
 ```text
 ALFWorld data -> TaskSpec -> TextWorld reset/step -> environment transition
@@ -85,3 +86,25 @@ observation and action set will become inputs to the policy layer in part 4.
 The adapter disables ALFWorld name shuffling; `requested_seed` is recorded for
 the future rollout layer but TextWorld 1.7's single-game start API does not
 accept a reset seed.
+
+## Run one complete random-policy episode
+
+The random baseline validates the full loop without a model or GPU. It
+samples only from the current admissible actions, records every decision and
+transition, stops at environment termination or `max_steps`, appends one
+`Episode` to JSONL, and reads it back before reporting success:
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+PYTHONPATH=src python scripts/run_random_alfworld_episode.py \
+  --split valid_train \
+  --task-index 0 \
+  --seed 42 \
+  --max-steps 50 \
+  --output outputs/episodes/random_baseline.jsonl
+```
+
+A random policy is expected to fail many tasks. A result such as
+`termination_reason=max_steps` is a valid completed rollout, not an
+infrastructure error. The next model-policy stage will replace only the
+action selection component while keeping the same runner and episode schema.
