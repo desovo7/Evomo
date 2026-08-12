@@ -6,6 +6,7 @@ from evomo.data import (
     EpisodeStore,
     StepRecord,
     TaskSpec,
+    TaskStore,
     TerminationReason,
 )
 
@@ -15,5 +16,6 @@ __all__ = [
     "EpisodeStore",
     "StepRecord",
     "TaskSpec",
+    "TaskStore",
     "TerminationReason",
 ]

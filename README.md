@@ -7,11 +7,12 @@ ALFWorld using the local Qwen3-1.7B model.
 
 M0 is deliberately split into small, independently testable parts:
 
-1. **Data contract (implemented now):** convert a task into an immutable
+1. **Data contract (implemented):** convert a task into an immutable
    `TaskSpec`, record environment transitions, finish an `Episode`, and store
    it as JSONL.
-2. **Task discovery:** enumerate ALFWorld splits and convert raw game metadata
-   into `TaskSpec` objects.
+2. **Task discovery (implemented):** enumerate ALFWorld splits, report
+   incomplete trials, convert raw metadata into `TaskSpec` objects, and write
+   a portable JSONL manifest.
 3. **Environment adapter:** map ALFWorld `reset/step` results to the data
    contract without involving a language model.
 4. **Policy contract:** map an observation to an `ActionDecision`, first with
@@ -25,10 +26,10 @@ M0 is deliberately split into small, independently testable parts:
 8. **Baseline CLI:** execute reproducible random, expert, and later Qwen
    baselines over selected splits.
 
-Only part 1 exists at this point. This keeps the first executable path small:
+Parts 1 and 2 now exist. The executable data path is:
 
 ```text
-raw task -> TaskSpec -> EpisodeRecorder -> StepRecord -> Episode -> JSONL
+ALFWorld data -> TaskSpec manifest -> EpisodeRecorder -> StepRecord -> Episode JSONL
 ```
 
 Run the example without installing the package:
@@ -42,3 +43,21 @@ Run the standard-library tests:
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
+
+## Discover ALFWorld tasks
+
+The discovery layer reads files only; it does not import or launch ALFWorld.
+Pass either the directory stored in `ALFWORLD_DATA` or its `json_2.1.1`
+subdirectory:
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+PYTHONPATH=src python scripts/discover_alfworld_tasks.py \
+  --output outputs/manifests/alfworld_tasks.jsonl
+```
+
+By default, only trials containing `game.tw-pddl` are written because those
+are runnable by the next TextWorld adapter. The printed report still counts
+all `traj_data.json` files and missing games. Use `--include-incomplete` only
+for data inspection. Paths inside the manifest are relative to
+`json_2.1.1`, so the manifest does not depend on one machine's absolute path.

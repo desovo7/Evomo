@@ -8,6 +8,7 @@ from evomo.data.schema import (
     TaskSpec,
     TerminationReason,
 )
+from evomo.data.task_store import TaskStore
 
 __all__ = [
     "Episode",
@@ -15,5 +16,6 @@ __all__ = [
     "EpisodeStore",
     "StepRecord",
     "TaskSpec",
+    "TaskStore",
     "TerminationReason",
 ]
