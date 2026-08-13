@@ -775,3 +775,62 @@ stored in the immutable run contract, Episode metadata, every policy step,
 the flattened step JSONL, and the readable Markdown trajectory. The audit
 replays the decision again and requires all copies to match. Artifacts are
 under `reports/experience_selection_smoke/`.
+
+## Seal one complete self-evolution cycle
+
+The next increment joins the previously independent stages with an immutable
+cycle contract. The data now flows in this order:
+
+```text
+stable exp-v3
+  -> 200 valid_train rollout trajectories
+  -> 42 failed episodes
+  -> exp-v4 candidate + evolution audit
+  -> paired exp-v3/exp-v4 validation on 140 valid_seen tasks
+  -> comparison + validation audit
+  -> retain-candidate gate decision
+  -> stable exp-v3 selected for the next rollout
+```
+
+`build_evolution_cycle_manifest.py` reads every semantic link above. It
+parses all 480 episodes, checks transition continuity, admissible actions and
+native success rewards, requires the candidate source IDs to equal exactly
+the 42 failed development episode IDs, checks experience lineage and rollout
+hashes, and replays the final gate. It records SHA-256 for ten files and a
+deterministic tree hash for both trajectory directories:
+
+```bash
+PYTHONPATH=src python scripts/build_evolution_cycle_manifest.py \
+  --cycle-id exp-v3-to-exp-v4 \
+  --incumbent-experience reports/experience_v2/exp_v3.json \
+  --development-trajectories \
+    reports/experience_v4/qwen3_1.7b_valid_train_all_200/I \
+  --development-summary \
+    reports/experience_v4/qwen3_1.7b_valid_train_all_200/I/summary.json \
+  --development-audit reports/experience_v4/development_trajectory_audit.json \
+  --candidate-experience reports/experience_v4/exp_v4.json \
+  --evolution-audit reports/experience_v4/evolution_audit.json \
+  --validation-trajectories \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140 \
+  --validation-incumbent-summary \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/I/summary.json \
+  --validation-candidate-summary \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/K/summary.json \
+  --comparison \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/comparison.json \
+  --validation-audit \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/audit.json \
+  --decision reports/experience_v4/decision.json \
+  --output reports/experience_v4/cycle_manifest.json
+
+PYTHONPATH=src python scripts/audit_evolution_cycle_manifest.py \
+  --manifest reports/experience_v4/cycle_manifest.json \
+  --output reports/experience_v4/cycle_manifest_audit.json
+```
+
+The checked-in audit covers 12 artifacts and 1,954 content files and returns
+`replay_equal: true`. A changed action, trajectory filename, summary,
+experience, comparison, audit, or gate decision invalidates the manifest.
+The cycle is therefore recoverable at explicit stage boundaries; the next
+increment can execute those stages automatically without weakening their
+existing evidence and evaluation separation.

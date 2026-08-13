@@ -26,16 +26,26 @@ from evomo.evaluation.candidate_gate import (
     file_sha256,
     resolve_experience_selection,
 )
+from evomo.evaluation.evolution_cycle import (
+    EVOLUTION_CYCLE_SCHEMA_VERSION,
+    audit_evolution_cycle_manifest,
+    build_evolution_cycle_manifest,
+    directory_sha256,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
     "EpisodeMetrics",
     "ExperienceSelection",
+    "EVOLUTION_CYCLE_SCHEMA_VERSION",
     "build_cross_variant_comparison",
     "build_paired_success_analysis",
     "audit_experience_candidate_decision",
+    "audit_evolution_cycle_manifest",
+    "build_evolution_cycle_manifest",
     "compute_episode_metrics",
     "decide_experience_candidate",
+    "directory_sha256",
     "ensure_run_config",
     "file_sha256",
     "resolve_experience_selection",

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "cycle_id": "exp-v3-to-exp-v4",
+  "manifest_path": "reports/experience_v4/cycle_manifest.json",
+  "manifest_sha256": "9a98852b76432f7cdd28f8a51d6aacb62600ea5d0132e16f3f7a8e0be34c8185",
+  "artifact_count": 12,
+  "file_artifact_count": 10,
+  "directory_artifact_count": 2,
+  "content_file_count": 1954,
+  "replay_equal": true,
+  "result": {
+    "incumbent_version": "exp-v3-from-h-offset2-failures",
+    "candidate_version": "exp-v4-from-full-valid-train-failures",
+    "source_split": "valid_train",
+    "development_episode_count": 200,
+    "development_failure_count": 42,
+    "validation_split": "valid_seen",
+    "validation_task_count": 140,
+    "decision": "retain_candidate",
+    "selected_stable_version": "exp-v3-from-h-offset2-failures",
+    "decision_replay_verified": true
+  }
+}
