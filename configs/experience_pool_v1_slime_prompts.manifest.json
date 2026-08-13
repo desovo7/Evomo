@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "format": "slime_alfworld_task_prompts",
+  "task_manifest": "configs/experience_pool_v1_tasks.jsonl",
+  "task_manifest_sha256": "545001e16fcad3f1e0f7b8a0622864eba3a2c08053a0da0482cb15fe359dd16f",
+  "task_ids_sha256": "fb44cfd7f4863490bab4dd31e40905c991e4fbb196c914f4de6f299ce58c339f",
+  "task_count": 3553,
+  "dataset_sha256": "907272ee59a12bcf30cad1ddfba202a25422a83040fba859aaebc86fafb054a3",
+  "dataset_bytes": 3214441
+}

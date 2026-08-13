@@ -36,6 +36,7 @@ VARIANTS = {
     "I": PromptVariant.EXPERIENCE_GUIDED_ACTION,
     "J": PromptVariant.EXPERIENCE_GUIDED_ACTION,
     "K": PromptVariant.EXPERIENCE_GUIDED_ACTION,
+    "L": PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
 }
 
 
@@ -108,7 +109,7 @@ def parse_args() -> argparse.Namespace:
         parser.error("manifest selection cannot be combined with discovery selection arguments")
     if not args.task_manifest and not args.all_tasks and args.per_type is None:
         args.per_type = 1
-    experience_variants = {"G", "H", "I", "J", "K"}
+    experience_variants = {"G", "H", "I", "J", "K", "L"}
     has_experience = bool(args.experience_file or args.experience_decision)
     if args.variant in experience_variants and not has_experience:
         parser.error("experience-guided variants require an experience source")

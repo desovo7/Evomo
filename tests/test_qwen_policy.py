@@ -320,6 +320,47 @@ class QwenPolicyTest(unittest.TestCase):
         self.assertEqual(f_generator.messages, h_generator.messages)
         self.assertEqual(h_decision.metadata["applicable_experience_rule_ids"], [])
 
+    def test_experience_conditioning_does_not_override_model_action(self) -> None:
+        evidence = ExperienceEvidence("episode", "task", 1, "take cup", "wrong")
+        experiences = ExperienceSet(
+            version="exp-v1",
+            source_policy_id="policy-f",
+            source_episode_ids=("episode",),
+            rules=(ExperienceRule(
+                "target-object-lock",
+                "target_object_lock",
+                ("pick_cool_then_place_in_recep",),
+                "Only take the target object.",
+                (evidence,),
+            ),),
+        )
+        task = TaskSpec(
+            "train/problem/trial",
+            "train",
+            "pick_cool_then_place_in_recep",
+            "Cool a bowl.",
+            metadata={"pddl_params": {"object_target": "Bowl"}},
+        )
+        policy_input = PolicyInput(
+            task,
+            "You see a cup and bowl.",
+            ("take cup 1 from cabinet 1", "take bowl 2 from cabinet 1"),
+            (),
+            0,
+        )
+        generator = FakeGenerator("<action>take cup 1 from cabinet 1</action>")
+        policy = QwenPolicy(
+            generator,
+            prompt_variant=PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
+            experiences=experiences,
+        )
+        policy.reset(task=task, seed=42)
+        decision = policy.decide(policy_input)
+        self.assertEqual(decision.action, "take cup 1 from cabinet 1")
+        self.assertEqual(decision.source, "model_generation")
+        self.assertIsNone(decision.metadata["experience_override_reason"])
+        self.assertIn("Learned experience rules", generator.messages[0][1]["content"])
+
 
 if __name__ == "__main__":
     unittest.main()

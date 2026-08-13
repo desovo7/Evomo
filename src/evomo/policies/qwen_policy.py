@@ -48,6 +48,7 @@ class PromptVariant(str, Enum):
     ANTI_LOOP_SKILL = "anti_loop_skill"
     STATE_TRACKED_ACTION_TEXT = "state_tracked_action_text"
     STATE_TRACKED_REPAIRED_ACTION = "state_tracked_repaired_action"
+    EXPERIENCE_CONDITIONED_ACTION = "experience_conditioned_action"
     EXPERIENCE_GUIDED_ACTION = "experience_guided_action"
 
 
@@ -196,6 +197,7 @@ def build_action_messages(
     if prompt_variant in (
         PromptVariant.STATE_TRACKED_ACTION_TEXT,
         PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+        PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
         PromptVariant.EXPERIENCE_GUIDED_ACTION,
     ):
         instruction = (
@@ -257,7 +259,10 @@ class QwenPolicy:
             "experience_provenance", experience_provenance or {}
         )
         if (
-            self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION
+            self._prompt_variant in (
+                PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
+                PromptVariant.EXPERIENCE_GUIDED_ACTION,
+            )
             and experiences is None
         ):
             raise ValueError("experience-guided policy requires an ExperienceSet")
@@ -300,6 +305,7 @@ class QwenPolicy:
                 if self._prompt_variant in (
                     PromptVariant.STATE_TRACKED_ACTION_TEXT,
                     PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+                    PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
                     PromptVariant.EXPERIENCE_GUIDED_ACTION,
                 )
                 else ""
@@ -319,6 +325,7 @@ class QwenPolicy:
         if self._prompt_variant in (
             PromptVariant.STATE_TRACKED_ACTION_TEXT,
             PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+            PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
             PromptVariant.EXPERIENCE_GUIDED_ACTION,
         ):
             reconstructed_state = reconstruct_alfworld_state(
@@ -421,25 +428,29 @@ class QwenPolicy:
         experience_rule_ids: tuple[str, ...] = ()
         experience_version = None
         applicable_rule_ids: tuple[str, ...] = ()
-        if self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION:
+        if self._prompt_variant in (
+            PromptVariant.EXPERIENCE_CONDITIONED_ACTION,
+            PromptVariant.EXPERIENCE_GUIDED_ACTION,
+        ):
             assert self._experiences is not None
             experience_version = self._experiences.version
             applicable_rule_ids = tuple(
                 rule.rule_id
                 for rule in self._experiences.applicable_rules(policy_input.task.task_type)
             )
-            override = choose_experience_override(
-                task=policy_input.task,
-                state=reconstructed_state,
-                proposed_action=proposed_action,
-                admissible_actions=policy_input.admissible_actions,
-                experiences=self._experiences,
-            )
-            if override is not None:
-                selected_index = override.action_index
-                experience_override_reason = override.reason
-                experience_rule_ids = override.rule_ids
-                repair_reason = None
+            if self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION:
+                override = choose_experience_override(
+                    task=policy_input.task,
+                    state=reconstructed_state,
+                    proposed_action=proposed_action,
+                    admissible_actions=policy_input.admissible_actions,
+                    experiences=self._experiences,
+                )
+                if override is not None:
+                    selected_index = override.action_index
+                    experience_override_reason = override.reason
+                    experience_rule_ids = override.rule_ids
+                    repair_reason = None
 
         return ActionDecision(
             action=policy_input.admissible_actions[selected_index],

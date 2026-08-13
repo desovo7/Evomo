@@ -1,0 +1,4 @@
+evomo_alfworld_data_root: /home/qzluo/.cache/alfworld
+evomo_experience_file: /data_b/qzluo/workspace/wlx/Evomo/reports/experience_v2/exp_v3.json
+evomo_max_episode_steps: 30
+evomo_max_history_items: 6
