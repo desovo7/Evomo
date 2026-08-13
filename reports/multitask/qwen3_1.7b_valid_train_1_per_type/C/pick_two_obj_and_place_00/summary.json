@@ -1,0 +1,20 @@
+{
+  "episode_id": "e5b1ede5-38c0-442d-a2cd-7b78a7d3adc4",
+  "task_id": "valid_train/pick_two_obj_and_place-Book-None-Desk-302/trial_T20190906_181314_259738",
+  "goal": "Move two books from the bed to the desk.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-c-think_then_action_text",
+  "seed": 47,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 0,
+    "fallback_actions": 1,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

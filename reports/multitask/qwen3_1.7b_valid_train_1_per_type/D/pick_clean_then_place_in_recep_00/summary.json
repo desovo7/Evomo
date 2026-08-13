@@ -1,0 +1,20 @@
+{
+  "episode_id": "3b3bf0de-51bd-4231-a0ea-17d70c467880",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+  "goal": "Place a cleaned bowl on a shelf",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-d-anti_loop_skill",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 16,
+    "format_compliant_actions": 5,
+    "fallback_actions": 14,
+    "repeated_actions": 11,
+    "unchanged_observations": 11,
+    "unique_actions": 11
+  }
+}

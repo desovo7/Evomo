@@ -1,0 +1,20 @@
+{
+  "episode_id": "df6a87d4-32e3-4705-8ab3-c83452c13819",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+  "goal": "To cook the apple.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-b-plan_then_index",
+  "seed": 46,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repeated_actions": 24,
+    "unchanged_observations": 24,
+    "unique_actions": 4
+  }
+}

@@ -20,14 +20,15 @@ M0 is deliberately split into small, independently testable parts:
    reproducibly.
 5. **Rollout runner (implemented):** connect task, environment, policy,
    recorder, and JSONL storage for one complete episode.
-6. **Persistence and resume:** manifests, deduplication, interrupted-run
-   recovery, and batch output layout.
-7. **Configuration and observability:** validated configs, structured logs,
-   seeds, and run summaries.
+6. **Persistence and resume (implemented):** atomically publish one complete
+   artifact directory per task, validate it on restart, and skip completed
+   trajectories.
+7. **Configuration and observability (partly implemented):** CLI validation,
+   fixed seeds, step JSONL, readable trajectories, and cross-prompt summaries.
 8. **Baseline CLI:** execute reproducible random, expert, and later Qwen
    baselines over selected splits.
 
-Parts 1 through 5 now exist. The executable data path is:
+Parts 1 through 6 now exist. The executable data path is:
 
 ```text
 ALFWorld data -> TaskSpec -> TextWorld reset/step -> environment transition
@@ -177,3 +178,69 @@ C shows that exact action-text selection greatly reduced looping on this task,
 although Qwen3-1.7B omitted the requested `<think>` block. D also reduced
 looping substantially. None solved the task, so these observations must be
 validated on a fixed multi-task baseline before selecting a default prompt.
+
+## Run the fixed six-task prompt baseline on three GPUs
+
+The multi-task runner selects the lexicographically first playable
+`valid_train` task from each of ALFWorld's six task types. B, C, and D can run
+independently on three GPUs while covering identical task IDs. A task is first
+written to a temporary directory and then published atomically with:
+
+- the complete `Episode` in `episode.jsonl`;
+- one transition per line in `steps.jsonl`;
+- task and trajectory metrics in `summary.json`;
+- a readable `trajectory.md`.
+
+Rerunning the same command validates and skips complete tasks. Each variant
+also stores an immutable `run_config.json`; changing the model, prompt, task
+set, seed, step/token limit, or history budget requires a new output directory.
+The runner rejects a partially written task directory so incomplete or mixed
+data cannot enter an aggregate.
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+REPORT=reports/multitask/qwen3_1.7b_valid_train_1_per_type
+
+for spec in "0 B" "1 C" "2 D"; do
+  set -- $spec
+  CUDA_VISIBLE_DEVICES=$1 PYTHONPATH=src python \
+    scripts/run_qwen_multitask_variant.py \
+    --model-path ../models/Qwen3-1.7B \
+    --device cuda:0 \
+    --split valid_train \
+    --per-type 1 \
+    --variant $2 \
+    --seed 42 \
+    --max-steps 30 \
+    --max-new-tokens 96 \
+    --max-history-items 6 \
+    --output-dir "$REPORT/$2" &
+done
+wait
+
+PYTHONPATH=src python scripts/summarize_qwen_multitask.py \
+  --input-dir "$REPORT" \
+  --split valid_train \
+  --per-type 1
+```
+
+The checked-in run contains 18 episodes and 540 transitions. All persisted
+actions belonged to their step's admissible-action set, every observation
+chain was continuous, and step-log counts matched their episodes. Results:
+
+| Prompt | Success | Parsed | Strict format | Repeats | Unchanged observations |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| B plan + index | 0/6 | 179/180 | 179/180 | 90 | 90 |
+| C reasoning + action text | 0/6 | 173/180 | 0/180 | 23 | 23 |
+| D anti-loop skill | 0/6 | 153/180 | 46/180 | 33 | 33 |
+
+B follows its output format but loops heavily. C produces the fewest repeats
+and parses 96.1% of actions, yet does not emit the requested complete
+`<think>...</think>` structure. D explores the most distinct actions overall
+but falls back more often. The fixed six-task sample is still a diagnostic,
+not a statistically stable benchmark estimate: all three prompts score 0%, so
+the next stage should add explicit task-state tracking or learned experience
+rather than declare a prompt winner from success rate.
+
+The full per-task table and every raw response are under
+`reports/multitask/qwen3_1.7b_valid_train_1_per_type/`.

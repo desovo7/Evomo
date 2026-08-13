@@ -1,0 +1,20 @@
+{
+  "episode_id": "75b23d6f-98e1-4729-bb80-e226db8e9f6f",
+  "task_id": "valid_train/pick_and_place_simple-AlarmClock-None-Desk-307/trial_T20190907_072317_014092",
+  "goal": "move an alarm clock from a table to a desk",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-c-think_then_action_text",
+  "seed": 43,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 0,
+    "fallback_actions": 0,
+    "repeated_actions": 14,
+    "unchanged_observations": 14,
+    "unique_actions": 4
+  }
+}
