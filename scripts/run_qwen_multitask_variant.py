@@ -24,6 +24,8 @@ VARIANTS = {
     "B": PromptVariant.PLAN_THEN_INDEX,
     "C": PromptVariant.THINK_THEN_ACTION_TEXT,
     "D": PromptVariant.ANTI_LOOP_SKILL,
+    "E": PromptVariant.STATE_TRACKED_ACTION_TEXT,
+    "F": PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
 }
 
 

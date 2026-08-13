@@ -244,3 +244,78 @@ rather than declare a prompt winner from success rate.
 
 The full per-task table and every raw response are under
 `reports/multitask/qwen3_1.7b_valid_train_1_per_type/`.
+
+## Add explicit state and repair future intents
+
+The next increment reconstructs compact ALFWorld state from completed
+transitions before every decision. It does not ask another model to summarize
+history. The deterministic tracker records:
+
+- the task-type recipe and current location;
+- the held object, visited locations, opened and known-empty receptacles;
+- known object placements and completed clean/cool/heat transformations;
+- actions that returned an unchanged observation and the six recent actions.
+
+Prompt E injects that state and asks Qwen for an exact admissible action. Its
+state snapshot is stored as `state_before` on every step. The first E run
+exposed a specific interface mismatch: Qwen often proposed a sensible future
+action that was not admissible *yet*. Examples included trying to take an
+alarm clock from a sidetable while standing at a desk, or trying to put a held
+book on a desk while still standing at the bed. Falling back to the first
+admissible action discarded that useful intent and created loops.
+
+Prompt F keeps the same model prompt and adds a narrow prerequisite repair.
+It may only convert an unavailable future intent into one currently
+admissible navigation action:
+
+- `take X from Y` can become `go to Y`;
+- `move HELD_X to Y` can become `go to Y`;
+- `clean/cool/heat HELD_X with Y` can become `go to Y`.
+
+Every repair records the model's proposed action, executed action, and repair
+reason. No invented action is sent to ALFWorld.
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+REPORT=reports/state_tracking/qwen3_1.7b_valid_train_1_per_type
+
+for variant in E F; do
+  CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python \
+    scripts/run_qwen_multitask_variant.py \
+    --model-path ../models/Qwen3-1.7B \
+    --device cuda:0 \
+    --split valid_train \
+    --per-type 1 \
+    --variant "$variant" \
+    --seed 42 \
+    --max-steps 30 \
+    --max-new-tokens 96 \
+    --max-history-items 6 \
+    --output-dir "$REPORT/$variant"
+done
+
+PYTHONPATH=src python scripts/summarize_qwen_multitask.py \
+  --input-dir "$REPORT" \
+  --split valid_train \
+  --per-type 1 \
+  --variants C E F \
+  --summary C=reports/multitask/qwen3_1.7b_valid_train_1_per_type/C/summary.json
+```
+
+Fixed-task results:
+
+| Policy | Success | Steps | Parsed | Repairs | True fallback | Repeats |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| C exact action, recent text | 0/6 | 180 | 173 | 0 | 7 | 23 |
+| E exact action, explicit state | 0/6 | 180 | 145 | 0 | 35 | 31 |
+| F explicit state + prerequisite repair | 2/6 | 153 | 145 | 4 | 4 | 5 |
+
+F solved the simple pick-and-place task in 24 steps and the two-object task in
+9 steps. Both ended through ALFWorld's own successful terminal transition and
+positive reward. Four prerequisite repairs were used across all six tasks;
+all 153 executed F actions were members of their current admissible set. This
+six-task result demonstrates the mechanism but remains too small to estimate
+a stable benchmark success rate.
+
+The complete C/E/F comparison and step-level state snapshots are under
+`reports/state_tracking/qwen3_1.7b_valid_train_1_per_type/`.

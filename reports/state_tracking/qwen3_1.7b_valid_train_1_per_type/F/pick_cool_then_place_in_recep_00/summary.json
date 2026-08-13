@@ -1,0 +1,21 @@
+{
+  "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+  "goal": "Place chilled black bowl in cabinet to the left of stove",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 45,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 18
+  }
+}

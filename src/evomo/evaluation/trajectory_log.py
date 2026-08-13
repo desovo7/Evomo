@@ -17,6 +17,7 @@ class EpisodeMetrics:
     parsed_actions: int
     format_compliant_actions: int
     fallback_actions: int
+    repaired_actions: int
     repeated_actions: int
     unchanged_observations: int
     unique_actions: int
@@ -30,11 +31,13 @@ def compute_episode_metrics(episode: Episode) -> EpisodeMetrics:
     format_compliant_actions = 0
     repeated_actions = 0
     unchanged_observations = 0
+    repaired_actions = 0
     actions: list[str] = []
     for step in episode.steps:
         policy_metadata = step.info.get("policy", {}).get("metadata", {})
         parsed_actions += int(bool(policy_metadata.get("parse_ok", False)))
         format_compliant_actions += int(bool(policy_metadata.get("required_format_ok", False)))
+        repaired_actions += int(bool(policy_metadata.get("repair_reason")))
         unchanged_observations += int(step.observation == step.next_observation)
         if actions and actions[-1] == step.action:
             repeated_actions += 1
@@ -45,7 +48,8 @@ def compute_episode_metrics(episode: Episode) -> EpisodeMetrics:
         total_reward=episode.total_reward,
         parsed_actions=parsed_actions,
         format_compliant_actions=format_compliant_actions,
-        fallback_actions=len(episode.steps) - parsed_actions,
+        fallback_actions=len(episode.steps) - parsed_actions - repaired_actions,
+        repaired_actions=repaired_actions,
         repeated_actions=repeated_actions,
         unchanged_observations=unchanged_observations,
         unique_actions=len(set(actions)),
@@ -81,10 +85,14 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 "observation": step.observation,
                 "admissible_actions": list(step.admissible_actions),
                 "raw_response": policy_metadata.get("raw_response", ""),
+                "decision_source": step.info.get("policy", {}).get("source"),
                 "reasoning": policy_metadata.get("reasoning", ""),
                 "parse_ok": policy_metadata.get("parse_ok", False),
                 "required_format_ok": policy_metadata.get("required_format_ok", False),
                 "parse_format": policy_metadata.get("parse_format"),
+                "state_before": policy_metadata.get("state_before"),
+                "proposed_action": policy_metadata.get("proposed_action"),
+                "repair_reason": policy_metadata.get("repair_reason"),
                 "action": step.action,
                 "next_observation": step.next_observation,
                 "reward": step.reward,
@@ -121,6 +129,17 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 f"Parsed: `{policy_metadata.get('parse_ok', False)}` "
                 f"(`{policy_metadata.get('parse_format')}`)",
                 f"Action: `{step.action}`",
+                f"Proposed action: `{policy_metadata.get('proposed_action')}`",
+                f"Repair reason: `{policy_metadata.get('repair_reason')}`",
+                "",
+                "Reconstructed state before decision:",
+                "```json",
+                json.dumps(
+                    policy_metadata.get("state_before"),
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                "```",
                 "",
                 "Result:",
                 "```text",

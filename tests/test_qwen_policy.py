@@ -165,6 +165,63 @@ class QwenPolicyTest(unittest.TestCase):
         self.assertIn("do not repeat", user_prompt)
         self.assertEqual(decision.metadata["prompt_variant"], "anti_loop_skill")
 
+    def test_state_tracked_variant_injects_and_records_state(self) -> None:
+        history = (
+            HistoryItem(
+                "You are in a bedroom.",
+                "go to bed 1",
+                "You arrive at bed 1. On it, you see a book 1.",
+                0,
+            ),
+            HistoryItem(
+                "You arrive at bed 1. On it, you see a book 1.",
+                "take book 1 from bed 1",
+                "You pick up the book 1 from the bed 1.",
+                0,
+            ),
+        )
+        generator = FakeGenerator("<action>go to desk 1</action>")
+        policy_input = make_input(history=history)
+        policy = QwenPolicy(
+            generator,
+            prompt_variant=PromptVariant.STATE_TRACKED_ACTION_TEXT,
+        )
+        policy.reset(task=policy_input.task, seed=42)
+
+        decision = policy.decide(policy_input)
+
+        self.assertEqual(decision.action, "go to desk 1")
+        self.assertTrue(decision.metadata["required_format_ok"])
+        self.assertEqual(decision.metadata["state_before"]["inventory"], "book 1")
+        self.assertIn("Reconstructed task state", generator.messages[0][1]["content"])
+
+    def test_state_repaired_variant_navigates_for_unavailable_future_intent(self) -> None:
+        history = (
+            HistoryItem(
+                "You see a book.",
+                "take book 1 from bed 1",
+                "You pick up the book 1 from the bed 1.",
+                0,
+            ),
+        )
+        generator = FakeGenerator("<action>move book 1 to desk 1</action>")
+        policy_input = make_input(history=history)
+        policy = QwenPolicy(
+            generator,
+            prompt_variant=PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+        )
+        policy.reset(task=policy_input.task, seed=42)
+
+        decision = policy.decide(policy_input)
+
+        self.assertEqual(decision.action, "go to desk 1")
+        self.assertEqual(decision.source, "state_prerequisite_repair")
+        self.assertFalse(decision.metadata["parse_ok"])
+        self.assertEqual(
+            decision.metadata["repair_reason"],
+            "navigate_held_object_to_proposed_destination",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

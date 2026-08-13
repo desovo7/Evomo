@@ -118,6 +118,7 @@ def summarize_variant(
             "parsed_actions",
             "format_compliant_actions",
             "fallback_actions",
+            "repaired_actions",
             "repeated_actions",
             "unchanged_observations",
             "unique_actions",
@@ -197,15 +198,15 @@ def render_comparison_markdown(comparison: dict) -> str:
         f"- Tasks per prompt: {comparison['task_count_per_variant']}",
         f"- Samples per task type: {comparison['per_type']}",
         "",
-        "| Prompt | Success | Parsed actions | Format compliant | Repeats | Unchanged obs |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Prompt | Success | Parsed actions | Repaired | True fallback | Repeats | Unchanged obs |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for summary in comparison["variants"]:
         totals = summary["totals"]
         lines.append(
             f"| {summary['variant']} | {summary['success_count']}/{summary['task_count']} "
             f"({summary['success_rate']:.1%}) | {totals['parsed_actions']}/{totals['steps']} | "
-            f"{totals['format_compliant_actions']}/{totals['steps']} | "
+            f"{totals.get('repaired_actions', 0)} | {totals['fallback_actions']} | "
             f"{totals['repeated_actions']} | {totals['unchanged_observations']} |"
         )
     lines.extend(["", "## Per-task results", ""])

@@ -18,10 +18,26 @@ def main() -> None:
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--split", default="valid_train")
     parser.add_argument("--per-type", type=int, default=1)
+    parser.add_argument("--variants", nargs="+", default=("B", "C", "D"))
+    parser.add_argument(
+        "--summary",
+        action="append",
+        default=[],
+        metavar="VARIANT=PATH",
+        help="Override one variant summary path (repeatable).",
+    )
     args = parser.parse_args()
+    summary_paths = {}
+    for item in args.summary:
+        if "=" not in item:
+            parser.error("--summary must use VARIANT=PATH")
+        variant, path = item.split("=", 1)
+        if not variant or not path or variant in summary_paths:
+            parser.error("--summary variants and paths must be non-empty and unique")
+        summary_paths[variant] = Path(path)
     summaries = []
-    for variant in ("B", "C", "D"):
-        path = args.input_dir / variant / "summary.json"
+    for variant in args.variants:
+        path = summary_paths.get(variant, args.input_dir / variant / "summary.json")
         with path.open(encoding="utf-8") as stream:
             summary = json.load(stream)
         if summary.get("variant") != variant:

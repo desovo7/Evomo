@@ -10,6 +10,10 @@ from typing import Mapping, Protocol
 
 from evomo.data.schema import JsonValue, TaskSpec, _copy_json_mapping
 from evomo.policies.contracts import ActionDecision, PolicyInput
+from evomo.policies.alfworld_state import (
+    reconstruct_alfworld_state,
+    repair_unavailable_action,
+)
 
 _ACTION_PATTERN = re.compile(r"<action>\s*(\d+)\s*</action>", re.IGNORECASE)
 _BARE_INDEX_PATTERN = re.compile(r"^\s*(\d+)\s*$")
@@ -41,6 +45,8 @@ class PromptVariant(str, Enum):
     PLAN_THEN_INDEX = "plan_then_index"
     THINK_THEN_ACTION_TEXT = "think_then_action_text"
     ANTI_LOOP_SKILL = "anti_loop_skill"
+    STATE_TRACKED_ACTION_TEXT = "state_tracked_action_text"
+    STATE_TRACKED_REPAIRED_ACTION = "state_tracked_repaired_action"
 
 
 @dataclass(frozen=True, slots=True)
@@ -142,6 +148,7 @@ def build_action_messages(
     max_history_items: int,
     prompt_variant: PromptVariant = PromptVariant.INDEX_BASELINE,
     skill_text: str = "",
+    state_text: str = "",
 ) -> list[dict[str, str]]:
     """Render a bounded ALFWorld action-selection prompt."""
 
@@ -183,8 +190,20 @@ def build_action_messages(
             "Choose the single best next action. Reply only with "
             "<action>INDEX</action>, where INDEX is one listed integer."
         )
+    if prompt_variant in (
+        PromptVariant.STATE_TRACKED_ACTION_TEXT,
+        PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+    ):
+        instruction = (
+            "Use the reconstructed state and task recipe. Do not pick an unrelated "
+            "object. Do not undo a completed placement. If an action is listed as "
+            "making no progress, choose a different useful action. Copy exactly one "
+            "complete admissible action and reply only with "
+            "<action>EXACT ACTION TEXT</action>."
+        )
     skill_section = f"\n\nEpisode-level skill:\n[{skill_text.strip()}]" if skill_text.strip() else ""
-    user_content = f"{context}{skill_section}\n\n{instruction}"
+    state_section = f"\n\nReconstructed task state:\n{state_text.strip()}" if state_text.strip() else ""
+    user_content = f"{context}{state_section}{skill_section}\n\n{instruction}"
     return [
         {
             "role": "system",
@@ -252,10 +271,61 @@ class QwenPolicy:
             max_history_items=self._max_history_items,
             prompt_variant=self._prompt_variant,
             skill_text=self._skill_text,
+            state_text=(
+                reconstruct_alfworld_state(
+                    policy_input.task,
+                    policy_input.history,
+                    policy_input.observation,
+                ).render()
+                if self._prompt_variant in (
+                    PromptVariant.STATE_TRACKED_ACTION_TEXT,
+                    PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+                )
+                else ""
+            ),
         )
         generation = self._generator.generate(messages)
         reasoning_text = ""
-        if self._prompt_variant is PromptVariant.THINK_THEN_ACTION_TEXT:
+        state_snapshot = None
+        proposed_action = None
+        repair_reason = None
+        if self._prompt_variant in (
+            PromptVariant.STATE_TRACKED_ACTION_TEXT,
+            PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+        ):
+            reconstructed_state = reconstruct_alfworld_state(
+                policy_input.task,
+                policy_input.history,
+                policy_input.observation,
+            )
+            state_snapshot = reconstructed_state.to_dict()
+            action_match = _ACTION_TEXT_PATTERN.fullmatch(generation.text.strip())
+            action_text = action_match.group(1).strip() if action_match else ""
+            proposed_action = action_text or None
+            parsed_index = None
+            if action_text:
+                for index, candidate in enumerate(policy_input.admissible_actions):
+                    if action_text.casefold() == candidate.casefold():
+                        parsed_index = index
+                        break
+            parse_ok = parsed_index is not None
+            required_format_ok = parse_ok and action_match is not None
+            parse_format = "tagged_exact_action" if parse_ok else None
+            selected_index = parsed_index if parse_ok else 0
+            if (
+                not parse_ok
+                and action_text
+                and self._prompt_variant is PromptVariant.STATE_TRACKED_REPAIRED_ACTION
+            ):
+                repaired = repair_unavailable_action(
+                    action_text,
+                    policy_input.admissible_actions,
+                    reconstructed_state,
+                )
+                if repaired is not None:
+                    selected_index, repair_reason = repaired
+                    parse_format = "repaired_future_intent"
+        elif self._prompt_variant is PromptVariant.THINK_THEN_ACTION_TEXT:
             think_match = _THINK_ACTION_PATTERN.fullmatch(generation.text.strip())
             selected_index = None
             parse_format = None
@@ -323,12 +393,21 @@ class QwenPolicy:
         return ActionDecision(
             action=policy_input.admissible_actions[selected_index],
             policy_id=self.policy_id,
-            source="model_generation" if parse_ok else "fallback_first_admissible",
+            source=(
+                "model_generation"
+                if parse_ok
+                else "state_prerequisite_repair"
+                if repair_reason
+                else "fallback_first_admissible"
+            ),
             metadata={
                 "raw_response": generation.text,
                 "reasoning": reasoning_text,
                 "prompt_variant": self._prompt_variant.value,
                 "skill_text": self._skill_text,
+                "state_before": state_snapshot,
+                "proposed_action": proposed_action,
+                "repair_reason": repair_reason,
                 "parse_ok": parse_ok,
                 "required_format_ok": required_format_ok,
                 "parse_format": parse_format,

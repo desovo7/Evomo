@@ -1,0 +1,20 @@
+{
+  "episode_id": "c7384d0b-d336-4cee-98ea-48c4c9a3f51c",
+  "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+  "goal": "Pick up a book to look at under a lit lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-e-state_tracked_action_text",
+  "seed": 42,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 2,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 12
+  }
+}
