@@ -10,8 +10,8 @@ exp-v3
   -> 6 valid_train episodes on GPUs 0/1/2
   -> 3 failures
   -> exp-v5 candidate with 12 new evidence records
-  -> 134 fresh exp-v3 valid_unseen episodes
-  -> 134 fresh exp-v5 valid_unseen episodes
+  -> 134 newly generated exp-v3 episodes on previously exposed valid_unseen tasks
+  -> 134 newly generated exp-v5 episodes on the same task set
   -> paired audit and candidate gate
   -> retain exp-v5 candidate; keep exp-v3 stable
 ```
@@ -29,6 +29,12 @@ The improvements are one `pick_clean_then_place_in_recep` task and one
 `pick_two_obj_and_place` task. The paired exact p-value is 0.5, so the result
 is positive and has no observed regression, but it does not meet the fixed
 0.05 promotion threshold.
+
+The cross-cycle exposure ledger shows that all 134 task IDs were already used
+by the earlier full-unseen benchmark. This run is therefore a repeated
+measurement and executor demonstration, not independent blind evidence. Its
+116/134 result cannot promote exp-v5 even if a later rule were to relax the
+statistical gate.
 
 ## Execution evidence
 

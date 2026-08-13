@@ -418,8 +418,27 @@ class CycleExecutor:
 
 
 def run_cycle_executor(config_path: str | Path, *, state_dir: str | Path) -> dict:
-    config = json.loads(Path(config_path).read_text(encoding="utf-8"))
-    return CycleExecutor(config, state_dir=state_dir).run()
+    config_path = Path(config_path)
+    config = json.loads(config_path.read_text(encoding="utf-8"))
+    if config.get("state_dir") and Path(str(config["state_dir"])) != Path(state_dir):
+        raise ValueError("requested state_dir differs from cycle config")
+    state = CycleExecutor(config, state_dir=state_dir).run()
+    registration = config.get("evaluation_registration")
+    if registration:
+        from .evaluation_ledger import register_completed_evaluation_cycle
+
+        expected_state_dir = Path(str(registration["executor_state_dir"]))
+        if expected_state_dir != Path(state_dir):
+            raise ValueError("evaluation registration executor state path mismatch")
+        register_completed_evaluation_cycle(
+            ledger_path=registration["ledger_path"],
+            receipt_path=registration["receipt_path"],
+            manifest_path=registration["manifest_path"],
+            executor_config_path=config_path,
+            executor_state_dir=state_dir,
+            validation_summary_path=registration["validation_summary_path"],
+        )
+    return state
 
 
 def audit_cycle_executor_state(

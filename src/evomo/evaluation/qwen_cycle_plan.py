@@ -28,6 +28,7 @@ def build_qwen_evolution_cycle_plan(
     candidate_version: str,
     data_root: str | Path,
     model_path: str | Path,
+    evaluation_ledger: str | Path,
     python_executable: str | Path = sys.executable,
     gpus: tuple[str, str, str] = ("0", "1", "2"),
     development_offset: int = 2,
@@ -58,6 +59,7 @@ def build_qwen_evolution_cycle_plan(
     incumbent = Path(incumbent_experience).as_posix()
     data = Path(data_root).as_posix()
     model = Path(model_path).as_posix()
+    ledger = Path(evaluation_ledger).as_posix()
     python = Path(python_executable).as_posix()
     development = f"{root}/development"
     validation = f"{root}/validation"
@@ -69,6 +71,8 @@ def build_qwen_evolution_cycle_plan(
     decision = f"{root}/decision.json"
     manifest = f"{root}/cycle_manifest.json"
     manifest_audit = f"{root}/cycle_manifest_audit.json"
+    reservation = f"{root}/evaluation_reservation.json"
+    registration = f"{root}/evaluation_registration.json"
 
     common = [
         "--data-root", data,
@@ -171,8 +175,14 @@ def build_qwen_evolution_cycle_plan(
             "jobs": [_job("audit-evolution", [python, "scripts/audit_experience_evolution.py", "--base", incumbent, "--child", candidate, "--episodes-root", f"{development}/I", "--source-split", "valid_train", "--output", evolution_audit])],
         },
         {
-            "stage_id": "incumbent_validation_rollout",
+            "stage_id": "evaluation_reservation",
             "depends_on": ["evolution_audit"],
+            "outputs": [reservation],
+            "jobs": [_job("reserve-evaluation", [python, "scripts/reserve_alfworld_evaluation.py", "--ledger", ledger, "--receipt", reservation, "--cycle-id", cycle_id, "--data-root", data, "--split", "valid_unseen", "--task-types", *CANONICAL_TASK_TYPES])],
+        },
+        {
+            "stage_id": "incumbent_validation_rollout",
+            "depends_on": ["evaluation_reservation"],
             "outputs": [f"{validation}/I/shard_{index}" for index in range(3)],
             "jobs": incumbent_jobs,
         },
@@ -227,5 +237,13 @@ def build_qwen_evolution_cycle_plan(
         "cycle_id": cycle_id,
         "workspace": ".",
         "max_parallel": 3,
+        "state_dir": f"{root}/executor",
+        "evaluation_registration": {
+            "ledger_path": ledger,
+            "receipt_path": registration,
+            "manifest_path": manifest,
+            "validation_summary_path": f"{validation}/I/summary.json",
+            "executor_state_dir": f"{root}/executor",
+        },
         "stages": stages,
     }

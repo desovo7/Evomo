@@ -20,6 +20,7 @@ def build(tmp_path: Path) -> dict:
         candidate_version="candidate-v1",
         data_root="alfworld-data",
         model_path="models/qwen",
+        evaluation_ledger=tmp_path / "ledger.json",
         python_executable="python",
         gpus=("0", "1", "2"),
         development_offset=2,
@@ -30,7 +31,7 @@ def test_plan_covers_full_cycle_and_three_gpu_shards(tmp_path: Path) -> None:
     plan = build(tmp_path)
     stages = {stage["stage_id"]: stage for stage in plan["stages"]}
 
-    assert len(stages) == 13
+    assert len(stages) == 14
     assert TASK_TYPE_SHARDS == (
         ("look_at_obj_in_light", "pick_and_place_simple"),
         ("pick_clean_then_place_in_recep", "pick_cool_then_place_in_recep"),
@@ -58,6 +59,12 @@ def test_plan_covers_full_cycle_and_three_gpu_shards(tmp_path: Path) -> None:
         for job in stages[key]["jobs"]
     )
     CycleExecutor(plan, state_dir=tmp_path / "state")
+    assert stages["evaluation_reservation"]["depends_on"] == ["evolution_audit"]
+    assert stages["incumbent_validation_rollout"]["depends_on"] == [
+        "evaluation_reservation"
+    ]
+    assert plan["evaluation_registration"]["ledger_path"].endswith("ledger.json")
+    assert plan["state_dir"].endswith("report/executor")
 
 
 def test_plan_keeps_learning_and_evaluation_splits_separate(tmp_path: Path) -> None:
@@ -82,6 +89,7 @@ def test_plan_rejects_duplicate_gpu_ids(tmp_path: Path) -> None:
             candidate_version="candidate",
             data_root="data",
             model_path="model",
+            evaluation_ledger=tmp_path / "ledger.json",
             gpus=("0", "0", "1"),
         )
 

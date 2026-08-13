@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "registered",
+  "operation": "completed",
+  "commit_result": "entry_appended",
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "exposure_order": 3,
+  "benchmark": "alfworld",
+  "split": "valid_unseen",
+  "task_count": 134,
+  "task_ids_sha256": "1694fce3d9ef5f8d88805492fae32654cc6bc44e938e304bba6b58f563e063de",
+  "ledger_path": "reports/evaluation_ledger/ledger.json",
+  "ledger_sha256_after_operation": "7023d61018ef1829f3e07c81c85bb230b6da701479c8051e1f7b813477a94616",
+  "idempotent_replay": false
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "registered",
+  "operation": "completed",
+  "commit_result": "entry_appended",
+  "cycle_id": "full-valid-seen-exp-v4-gate",
+  "exposure_order": 2,
+  "benchmark": "alfworld",
+  "split": "valid_seen",
+  "task_count": 140,
+  "task_ids_sha256": "11a9d35c7623c2d20cb68404b3299e68b375fa5b018ce0900ce084935245c4a3",
+  "ledger_path": "reports/evaluation_ledger/ledger.json",
+  "ledger_sha256_after_operation": "49e27207d2c9fc5e36f668f9c113cbe1f25adf0f5a7037977f5cac84f21d09d1",
+  "idempotent_replay": false
+}

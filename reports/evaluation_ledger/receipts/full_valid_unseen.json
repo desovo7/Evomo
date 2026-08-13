@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "registered",
+  "operation": "completed",
+  "commit_result": "entry_appended",
+  "cycle_id": "full-valid-unseen-exp-v3",
+  "exposure_order": 1,
+  "benchmark": "alfworld",
+  "split": "valid_unseen",
+  "task_count": 134,
+  "task_ids_sha256": "1694fce3d9ef5f8d88805492fae32654cc6bc44e938e304bba6b58f563e063de",
+  "ledger_path": "reports/evaluation_ledger/ledger.json",
+  "ledger_sha256_after_operation": "fa1f9b05ae4b83fdb761322a33bcd1634f096e91e70a5b604e199d8d5577e336",
+  "idempotent_replay": false
+}

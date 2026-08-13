@@ -10,3 +10,4 @@ dist/
 /data/
 /outputs/
 /runs/
+/reports/evaluation_ledger/*.lock

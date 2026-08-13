@@ -18,6 +18,7 @@ def main() -> None:
     parser.add_argument("--candidate-version", required=True)
     parser.add_argument("--data-root", type=Path, required=True)
     parser.add_argument("--model-path", type=Path, default=Path("../models/Qwen3-1.7B"))
+    parser.add_argument("--evaluation-ledger", type=Path, required=True)
     parser.add_argument("--python-executable", type=Path, default=Path(sys.executable))
     parser.add_argument("--gpus", nargs=3, default=("0", "1", "2"))
     parser.add_argument("--development-offset", type=int, default=2)

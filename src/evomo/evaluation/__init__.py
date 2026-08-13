@@ -43,6 +43,14 @@ from evomo.evaluation.qwen_cycle_plan import (
     TASK_TYPE_SHARDS,
     build_qwen_evolution_cycle_plan,
 )
+from evomo.evaluation.evaluation_ledger import (
+    EVALUATION_LEDGER_SCHEMA_VERSION,
+    audit_evaluation_ledger,
+    register_audited_evaluation_report,
+    register_completed_evaluation_cycle,
+    reserve_alfworld_evaluation_tasks,
+    task_ids_sha256,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
@@ -53,11 +61,13 @@ __all__ = [
     "EpisodeMetrics",
     "ExperienceSelection",
     "EVOLUTION_CYCLE_SCHEMA_VERSION",
+    "EVALUATION_LEDGER_SCHEMA_VERSION",
     "build_cross_variant_comparison",
     "build_paired_success_analysis",
     "audit_experience_candidate_decision",
     "audit_cycle_executor_state",
     "audit_evolution_cycle_manifest",
+    "audit_evaluation_ledger",
     "build_evolution_cycle_manifest",
     "build_qwen_evolution_cycle_plan",
     "compute_episode_metrics",
@@ -71,9 +81,13 @@ __all__ = [
     "merge_variant_summaries",
     "persist_episode_artifacts",
     "render_comparison_markdown",
+    "register_completed_evaluation_cycle",
+    "register_audited_evaluation_report",
+    "reserve_alfworld_evaluation_tasks",
     "select_all_tasks_by_type",
     "select_tasks_by_type",
     "summarize_variant",
+    "task_ids_sha256",
     "write_json",
     "write_trajectory_logs",
 ]

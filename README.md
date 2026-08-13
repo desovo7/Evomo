@@ -916,7 +916,7 @@ GPU. The generated plan has 13 stages and 20 jobs, including nine Qwen rollout
 jobs across development, incumbent validation, and candidate validation.
 
 The checked-in live run uses `valid_train` offset 2 for a small learning set
-and a fresh full `valid_unseen` paired evaluation:
+and newly generated rollouts on the full `valid_unseen` task set:
 
 ```bash
 PYTHONPATH=src python scripts/plan_qwen_evolution_cycle.py \
@@ -926,6 +926,7 @@ PYTHONPATH=src python scripts/plan_qwen_evolution_cycle.py \
   --candidate-version exp-v5-live-offset2-failures \
   --data-root /path/to/alfworld \
   --model-path ../models/Qwen3-1.7B \
+  --evaluation-ledger reports/evaluation_ledger/ledger.json \
   --gpus 0 1 2 \
   --development-offset 2 \
   --output configs/live_cycle_offset2.json
@@ -945,8 +946,42 @@ task and one two-object task. The fixed gate therefore retains exp-v5 as a
 positive no-regression candidate but leaves exp-v3 stable because the evidence
 is not statistically strong enough for promotion.
 
+The exposure ledger added afterward makes an important scientific correction:
+these 134 task IDs had already been revealed by the earlier full-unseen
+benchmark. Thus 116/134 is a reproducible no-regression repeated measurement,
+not a new independent blind evaluation, and must not promote exp-v5. The
+runtime gate already retained rather than promoted it; the ledger now prevents
+future cycles from consuming either the exhausted `valid_unseen` or
+`valid_seen` pools again.
+
 All 274 new episodes include JSONL and Markdown trajectory logs. The final
 manifest binds 1,130 content records, and the executor audit binds 20 jobs and
 83 hash-chained events. A second invocation recovers all 13 stages in about
 two seconds and launches no job. Complete artifacts are under
 `reports/live_cycle_offset2/`.
+
+## Prevent evaluation reuse across cycles
+
+`reports/evaluation_ledger/ledger.json` is the append-only ALFWorld evaluation
+exposure ledger. It stores complete sorted task IDs, task-set SHA-256, split,
+cycle identity, exposure order, and content-addressed evidence. Historical
+audits are backfilled explicitly; legacy audits are accepted only when they
+prove exact dataset coverage, identical variant tasks, zero experience
+evidence overlap, and zero development-source overlap.
+
+Future generated cycle plans contain an `evaluation_reservation` stage before
+the first validation rollout. Reservation uses a file lock and durable atomic
+write. Any task overlap with an earlier cycle fails the stage before model
+loading; a failed or interrupted reservation is never released. After the
+executor reaches terminal completion, the runner advances the same ledger
+entry from `reserved` to `completed` and writes a receipt. Replays are
+idempotent, but changing the task set under an existing cycle ID is rejected.
+
+The current ledger records three exposures in evidence order: the first full
+`valid_unseen` benchmark, the full `valid_seen` exp-v4 gate, and the later live
+cycle's repeated `valid_unseen` run. It contains 274 unique tasks and records
+one historical overlap covering all 134 unseen tasks, so
+`protocol_clean: false`. Both local evaluation pools are now exhausted for
+new promotion decisions. Continued development is allowed on development
+splits; a new promotion requires a genuinely unexposed task corpus or another
+held-out benchmark.
