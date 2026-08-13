@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 from dataclasses import replace
 from pathlib import Path
 
@@ -196,6 +197,35 @@ def test_paired_success_analysis_counts_gains_and_regressions() -> None:
     }
 
 
+def test_three_variant_comparison_contains_every_pair() -> None:
+    tasks = [make_task(CANONICAL_TASK_TYPES[0], suffix) for suffix in ("a", "b")]
+    summaries = []
+    for variant, successes in (("H", (0,)), ("I", (1,)), ("J", (0, 1))):
+        summaries.append(
+            summarize_variant(
+                variant=variant,
+                policy_id=f"policy-{variant.lower()}",
+                episodes=[
+                    make_episode(
+                        task,
+                        policy_id=f"policy-{variant.lower()}",
+                        success=index in successes,
+                    )
+                    for index, task in enumerate(tasks)
+                ],
+            )
+        )
+
+    comparison = build_cross_variant_comparison(
+        summaries, split="valid_unseen", per_type=2
+    )
+
+    assert [
+        (item["baseline"], item["candidate"])
+        for item in comparison["pairwise_success"]
+    ] == [("H", "I"), ("H", "J"), ("I", "J")]
+
+
 def make_shard_summary(task_types: tuple[str, ...], shard_index: int) -> dict:
     episodes = [
         make_episode(
@@ -259,3 +289,31 @@ def test_merge_variant_summaries_rejects_overlapping_types_and_bad_rows() -> Non
     second["run"]["task_ids"].pop()
     with pytest.raises(ValueError, match="task rows"):
         merge_variant_summaries([first, second])
+
+
+def test_audit_episode_discovery_supports_direct_and_sharded_layouts(tmp_path: Path) -> None:
+    spec = importlib.util.spec_from_file_location(
+        "audit_multitask_report",
+        Path(__file__).parents[1] / "scripts" / "audit_multitask_report.py",
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    direct = tmp_path / "direct" / "task_00"
+    direct.mkdir(parents=True)
+    (direct / "episode.jsonl").write_text("{}\n", encoding="utf-8")
+    assert module.find_episode_paths(tmp_path / "direct") == [direct / "episode.jsonl"]
+
+    sharded = tmp_path / "sharded" / "shard_0" / "task_00"
+    sharded.mkdir(parents=True)
+    (sharded / "episode.jsonl").write_text("{}\n", encoding="utf-8")
+    assert module.find_episode_paths(tmp_path / "sharded") == [sharded / "episode.jsonl"]
+
+    mixed = tmp_path / "mixed"
+    (mixed / "task_00").mkdir(parents=True)
+    (mixed / "task_00" / "episode.jsonl").write_text("{}\n", encoding="utf-8")
+    (mixed / "shard_0" / "task_01").mkdir(parents=True)
+    (mixed / "shard_0" / "task_01" / "episode.jsonl").write_text("{}\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="mixed direct and sharded"):
+        module.find_episode_paths(mixed)

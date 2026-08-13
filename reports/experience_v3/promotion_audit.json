@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "manifest_sha256": "4a9fe30970956d9271e8bbbcbde0aaea119e1548eb08815af0f66b7b04f33a29",
+  "comparison_sha256": "aaaf91cace52ace2abfabc21c24558bc3e60c4c17904ec82326eda3c34c68058",
+  "compiled_output_sha256": "50ea2af0f91f12df092b2c7c95845e93579877291145c4e564c8c96b7bb10205",
+  "decision_count": 6,
+  "render_equivalence_task_count": 6,
+  "promoted_task_types": [
+    "pick_and_place_simple",
+    "pick_cool_then_place_in_recep",
+    "pick_two_obj_and_place"
+  ],
+  "retained_task_types": [
+    "look_at_obj_in_light",
+    "pick_clean_then_place_in_recep",
+    "pick_heat_then_place_in_recep"
+  ]
+}

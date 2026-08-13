@@ -1,0 +1,22 @@
+{
+  "episode_id": "2866d26d-8261-47df-a5ac-2e45310e1869",
+  "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222951_616606",
+  "goal": "Turn on a lamp with a metal box.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 24,
+    "format_compliant_actions": 24,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 4,
+    "unchanged_observations": 4,
+    "unique_actions": 24
+  }
+}

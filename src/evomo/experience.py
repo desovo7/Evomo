@@ -125,6 +125,84 @@ def load_experience_set(path: str | Path) -> ExperienceSet:
         return ExperienceSet.from_dict(json.load(stream))
 
 
+def promote_experience_by_task_type(
+    incumbent: ExperienceSet,
+    candidate: ExperienceSet,
+    *,
+    selected_versions: Mapping[str, str],
+    version: str,
+) -> ExperienceSet:
+    """Compile per-task-type version choices into one immutable experience set."""
+
+    sources = {incumbent.version: incumbent, candidate.version: candidate}
+    unknown = set(selected_versions.values()) - set(sources)
+    if unknown:
+        raise ValueError(f"selected unknown experience versions: {sorted(unknown)}")
+    if not selected_versions:
+        raise ValueError("at least one task-type selection is required")
+
+    rules_by_source = {
+        source_version: {rule.rule_id: rule for rule in source.rules}
+        for source_version, source in sources.items()
+    }
+    rule_ids = tuple(
+        dict.fromkeys(
+            rule.rule_id
+            for source in (incumbent, candidate)
+            for rule in source.rules
+        )
+    )
+    promoted_rules: list[ExperienceRule] = []
+    for rule_id in rule_ids:
+        templates = [
+            source_rules[rule_id]
+            for source_rules in rules_by_source.values()
+            if rule_id in source_rules
+        ]
+        if any(
+            (rule.kind, rule.instruction) != (templates[0].kind, templates[0].instruction)
+            for rule in templates[1:]
+        ):
+            raise ValueError(f"rule {rule_id!r} changed semantics across selected versions")
+        task_types: list[str] = []
+        evidence: list[ExperienceEvidence] = []
+        used_sources: set[str] = set()
+        for task_type, source_version in selected_versions.items():
+            rule = rules_by_source[source_version].get(rule_id)
+            if rule is not None and task_type in rule.task_types:
+                task_types.append(task_type)
+                if source_version not in used_sources:
+                    evidence.extend(rule.evidence)
+                    used_sources.add(source_version)
+        if not task_types:
+            continue
+        unique_evidence = list(dict.fromkeys(evidence))
+        promoted_rules.append(
+            ExperienceRule(
+                rule_id=rule_id,
+                kind=templates[0].kind,
+                task_types=tuple(task_types),
+                instruction=templates[0].instruction,
+                evidence=_retain_scoped_evidence(unique_evidence, task_types),
+            )
+        )
+
+    evidence_episode_ids = tuple(
+        dict.fromkeys(
+            item.episode_id for rule in promoted_rules for item in rule.evidence
+        )
+    )
+    return ExperienceSet(
+        version=version,
+        source_policy_id=(
+            f"promotion:{incumbent.version}->{candidate.version}"
+        ),
+        rules=tuple(promoted_rules),
+        source_episode_ids=evidence_episode_ids,
+        parent_version=candidate.version,
+    )
+
+
 def _retain_scoped_evidence(
     evidence: Iterable[ExperienceEvidence],
     task_types: Iterable[str],

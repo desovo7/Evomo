@@ -17,6 +17,16 @@ def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
 
 
+def find_episode_paths(directory: Path) -> list[Path]:
+    """Find either direct task artifacts or task-type shards, never both silently."""
+
+    direct = sorted(directory.glob("*/episode.jsonl"))
+    sharded = sorted(directory.glob("shard_*/*/episode.jsonl"))
+    if direct and sharded:
+        raise ValueError(f"{directory}: mixed direct and sharded episode layouts")
+    return direct or sharded
+
+
 def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
     summary = load_json(directory / "summary.json")
     expected_ids = {row["task_id"] for row in summary["tasks"]}
@@ -32,7 +42,7 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
         if experience is not None
         else {}
     )
-    for episode_path in sorted(directory.glob("shard_*/*/episode.jsonl")):
+    for episode_path in find_episode_paths(directory):
         rows = load_jsonl(episode_path)
         if len(rows) != 1:
             raise ValueError(f"{episode_path}: expected one episode, got {len(rows)}")

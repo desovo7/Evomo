@@ -1,0 +1,22 @@
+{
+  "episode_id": "65c652cc-278c-4e93-aa15-c5c108902559",
+  "task_id": "valid_unseen/pick_two_obj_and_place-PepperShaker-None-Drawer-10/trial_T20190908_010306_215435",
+  "goal": "Put two shakers in a drawer.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-j-experience_guided_action",
+  "seed": 82,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

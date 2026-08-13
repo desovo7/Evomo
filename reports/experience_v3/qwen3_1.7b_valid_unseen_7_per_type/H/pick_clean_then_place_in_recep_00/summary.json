@@ -1,0 +1,22 @@
+{
+  "episode_id": "cd409dc4-fbbd-4955-b9db-684cf4d8d035",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Bowl-None-Cabinet-10/trial_T20190909_061130_844814",
+  "goal": "Put a washed bowl away in a kitchen cabinet.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 56,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 18,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 17
+  }
+}

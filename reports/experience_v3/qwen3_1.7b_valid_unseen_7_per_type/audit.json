@@ -1,0 +1,162 @@
+{
+  "status": "passed",
+  "report_dir": "reports/experience_v3/qwen3_1.7b_valid_unseen_7_per_type",
+  "same_task_ids": true,
+  "experience_evidence_task_overlap": 0,
+  "excluded_source_task_overlap": 0,
+  "excluded_source_task_count": 60,
+  "variants": [
+    {
+      "variant": "H",
+      "episode_count": 42,
+      "step_count": 757,
+      "success_count": 31,
+      "task_type_counts": {
+        "look_at_obj_in_light": 7,
+        "pick_and_place_simple": 7,
+        "pick_clean_then_place_in_recep": 7,
+        "pick_cool_then_place_in_recep": 7,
+        "pick_heat_then_place_in_recep": 7,
+        "pick_two_obj_and_place": 7
+      },
+      "experience_override_count": 413,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 156,
+        "pick_clean_then_place_in_recep": 69,
+        "pick_cool_then_place_in_recep": 118,
+        "pick_heat_then_place_in_recep": 70
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 24,
+        "novelty-before-revisit": 299,
+        "ordered-task-recipe": 84,
+        "target-object-lock": 30
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 21,
+        "execute_required_clean": 7,
+        "execute_required_cool": 7,
+        "execute_required_heat": 7,
+        "explore_unvisited_location": 198,
+        "explore_unvisited_location_type": 24,
+        "navigate_to_clean_appliance": 7,
+        "navigate_to_cool_appliance": 7,
+        "navigate_to_heat_appliance": 7,
+        "navigate_to_target_destination": 21,
+        "open_unsearched_current_receptacle": 77,
+        "take_visible_target_object": 30
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ]
+    },
+    {
+      "variant": "I",
+      "episode_count": 42,
+      "step_count": 756,
+      "success_count": 38,
+      "task_type_counts": {
+        "look_at_obj_in_light": 7,
+        "pick_and_place_simple": 7,
+        "pick_clean_then_place_in_recep": 7,
+        "pick_cool_then_place_in_recep": 7,
+        "pick_heat_then_place_in_recep": 7,
+        "pick_two_obj_and_place": 7
+      },
+      "experience_override_count": 668,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 154,
+        "pick_and_place_simple": 75,
+        "pick_clean_then_place_in_recep": 103,
+        "pick_cool_then_place_in_recep": 116,
+        "pick_heat_then_place_in_recep": 70,
+        "pick_two_obj_and_place": 150
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 202,
+        "novelty-before-revisit": 451,
+        "ordered-task-recipe": 170,
+        "target-object-lock": 47
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 37,
+        "execute_required_clean": 7,
+        "execute_required_cool": 7,
+        "execute_required_heat": 7,
+        "explore_unvisited_location": 142,
+        "explore_unvisited_location_type": 202,
+        "navigate_to_clean_appliance": 7,
+        "navigate_to_cool_appliance": 7,
+        "navigate_to_heat_appliance": 7,
+        "navigate_to_target_destination": 91,
+        "open_unsearched_current_receptacle": 107,
+        "release_non_target_inventory": 1,
+        "take_visible_target_object": 46
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ]
+    },
+    {
+      "variant": "J",
+      "episode_count": 42,
+      "step_count": 730,
+      "success_count": 35,
+      "task_type_counts": {
+        "look_at_obj_in_light": 7,
+        "pick_and_place_simple": 7,
+        "pick_clean_then_place_in_recep": 7,
+        "pick_cool_then_place_in_recep": 7,
+        "pick_heat_then_place_in_recep": 7,
+        "pick_two_obj_and_place": 7
+      },
+      "experience_override_count": 636,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 156,
+        "pick_and_place_simple": 75,
+        "pick_clean_then_place_in_recep": 69,
+        "pick_cool_then_place_in_recep": 116,
+        "pick_heat_then_place_in_recep": 70,
+        "pick_two_obj_and_place": 150
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 124,
+        "novelty-before-revisit": 417,
+        "ordered-task-recipe": 170,
+        "target-object-lock": 49
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 37,
+        "execute_required_clean": 7,
+        "execute_required_cool": 7,
+        "execute_required_heat": 7,
+        "explore_unvisited_location": 192,
+        "explore_unvisited_location_type": 124,
+        "navigate_to_clean_appliance": 7,
+        "navigate_to_cool_appliance": 7,
+        "navigate_to_heat_appliance": 7,
+        "navigate_to_target_destination": 91,
+        "open_unsearched_current_receptacle": 101,
+        "release_non_target_inventory": 1,
+        "take_visible_target_object": 48
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ]
+    }
+  ],
+  "totals": {
+    "episodes": 126,
+    "steps": 2243,
+    "successes": 104
+  }
+}

@@ -4,6 +4,8 @@ from pathlib import Path
 import subprocess
 import sys
 
+import pytest
+
 from evomo.data import Episode, StepRecord, TaskSpec, TerminationReason
 from evomo.experience import (
     ExperienceEvidence,
@@ -13,6 +15,7 @@ from evomo.experience import (
     evolve_experience_set,
     extract_failure_experiences,
     load_experience_set,
+    promote_experience_by_task_type,
     save_experience_set,
 )
 from evomo.policies import reconstruct_alfworld_state
@@ -383,3 +386,79 @@ def test_two_object_rule_skips_an_instance_already_delivered() -> None:
     assert override is not None
     assert override.action_index == 1
     assert override.reason == "take_visible_target_object"
+
+
+def test_promotes_candidate_rules_only_for_selected_task_types() -> None:
+    incumbent = experience_set("pick_heat_then_place_in_recep")
+    candidate_rule = ExperienceRule(
+        "target-object-lock",
+        "target_object_lock",
+        ("pick_heat_then_place_in_recep", "pick_two_obj_and_place"),
+        incumbent.rules[0].instruction,
+        incumbent.rules[0].evidence
+        + (
+            ExperienceEvidence(
+                "two-failure",
+                "valid_train/pick_two_obj_and_place-Bowl-None-Cabinet-1/trial",
+                1,
+                "take cup 1 from cabinet 1",
+                "wrong target",
+            ),
+        ),
+    )
+    candidate = ExperienceSet(
+        "exp-v2",
+        "policy-h",
+        (candidate_rule,) + incumbent.rules[1:],
+        ("two-failure",),
+        parent_version=incumbent.version,
+    )
+
+    promoted = promote_experience_by_task_type(
+        incumbent,
+        candidate,
+        selected_versions={
+            "pick_heat_then_place_in_recep": incumbent.version,
+            "pick_two_obj_and_place": candidate.version,
+        },
+        version="champion-v1",
+    )
+
+    target_rule = next(rule for rule in promoted.rules if rule.rule_id == "target-object-lock")
+    assert target_rule.task_types == (
+        "pick_heat_then_place_in_recep",
+        "pick_two_obj_and_place",
+    )
+    assert {item.episode_id for item in target_rule.evidence} == {
+        "episode",
+        "two-failure",
+    }
+    assert promoted.parent_version == candidate.version
+
+
+def test_promotion_rejects_rule_semantic_drift() -> None:
+    incumbent = experience_set()
+    changed = ExperienceRule(
+        incumbent.rules[0].rule_id,
+        incumbent.rules[0].kind,
+        incumbent.rules[0].task_types,
+        "A different instruction.",
+        incumbent.rules[0].evidence,
+    )
+    candidate = ExperienceSet(
+        "exp-v2",
+        "policy-h",
+        (changed,) + incumbent.rules[1:],
+        ("failure",),
+        parent_version=incumbent.version,
+    )
+
+    with pytest.raises(ValueError, match="changed semantics"):
+        promote_experience_by_task_type(
+            incumbent,
+            candidate,
+            selected_versions={
+                "pick_cool_then_place_in_recep": candidate.version,
+            },
+            version="champion-v1",
+        )

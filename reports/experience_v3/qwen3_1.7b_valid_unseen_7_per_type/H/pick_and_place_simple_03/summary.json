@@ -1,0 +1,22 @@
+{
+  "episode_id": "3230dfa0-5b0b-4c30-9325-7bd7327b1e2e",
+  "task_id": "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_121952_610012",
+  "goal": "Take the pencil from the desk, put it back on the desk",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 52,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 16,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 10,
+    "format_compliant_actions": 10,
+    "fallback_actions": 4,
+    "repaired_actions": 2,
+    "experience_overrides": 0,
+    "repeated_actions": 4,
+    "unchanged_observations": 4,
+    "unique_actions": 7
+  }
+}

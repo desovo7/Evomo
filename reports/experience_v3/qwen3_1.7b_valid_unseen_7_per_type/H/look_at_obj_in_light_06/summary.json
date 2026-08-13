@@ -1,0 +1,22 @@
+{
+  "episode_id": "eb87eb13-ce43-4b63-bfe4-628eebe367b7",
+  "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133919_856963",
+  "goal": "turn on a lamp while holding a bowl",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 13,
+    "format_compliant_actions": 13,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 23,
+    "repeated_actions": 2,
+    "unchanged_observations": 2,
+    "unique_actions": 26
+  }
+}

@@ -518,3 +518,58 @@ The report audit covers 84 episodes and 1,741 transitions, validates both
 experience files independently by version and SHA-256, and confirms zero task
 overlap with either version's evidence. Full logs are under
 `reports/experience_v2/qwen3_1.7b_valid_train_offset12_7_per_type/`.
+
+## Gate experience promotion on blind unseen scenes
+
+Exp-v3 improved overall on offset 12 but regressed by one light task. The next
+increment therefore implements a conservative per-task-type promotion gate:
+promote the candidate only when its candidate-only successes exceed the
+incumbent-only successes; retain the incumbent on a tie or regression. The
+selection comparison promotes exp-v3 for simple, cool, and two-object tasks,
+and retains exp-v2 for light, clean, and heat.
+
+The compiler produces an immutable `champion-v1` ExperienceSet plus a
+manifest containing every decision, paired counts, comparison SHA-256, input
+experience versions and hashes, and output hash. A separate audit reconstructs
+the champion byte-for-byte and verifies that each task type renders exactly
+the same rule text as its selected source version. It rejects rule merging if
+the same rule ID changed its kind or instruction between versions.
+
+```bash
+PYTHONPATH=src python scripts/promote_experience_by_task_type.py \
+  --comparison \
+    reports/experience_v2/qwen3_1.7b_valid_train_offset12_7_per_type/comparison.json \
+  --incumbent reports/experience_v1/exp_v2.json \
+  --candidate reports/experience_v2/exp_v3.json \
+  --version champion-v1-from-offset12-promotion \
+  --output reports/experience_v3/champion_v1.json \
+  --manifest reports/experience_v3/promotion_manifest.json
+```
+
+The fixed H/exp-v2, I/exp-v3, and J/champion policies were then evaluated on
+the same 42 `valid_unseen` tasks, seven per category. No `valid_unseen` task
+was used to extract experiences or make promotion decisions.
+
+| Task type | H / exp-v2 | I / exp-v3 | J / champion |
+| --- | ---: | ---: | ---: |
+| Look under light | 3/7 | 6/7 | 3/7 |
+| Simple pick/place | 6/7 | 7/7 | 7/7 |
+| Clean then place | 7/7 | 7/7 | 7/7 |
+| Cool then place | 7/7 | 7/7 | 7/7 |
+| Heat then place | 7/7 | 7/7 | 7/7 |
+| Place two objects | 1/7 | 4/7 | 4/7 |
+| **Overall** | **31/42 (73.8%)** | **38/42 (90.5%)** | **35/42 (83.3%)** |
+
+Exp-v3 beats exp-v2 by seven paired successes (eight gains, one regression;
+exact p=0.0391). Champion improves over exp-v2 by four, but loses three net
+successes relative to exp-v3 because the offset-12 light rollback does not
+generalize to unseen scenes. The blind validation gate therefore records
+`reject_champion`; exp-v3 remains the deployment candidate. This negative
+result demonstrates why an evolving agent must validate and reject proposed
+memory changes instead of assuming every local rollback is beneficial.
+
+The unseen audit covers 126 episodes and 2,243 transitions. It validates all
+three experience hashes and scopes, exact task matching, admissible actions,
+continuous transition chains, native success rewards, and zero overlap with
+experience evidence or source tasks. Full artifacts are under
+`reports/experience_v3/`.

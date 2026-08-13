@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+from itertools import combinations
 import shutil
 import tempfile
 from pathlib import Path
@@ -370,6 +371,24 @@ def render_comparison_markdown(comparison: dict) -> str:
                 f"| {task_type} | {item['baseline_only']} | {item['candidate_only']} | "
                 f"{item['both_success']} | {item['both_fail']} | {item['success_delta']:+d} |"
             )
+    pairwise = comparison.get("pairwise_success")
+    if pairwise:
+        lines.extend(
+            [
+                "",
+                "## All pairwise success analyses",
+                "",
+                "| Baseline | Candidate | Baseline only | Candidate only | Net delta | Exact p-value |",
+                "| --- | --- | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for item in pairwise:
+            overall = item["overall"]
+            lines.append(
+                f"| {item['baseline']} | {item['candidate']} | "
+                f"{overall['baseline_only']} | {overall['candidate_only']} | "
+                f"{overall['success_delta']:+d} | {overall['exact_p_value']:.6g} |"
+            )
     lines.extend(["", "## Per-task results", ""])
     for summary in comparison["variants"]:
         if summary.get("by_task_type"):
@@ -428,6 +447,11 @@ def build_cross_variant_comparison(
         comparison["paired_success"] = build_paired_success_analysis(
             summaries[0], summaries[1]
         )
+    elif len(summaries) > 2:
+        comparison["pairwise_success"] = [
+            build_paired_success_analysis(baseline, candidate)
+            for baseline, candidate in combinations(summaries, 2)
+        ]
     return comparison
 
 

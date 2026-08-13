@@ -1,0 +1,22 @@
+{
+  "episode_id": "906cf72d-312e-439b-aab1-ddd76913dc0d",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Cloth-None-Cabinet-424/trial_T20190908_022321_380927",
+  "goal": "Put a cleaned blue cloth in a cabinet.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 59,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 20,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 20,
+    "format_compliant_actions": 20,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 19,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 18
+  }
+}

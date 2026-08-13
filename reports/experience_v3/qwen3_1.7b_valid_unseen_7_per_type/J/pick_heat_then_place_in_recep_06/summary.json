@@ -1,0 +1,22 @@
+{
+  "episode_id": "4693fc77-d8b1-4856-9ed2-9134c2dd58d4",
+  "task_id": "valid_unseen/pick_heat_then_place_in_recep-Cup-None-Cabinet-10/trial_T20190907_083346_800823",
+  "goal": "Warm up the cup inside the cabinet.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-j-experience_guided_action",
+  "seed": 76,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 17,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 16,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 15
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "50163257-6ea0-4879-9fe4-870a3a331b95",
+  "task_id": "valid_unseen/pick_two_obj_and_place-KeyChain-None-Safe-219/trial_T20190909_011803_423115",
+  "goal": "put two sets of keys inside safe",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 80,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 26,
+    "format_compliant_actions": 26,
+    "fallback_actions": 3,
+    "repaired_actions": 1,
+    "experience_overrides": 0,
+    "repeated_actions": 3,
+    "unchanged_observations": 3,
+    "unique_actions": 14
+  }
+}
