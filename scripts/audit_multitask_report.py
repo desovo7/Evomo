@@ -10,6 +10,7 @@ from pathlib import Path
 
 from evomo.benchmarks.alfworld import discover_tasks
 from evomo.evaluation import resolve_experience_selection
+from evomo.evaluation import file_sha256, load_frozen_experience_pool
 
 
 def load_json(path: Path) -> dict:
@@ -214,6 +215,11 @@ def main() -> None:
         type=Path,
         help="For all_tasks runs, verify coverage against dataset discovery.",
     )
+    parser.add_argument(
+        "--task-manifest",
+        type=Path,
+        help="Verify exact coverage and SHA-256 against a frozen task manifest.",
+    )
     args = parser.parse_args()
 
     experience_paths = dict(args.variant_experience)
@@ -234,6 +240,7 @@ def main() -> None:
     if any(result["task_ids"] != results[0]["task_ids"] for result in results[1:]):
         raise ValueError("variants do not cover identical task IDs")
     discovery_task_count = None
+    manifest_coverage = None
     if args.data_root:
         first_summary = load_json(args.report_dir / args.variants[0] / "summary.json")
         if first_summary["run"].get("selection_mode") != "all_tasks":
@@ -248,6 +255,24 @@ def main() -> None:
         if set(results[0]["task_ids"]) != discovered_ids:
             raise ValueError("all_tasks run does not cover dataset discovery exactly")
         discovery_task_count = len(discovered_ids)
+    if args.task_manifest:
+        first_summary = load_json(args.report_dir / args.variants[0] / "summary.json")
+        run = first_summary["run"]
+        if run.get("selection_mode") != "frozen_manifest_shard":
+            raise ValueError("--task-manifest requires frozen_manifest_shard selection")
+        manifest_ids = {task.task_id for task in load_frozen_experience_pool(args.task_manifest)}
+        if set(results[0]["task_ids"]) != manifest_ids:
+            raise ValueError("run does not cover frozen task manifest exactly")
+        digest = file_sha256(args.task_manifest)
+        if run.get("task_manifest_sha256") != digest:
+            raise ValueError("run task manifest SHA-256 differs from frozen manifest")
+        discovery_task_count = len(manifest_ids)
+        manifest_coverage = {
+            "path": args.task_manifest.as_posix(),
+            "sha256": digest,
+            "task_count": len(manifest_ids),
+            "exact": True,
+        }
     evaluation_ids = set(results[0]["task_ids"])
     evidence_ids: set[str] = set()
     for experience in experiences.values():
@@ -288,6 +313,7 @@ def main() -> None:
         "excluded_source_task_overlap": 0 if args.exclude_episodes_root else None,
         "excluded_source_task_count": len(excluded_task_ids),
         "discovery_task_count": discovery_task_count,
+        "manifest_coverage": manifest_coverage,
         "variants": public_results,
         "totals": {
             "episodes": sum(item["episode_count"] for item in public_results),

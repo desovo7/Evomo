@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "pool_id": "alfworld-train-unrun-v1",
+  "role": "development_experience_pool",
+  "source_split": "train",
+  "task_count": 3553,
+  "task_ids_sha256": "fb44cfd7f4863490bab4dd31e40905c991e4fbb196c914f4de6f299ce58c339f",
+  "manifest": {
+    "path": "configs/experience_pool_v1_tasks.jsonl",
+    "sha256": "545001e16fcad3f1e0f7b8a0622864eba3a2c08053a0da0482cb15fe359dd16f",
+    "bytes": 2957332
+  },
+  "selection": {
+    "rule": "all playable train tasks absent from pre-freeze Episode artifacts",
+    "excluded_previously_run_task_count": 474
+  },
+  "task_types": {
+    "look_at_obj_in_light": 308,
+    "pick_and_place_simple": 790,
+    "pick_clean_then_place_in_recep": 650,
+    "pick_cool_then_place_in_recep": 533,
+    "pick_heat_then_place_in_recep": 459,
+    "pick_two_obj_and_place": 813
+  },
+  "sharding": {
+    "method": "stable_task_id_round_robin",
+    "shard_count": 3,
+    "shard_sizes": [
+      1185,
+      1184,
+      1184
+    ]
+  }
+}

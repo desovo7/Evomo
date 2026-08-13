@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "cycle_id": "experience-pool-v1-stage1-base-planner",
+  "workspace": ".",
+  "max_parallel": 3,
+  "state_dir": "reports/experience_pool_v1/stage1/executor",
+  "stages": [
+    {
+      "stage_id": "base_planner_rollout",
+      "depends_on": [],
+      "outputs": [
+        "runs/experience_pool_v1/stage1/I/shard_0",
+        "runs/experience_pool_v1/stage1/I/shard_1",
+        "runs/experience_pool_v1/stage1/I/shard_2"
+      ],
+      "jobs": [
+        {
+          "job_id": "base-planner-gpu-0",
+          "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "../models/Qwen3-1.7B", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "0", "--task-shard-count", "3", "--variant", "I", "--experience-decision", "reports/live_cycle_offset2/decision.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage1/I/shard_0"],
+          "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "0"}
+        },
+        {
+          "job_id": "base-planner-gpu-1",
+          "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "../models/Qwen3-1.7B", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "1", "--task-shard-count", "3", "--variant", "I", "--experience-decision", "reports/live_cycle_offset2/decision.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage1/I/shard_1"],
+          "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "1"}
+        },
+        {
+          "job_id": "base-planner-gpu-2",
+          "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "../models/Qwen3-1.7B", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "2", "--task-shard-count", "3", "--variant", "I", "--experience-decision", "reports/live_cycle_offset2/decision.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage1/I/shard_2"],
+          "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "2"}
+        }
+      ]
+    },
+    {
+      "stage_id": "merge",
+      "depends_on": ["base_planner_rollout"],
+      "outputs": ["runs/experience_pool_v1/stage1/I/summary.json"],
+      "jobs": [
+        {
+          "job_id": "merge-stage1",
+          "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/merge_qwen_multitask_shards.py", "--shard-root", "runs/experience_pool_v1/stage1/I", "--output", "runs/experience_pool_v1/stage1/I/summary.json"],
+          "env": {"PYTHONPATH": "src"}
+        }
+      ]
+    },
+    {
+      "stage_id": "audit",
+      "depends_on": ["merge"],
+      "outputs": ["reports/experience_pool_v1/stage1/audit.json"],
+      "jobs": [
+        {
+          "job_id": "audit-stage1",
+          "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/audit_multitask_report.py", "--report-dir", "runs/experience_pool_v1/stage1", "--variants", "I", "--variant-experience", "I=reports/experience_v2/exp_v3.json", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--protocol-role", "development", "--output", "reports/experience_pool_v1/stage1/audit.json"],
+          "env": {"PYTHONPATH": "src"}
+        }
+      ]
+    }
+  ]
+}

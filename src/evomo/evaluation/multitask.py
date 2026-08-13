@@ -207,6 +207,9 @@ def merge_variant_summaries(shard_summaries: Iterable[dict]) -> dict:
         "experience_version",
         "experience_sha256",
         "experience_selection",
+        "task_manifest",
+        "task_manifest_sha256",
+        "task_shard_count",
     )
     reference_run = shards[0].get("run", {})
     task_ids: set[str] = set()
@@ -220,11 +223,16 @@ def merge_variant_summaries(shard_summaries: Iterable[dict]) -> dict:
         mismatched = [key for key in invariant_keys if run.get(key) != reference_run.get(key)]
         if mismatched:
             raise ValueError(f"shard run contracts differ for: {mismatched}")
+        if run.get("selection_mode") == "frozen_manifest_shard" and run.get(
+            "task_shard_index"
+        ) != shard_index:
+            raise ValueError("frozen manifest shard index differs from merge order")
         shard_types = tuple(run.get("task_types", ()))
         if not shard_types:
             raise ValueError("each shard run must declare task_types")
         overlap_types = task_types.intersection(shard_types)
-        if overlap_types:
+        manifest_shards = run.get("selection_mode") == "frozen_manifest_shard"
+        if overlap_types and not manifest_shards:
             raise ValueError(f"shard task types overlap: {sorted(overlap_types)}")
         task_types.update(shard_types)
         shard_rows = list(shard.get("tasks", ()))
@@ -277,6 +285,7 @@ def merge_variant_summaries(shard_summaries: Iterable[dict]) -> dict:
             "task_ids": sorted(task_ids),
             "shard_count": len(shards),
             "shards": shard_descriptors,
+            "task_shard_index": None,
         }
     )
     return {

@@ -19,6 +19,8 @@ from evomo.evaluation import (
     summarize_variant,
     write_json,
     resolve_experience_selection,
+    load_frozen_experience_pool,
+    file_sha256,
 )
 from evomo.policies import HuggingFaceQwenGenerator, PromptVariant, QwenPolicy
 from evomo.rollout import RolloutRunner
@@ -43,6 +45,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-path", type=Path, default=Path("../models/Qwen3-1.7B"))
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--split", default="valid_train")
+    parser.add_argument(
+        "--task-manifest",
+        type=Path,
+        help="Use an immutable TaskSpec JSONL manifest instead of discovering a split.",
+    )
+    parser.add_argument("--task-shard-index", type=int)
+    parser.add_argument("--task-shard-count", type=int)
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--per-type", type=int)
     selection.add_argument(
@@ -77,14 +86,28 @@ def parse_args() -> argparse.Namespace:
         parser.error("per-type must be positive")
     if args.max_steps <= 0 or args.max_new_tokens <= 0:
         parser.error("max-steps and max-new-tokens must be positive")
-    if not args.all_tasks and args.per_type is None:
-        args.per_type = 1
     if args.all_tasks and args.task_offset:
         parser.error("task-offset is not valid with --all-tasks")
     if args.task_offset < 0:
         parser.error("task-offset must be non-negative")
     if args.max_history_items < 0:
         parser.error("max-history-items must be non-negative")
+    has_shard_index = args.task_shard_index is not None
+    has_shard_count = args.task_shard_count is not None
+    if has_shard_index != has_shard_count:
+        parser.error("task-shard-index and task-shard-count must be supplied together")
+    if has_shard_count and (
+        args.task_shard_count <= 0
+        or args.task_shard_index < 0
+        or args.task_shard_index >= args.task_shard_count
+    ):
+        parser.error("task shard must satisfy 0 <= index < count")
+    if (has_shard_index or args.task_manifest) and not (has_shard_index and args.task_manifest):
+        parser.error("task manifests and task shard arguments must be supplied together")
+    if args.task_manifest and (args.all_tasks or args.per_type is not None or args.task_offset):
+        parser.error("manifest selection cannot be combined with discovery selection arguments")
+    if not args.task_manifest and not args.all_tasks and args.per_type is None:
+        args.per_type = 1
     experience_variants = {"G", "H", "I", "J", "K"}
     has_experience = bool(args.experience_file or args.experience_decision)
     if args.variant in experience_variants and not has_experience:
@@ -107,17 +130,23 @@ def main() -> None:
         else None
     )
     experiences = selection.experiences if selection else None
-    discovered = discover_tasks(args.data_root, splits=[args.split]).tasks
-    selected = (
-        select_all_tasks_by_type(discovered, task_types=tuple(args.task_types))
-        if args.all_tasks
-        else select_tasks_by_type(
-            discovered,
-            per_type=args.per_type,
-            offset=args.task_offset,
-            task_types=tuple(args.task_types),
+    if args.task_manifest:
+        frozen = load_frozen_experience_pool(args.task_manifest)
+        if {task.split for task in frozen} != {args.split}:
+            raise ValueError("task manifest split differs from --split")
+        selected = frozen[args.task_shard_index :: args.task_shard_count]
+    else:
+        discovered = discover_tasks(args.data_root, splits=[args.split]).tasks
+        selected = (
+            select_all_tasks_by_type(discovered, task_types=tuple(args.task_types))
+            if args.all_tasks
+            else select_tasks_by_type(
+                discovered,
+                per_type=args.per_type,
+                offset=args.task_offset,
+                task_types=tuple(args.task_types),
+            )
         )
-    )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     run_config = {
         "variant": args.variant,
@@ -125,10 +154,20 @@ def main() -> None:
         "policy_id": policy_id,
         "model_id": args.model_path.name,
         "split": args.split,
-        "selection_mode": "all_tasks" if args.all_tasks else "per_type",
+        "selection_mode": (
+            "frozen_manifest_shard"
+            if args.task_manifest
+            else "all_tasks"
+            if args.all_tasks
+            else "per_type"
+        ),
         "per_type": args.per_type,
         "task_offset": args.task_offset,
         "task_types": list(args.task_types),
+        "task_manifest": args.task_manifest.as_posix() if args.task_manifest else None,
+        "task_manifest_sha256": file_sha256(args.task_manifest) if args.task_manifest else None,
+        "task_shard_index": args.task_shard_index,
+        "task_shard_count": args.task_shard_count,
         "seed": args.seed,
         "max_steps": args.max_steps,
         "max_new_tokens": args.max_new_tokens,

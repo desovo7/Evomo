@@ -51,6 +51,12 @@ from evomo.evaluation.evaluation_ledger import (
     reserve_alfworld_evaluation_tasks,
     task_ids_sha256,
 )
+from evomo.evaluation.experience_pool import (
+    freeze_experience_pool,
+    load_frozen_experience_pool,
+    previously_run_task_ids,
+    task_ids_sha256 as experience_pool_task_ids_sha256,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
@@ -90,4 +96,8 @@ __all__ = [
     "task_ids_sha256",
     "write_json",
     "write_trajectory_logs",
+    "freeze_experience_pool",
+    "load_frozen_experience_pool",
+    "previously_run_task_ids",
+    "experience_pool_task_ids_sha256",
 ]

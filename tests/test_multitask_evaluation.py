@@ -173,6 +173,43 @@ def test_run_config_is_immutable(tmp_path: Path) -> None:
         ensure_run_config(path, {**config, "max_steps": 50})
 
 
+def test_merge_accepts_overlapping_types_for_frozen_manifest_shards() -> None:
+    task_a = make_task(CANONICAL_TASK_TYPES[0], "a")
+    task_b = make_task(CANONICAL_TASK_TYPES[0], "b")
+    summaries = []
+    for index, task in enumerate((task_a, task_b)):
+        summary = summarize_variant(
+            variant="I", policy_id="policy-i", episodes=[make_episode(task, policy_id="policy-i")]
+        )
+        summary["run"] = {
+            "model_id": "Qwen3-1.7B",
+            "split": "valid_train",
+            "selection_mode": "frozen_manifest_shard",
+            "per_type": None,
+            "task_offset": 0,
+            "seed": 42,
+            "max_steps": 30,
+            "max_new_tokens": 96,
+            "max_history_items": 6,
+            "experience_version": "exp-v3",
+            "experience_sha256": "abc",
+            "experience_selection": {},
+            "task_manifest": "pool.jsonl",
+            "task_manifest_sha256": "def",
+            "task_shard_index": index,
+            "task_shard_count": 2,
+            "task_types": [CANONICAL_TASK_TYPES[0]],
+            "task_ids": [task.task_id],
+        }
+        summaries.append(summary)
+
+    merged = merge_variant_summaries(summaries)
+
+    assert merged["task_count"] == 2
+    assert merged["run"]["task_shard_index"] is None
+    assert merged["run"]["task_shard_count"] == 2
+
+
 def test_variant_and_cross_variant_aggregation() -> None:
     tasks = [make_task(task_type, "a") for task_type in CANONICAL_TASK_TYPES]
     episodes = [make_episode(task, success=index == 0) for index, task in enumerate(tasks)]
