@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "config_path": "configs/live_cycle_offset2.json",
+  "config_sha256": "44c6ec4cb90ea778f40fc558f7422c56efc70d6684aa8f51ebf3d5da6134960f",
+  "state_path": "reports/live_cycle_offset2/executor/state.json",
+  "state_sha256": "15d753e127f8cca03bf92df7c183e930ba08979bf8c0b240f1b06e3247b87756",
+  "events_path": "reports/live_cycle_offset2/executor/events.jsonl",
+  "events_sha256": "38bf46bb8d63e9b8109ee9a1a7bf5e38ea1b3e9f47949fcb7d3aaa20b501e2e4",
+  "stage_count": 13,
+  "executed_stage_count": 13,
+  "adopted_stage_count": 0,
+  "resume_run_count": 1,
+  "stage_recovery_event_count": 13,
+  "job_count": 20,
+  "event_count": 83,
+  "event_head_sha256": "52e1b65b826f6875366d6d9bdedb541600a433de781ab9dda7a5a0fc070ecd76",
+  "event_counts": {
+    "job_finished": 20,
+    "job_started": 20,
+    "run_completed": 2,
+    "run_started": 2,
+    "stage_completed": 13,
+    "stage_recovered": 13,
+    "stage_started": 13
+  },
+  "manifest_replay_verified": null
+}

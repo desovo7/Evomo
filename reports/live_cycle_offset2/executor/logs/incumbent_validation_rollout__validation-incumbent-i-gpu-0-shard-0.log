@@ -1,0 +1,913 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 48.01it/s]
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222917_366542
+[done] I look_at_obj_in_light success=False steps=30
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222933_607649
+[done] I look_at_obj_in_light success=True steps=28
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222951_616606
+[done] I look_at_obj_in_light success=True steps=29
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020029_636862
+[done] I look_at_obj_in_light success=True steps=28
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020048_814402
+[done] I look_at_obj_in_light success=True steps=27
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_144951_587345
+[done] I look_at_obj_in_light success=True steps=27
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133919_856963
+[done] I look_at_obj_in_light success=True steps=27
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133935_066606
+[done] I look_at_obj_in_light success=True steps=28
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133953_562557
+[done] I look_at_obj_in_light success=False steps=30
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141942_810052
+[done] I look_at_obj_in_light success=True steps=26
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141958_463362
+[done] I look_at_obj_in_light success=True steps=26
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_142046_281296
+[done] I look_at_obj_in_light success=True steps=30
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_161733_213242
+[done] I look_at_obj_in_light success=True steps=30
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201421_021646
+[done] I look_at_obj_in_light success=True steps=26
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201444_037645
+[done] I look_at_obj_in_light success=True steps=25
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220545_153480
+[done] I look_at_obj_in_light success=True steps=27
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220604_010430
+[done] I look_at_obj_in_light success=True steps=27
+[run] I look_at_obj_in_light valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220656_510400
+[done] I look_at_obj_in_light success=True steps=26
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190908_125200_737896
+[done] I pick_and_place_simple success=True steps=21
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_203041_433487
+[done] I pick_and_place_simple success=True steps=12
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_210238_431966
+[done] I pick_and_place_simple success=True steps=12
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_121952_610012
+[done] I pick_and_place_simple success=True steps=4
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122024_052056
+[done] I pick_and_place_simple success=True steps=4
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122154_042763
+[done] I pick_and_place_simple success=True steps=4
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190906_184021_215264
+[done] I pick_and_place_simple success=True steps=27
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154326_823501
+[done] I pick_and_place_simple success=False steps=30
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154424_844749
+[done] I pick_and_place_simple success=True steps=6
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191429_743650
+[done] I pick_and_place_simple success=False steps=30
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191445_723170
+[done] I pick_and_place_simple success=True steps=14
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191501_563086
+[done] I pick_and_place_simple success=True steps=6
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021613_077537
+[done] I pick_and_place_simple success=True steps=19
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021650_880235
+[done] I pick_and_place_simple success=False steps=30
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021728_339782
+[done] I pick_and_place_simple success=True steps=27
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004321_405868
+[done] I pick_and_place_simple success=True steps=7
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004351_281384
+[done] I pick_and_place_simple success=True steps=7
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004404_604165
+[done] I pick_and_place_simple success=True steps=7
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205204_244321
+[done] I pick_and_place_simple success=True steps=30
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205221_748352
+[done] I pick_and_place_simple success=True steps=11
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205246_776817
+[done] I pick_and_place_simple success=True steps=23
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074524_006355
+[done] I pick_and_place_simple success=True steps=11
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074556_124850
+[done] I pick_and_place_simple success=True steps=10
+[run] I pick_and_place_simple valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074643_810052
+[done] I pick_and_place_simple success=True steps=29
+{
+  "variant": "I",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "task_count": 42,
+  "success_count": 37,
+  "success_rate": 0.8809523809523809,
+  "totals": {
+    "steps": 878,
+    "parsed_actions": 702,
+    "format_compliant_actions": 702,
+    "fallback_actions": 21,
+    "repaired_actions": 0,
+    "experience_overrides": 751,
+    "repeated_actions": 9,
+    "unchanged_observations": 9,
+    "unique_actions": 767
+  },
+  "means": {
+    "steps": 20.904761904761905,
+    "repeated_actions": 0.21428571428571427,
+    "unchanged_observations": 0.21428571428571427,
+    "unique_actions": 18.261904761904763
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "task_count": 18,
+      "success_count": 16,
+      "success_rate": 0.8888888888888888,
+      "steps": 497
+    },
+    "pick_and_place_simple": {
+      "task_count": 24,
+      "success_count": 21,
+      "success_rate": 0.875,
+      "steps": 381
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222917_366542",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Hold the clock and turn on the lamp.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 14,
+      "format_compliant_actions": 14,
+      "fallback_actions": 4,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 24
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222933_607649",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Examine the alarm clock by the light",
+      "termination_reason": "success",
+      "steps": 28,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 19,
+      "format_compliant_actions": 19,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222951_616606",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Turn on a lamp with a metal box.",
+      "termination_reason": "success",
+      "steps": 29,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 20,
+      "format_compliant_actions": 20,
+      "fallback_actions": 3,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020029_636862",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Look at a book by the light of a lamp.",
+      "termination_reason": "success",
+      "steps": 28,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 23,
+      "format_compliant_actions": 23,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020048_814402",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Picking up a book and turning on a light to read it by",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 21,
+      "format_compliant_actions": 21,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_144951_587345",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Turn on the table lamp to read the book.",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 14,
+      "format_compliant_actions": 14,
+      "fallback_actions": 2,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133919_856963",
+      "task_type": "look_at_obj_in_light",
+      "goal": "turn on a lamp while holding a bowl",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 13,
+      "format_compliant_actions": 13,
+      "fallback_actions": 2,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133935_066606",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Examine a bowl by the light of a desk lamp.",
+      "termination_reason": "success",
+      "steps": 28,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 23,
+      "format_compliant_actions": 23,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133953_562557",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Examine the bowl by the light on the desk.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 19,
+      "format_compliant_actions": 19,
+      "fallback_actions": 3,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141942_810052",
+      "task_type": "look_at_obj_in_light",
+      "goal": "examine a CD with a lamp",
+      "termination_reason": "success",
+      "steps": 26,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 18,
+      "format_compliant_actions": 18,
+      "fallback_actions": 1,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141958_463362",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Turn on the desk lamp.",
+      "termination_reason": "success",
+      "steps": 26,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 15,
+      "format_compliant_actions": 15,
+      "fallback_actions": 1,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_142046_281296",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Look at a CD under a lamp's light.",
+      "termination_reason": "success",
+      "steps": 30,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 18,
+      "format_compliant_actions": 18,
+      "fallback_actions": 2,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_161733_213242",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Look at a mug in lamp light.",
+      "termination_reason": "success",
+      "steps": 30,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 25,
+      "format_compliant_actions": 25,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201421_021646",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Turn on the desk lamp.",
+      "termination_reason": "success",
+      "steps": 26,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 20,
+      "format_compliant_actions": 20,
+      "fallback_actions": 1,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201444_037645",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Examine a mug using the light of a desk lamp.",
+      "termination_reason": "success",
+      "steps": 25,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 18,
+      "format_compliant_actions": 18,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 24
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220545_153480",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Examine a pencil under a lamp.",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 23,
+      "format_compliant_actions": 23,
+      "fallback_actions": 1,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220604_010430",
+      "task_type": "look_at_obj_in_light",
+      "goal": "look at the pencil under the lamp",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 21,
+      "format_compliant_actions": 21,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220656_510400",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Pick a pencil up and turn the lamp on.",
+      "termination_reason": "success",
+      "steps": 26,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 18,
+      "format_compliant_actions": 18,
+      "fallback_actions": 1,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 25
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190908_125200_737896",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move a mug from the shelves to the desk.",
+      "termination_reason": "success",
+      "steps": 21,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 20,
+      "format_compliant_actions": 20,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 19,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 20
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_203041_433487",
+      "task_type": "pick_and_place_simple",
+      "goal": "take the mug from the desk shelf to put it on the desk.",
+      "termination_reason": "success",
+      "steps": 12,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 11,
+      "format_compliant_actions": 11,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 11,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 11
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_210238_431966",
+      "task_type": "pick_and_place_simple",
+      "goal": "take a coffee mug from a book shelf and place it on a desk",
+      "termination_reason": "success",
+      "steps": 12,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 12,
+      "format_compliant_actions": 12,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 10,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 11
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_121952_610012",
+      "task_type": "pick_and_place_simple",
+      "goal": "Take the pencil from the desk, put it back on the desk",
+      "termination_reason": "success",
+      "steps": 4,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 4,
+      "format_compliant_actions": 4,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 3,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122024_052056",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move a pencil on the desk over.",
+      "termination_reason": "success",
+      "steps": 4,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 4,
+      "format_compliant_actions": 4,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 3,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122154_042763",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move the pencil to a different area of the desk.",
+      "termination_reason": "success",
+      "steps": 4,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 4,
+      "format_compliant_actions": 4,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 3,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190906_184021_215264",
+      "task_type": "pick_and_place_simple",
+      "goal": "Put a salt shaker in a drawer.",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 24,
+      "format_compliant_actions": 24,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 26,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154326_823501",
+      "task_type": "pick_and_place_simple",
+      "goal": "take the salt by the coffee machine, put it in the second drawer",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 29,
+      "format_compliant_actions": 29,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 29,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154424_844749",
+      "task_type": "pick_and_place_simple",
+      "goal": "Place a salt shaker in a drawer.",
+      "termination_reason": "success",
+      "steps": 6,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 6,
+      "format_compliant_actions": 6,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 5,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 5
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191429_743650",
+      "task_type": "pick_and_place_simple",
+      "goal": "Place the salt shaker in the cabinet beside the fridge.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 26,
+      "format_compliant_actions": 26,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 29,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 30
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191445_723170",
+      "task_type": "pick_and_place_simple",
+      "goal": "To acquire an odd item as place it where it is not useful.",
+      "termination_reason": "success",
+      "steps": 14,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 14,
+      "format_compliant_actions": 14,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 13,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 13
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191501_563086",
+      "task_type": "pick_and_place_simple",
+      "goal": "Place the salt shaker in the cabinet.",
+      "termination_reason": "success",
+      "steps": 6,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 6,
+      "format_compliant_actions": 6,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 5,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 5
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021613_077537",
+      "task_type": "pick_and_place_simple",
+      "goal": "Put a salt shaker in a drawer next to the oven.",
+      "termination_reason": "success",
+      "steps": 19,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 15,
+      "format_compliant_actions": 15,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 18,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 18
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021650_880235",
+      "task_type": "pick_and_place_simple",
+      "goal": "place a salt shaker in one of the pullout drawers",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 30,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 29,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021728_339782",
+      "task_type": "pick_and_place_simple",
+      "goal": "move salt shaker from counter to drawer",
+      "termination_reason": "success",
+      "steps": 27,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 25,
+      "format_compliant_actions": 25,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 26,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 26
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004321_405868",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move a bottle of hand soap from the sink to the toilet.",
+      "termination_reason": "success",
+      "steps": 7,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 7,
+      "format_compliant_actions": 7,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 6,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 7
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004351_281384",
+      "task_type": "pick_and_place_simple",
+      "goal": "Place the green bottle on the toilet baisin.",
+      "termination_reason": "success",
+      "steps": 7,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 7,
+      "format_compliant_actions": 7,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 6,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 6
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004404_604165",
+      "task_type": "pick_and_place_simple",
+      "goal": "place a soap dispenser on top of the toilet",
+      "termination_reason": "success",
+      "steps": 7,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 5,
+      "format_compliant_actions": 5,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 6,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 6
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205204_244321",
+      "task_type": "pick_and_place_simple",
+      "goal": "Put a vase in a safe.",
+      "termination_reason": "success",
+      "steps": 30,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 30,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 29,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 29
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205221_748352",
+      "task_type": "pick_and_place_simple",
+      "goal": "Put a vase in a safe.",
+      "termination_reason": "success",
+      "steps": 11,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 10,
+      "format_compliant_actions": 10,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 10,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 10
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205246_776817",
+      "task_type": "pick_and_place_simple",
+      "goal": "Put the gold vase into the white safe",
+      "termination_reason": "success",
+      "steps": 23,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 23,
+      "format_compliant_actions": 23,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 22,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 22
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074524_006355",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move a watch to the inside of a small safe.",
+      "termination_reason": "success",
+      "steps": 11,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 11,
+      "format_compliant_actions": 11,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 10,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 10
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074556_124850",
+      "task_type": "pick_and_place_simple",
+      "goal": "Move the watch from the cabinet to the safe",
+      "termination_reason": "success",
+      "steps": 10,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 8,
+      "format_compliant_actions": 8,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 9,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 9
+    },
+    {
+      "task_id": "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074643_810052",
+      "task_type": "pick_and_place_simple",
+      "goal": "Place a watch inside a safe.",
+      "termination_reason": "success",
+      "steps": 29,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 29,
+      "format_compliant_actions": 29,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 28,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 28
+    }
+  ],
+  "run": {
+    "variant": "I",
+    "prompt_variant": "experience_guided_action",
+    "policy_id": "qwen3-1.7b-i-experience_guided_action",
+    "model_id": "Qwen3-1.7B",
+    "split": "valid_unseen",
+    "selection_mode": "all_tasks",
+    "per_type": null,
+    "task_offset": 0,
+    "task_types": [
+      "look_at_obj_in_light",
+      "pick_and_place_simple"
+    ],
+    "seed": 42,
+    "max_steps": 30,
+    "max_new_tokens": 96,
+    "max_history_items": 6,
+    "task_ids": [
+      "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222917_366542",
+      "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222933_607649",
+      "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222951_616606",
+      "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020029_636862",
+      "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020048_814402",
+      "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_144951_587345",
+      "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133919_856963",
+      "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133935_066606",
+      "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133953_562557",
+      "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141942_810052",
+      "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141958_463362",
+      "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_142046_281296",
+      "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_161733_213242",
+      "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201421_021646",
+      "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201444_037645",
+      "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220545_153480",
+      "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220604_010430",
+      "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220656_510400",
+      "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190908_125200_737896",
+      "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_203041_433487",
+      "valid_unseen/pick_and_place_simple-Mug-None-Desk-308/trial_T20190909_210238_431966",
+      "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_121952_610012",
+      "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122024_052056",
+      "valid_unseen/pick_and_place_simple-Pencil-None-Shelf-308/trial_T20190908_122154_042763",
+      "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190906_184021_215264",
+      "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154326_823501",
+      "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154424_844749",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191429_743650",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191445_723170",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191501_563086",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021613_077537",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021650_880235",
+      "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021728_339782",
+      "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004321_405868",
+      "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004351_281384",
+      "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004404_604165",
+      "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205204_244321",
+      "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205221_748352",
+      "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205246_776817",
+      "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074524_006355",
+      "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074556_124850",
+      "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074643_810052"
+    ],
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "experience_selection": {
+      "selection_source": "explicit_experience_file",
+      "experience_path": "reports/experience_v2/exp_v3.json",
+      "experience_version": "exp-v3-from-h-offset2-failures",
+      "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+      "decision_path": null,
+      "decision_sha256": null,
+      "decision": null,
+      "decision_replay_verified": false
+    }
+  }
+}

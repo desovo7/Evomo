@@ -906,3 +906,47 @@ records. A second invocation launches no job and records seven stage recovery
 events. The final executor audit reports 7 executed stages, 8 jobs, one resume
 run, 41 hash-chained events, and zero adopted stages. The outputs and all job
 logs are under `reports/experience_v4/executed_cycle/`.
+
+## Run a complete live three-H800 cycle
+
+`plan_qwen_evolution_cycle.py` generates the full executor graph rather than a
+handwritten one-off config. It partitions the six canonical ALFWorld task
+types into three stable two-type shards and assigns one shard to each unique
+GPU. The generated plan has 13 stages and 20 jobs, including nine Qwen rollout
+jobs across development, incumbent validation, and candidate validation.
+
+The checked-in live run uses `valid_train` offset 2 for a small learning set
+and a fresh full `valid_unseen` paired evaluation:
+
+```bash
+PYTHONPATH=src python scripts/plan_qwen_evolution_cycle.py \
+  --cycle-id qwen3-1.7b-live-offset2-full-unseen \
+  --report-root reports/live_cycle_offset2 \
+  --incumbent-experience reports/experience_v2/exp_v3.json \
+  --candidate-version exp-v5-live-offset2-failures \
+  --data-root /path/to/alfworld \
+  --model-path ../models/Qwen3-1.7B \
+  --gpus 0 1 2 \
+  --development-offset 2 \
+  --output configs/live_cycle_offset2.json
+
+PYTHONPATH=src python scripts/run_evolution_cycle.py \
+  --config configs/live_cycle_offset2.json \
+  --state-dir reports/live_cycle_offset2/executor
+```
+
+Three H800s first produce six development trajectories. Three failures add 12
+grounded evidence records to exp-v5. The executor then runs both exp-v3 and
+exp-v5 from scratch on all 134 playable `valid_unseen` tasks. Exp-v3 exactly
+reproduces 114/134; exp-v5 reaches 116/134 and reduces total steps from 2,351
+to 2,333. The paired table has two candidate-only successes, zero
+incumbent-only successes, and an exact p-value of 0.5. Gains are one clean
+task and one two-object task. The fixed gate therefore retains exp-v5 as a
+positive no-regression candidate but leaves exp-v3 stable because the evidence
+is not statistically strong enough for promotion.
+
+All 274 new episodes include JSONL and Markdown trajectory logs. The final
+manifest binds 1,130 content records, and the executor audit binds 20 jobs and
+83 hash-chained events. A second invocation recovers all 13 stages in about
+two seconds and launches no job. Complete artifacts are under
+`reports/live_cycle_offset2/`.

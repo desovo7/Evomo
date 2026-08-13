@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "status": "complete",
+  "stages": [
+    "development_rollout",
+    "experience_evolution",
+    "paired_validation",
+    "candidate_gate"
+  ],
+  "artifacts": {
+    "incumbent_experience": {
+      "kind": "file",
+      "path": "reports/experience_v2/exp_v3.json",
+      "sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+      "bytes": 69959
+    },
+    "development_trajectories": {
+      "kind": "directory",
+      "path": "reports/live_cycle_offset2/development/I",
+      "sha256": "ec56ca0abeadec99f42fd3d5df2840cf4c4d614db981ad4efcd6c4a9f326ebd0",
+      "file_count": 31,
+      "bytes": 811769
+    },
+    "development_summary": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/development/I/summary.json",
+      "sha256": "2066fb4d5240bd9222d00ee58d0f4b2fcc2c62d1b98b104aa91d7620cfe14675",
+      "bytes": 7195
+    },
+    "development_audit": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/development/audit.json",
+      "sha256": "10276d9dd1a736ca9249f22bf6ff704b7feed77bd1e2964a3633a6ef13bfcbd7",
+      "bytes": 2187
+    },
+    "candidate_experience": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/candidate.json",
+      "sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+      "bytes": 74380
+    },
+    "evolution_audit": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/evolution_audit.json",
+      "sha256": "0da29d7f69fcf5f740d3b5f96c2ab3f1faa537b2f01b91bb3961dde0277bd07d",
+      "bytes": 2554
+    },
+    "validation_trajectories": {
+      "kind": "directory",
+      "path": "reports/live_cycle_offset2/validation",
+      "sha256": "87a3b805b1b52988f93b8a6f2833680e526b63e0740ef15ae69b5c22198fd25e",
+      "file_count": 1089,
+      "bytes": 35343924
+    },
+    "validation_incumbent_summary": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/validation/I/summary.json",
+      "sha256": "292ab7e6f5fca6ca8c6ea84e89ff4b51454852ff55fd62b3524c4b0a71de9b4d",
+      "bytes": 95900
+    },
+    "validation_candidate_summary": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/validation/K/summary.json",
+      "sha256": "3ab179689c81f5392ca8553943f9405c728fdbb03fe538491270ba38f4a2c270",
+      "bytes": 95896
+    },
+    "comparison": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/validation/comparison.json",
+      "sha256": "885b8409354b46eed6c05072f76f659b5ab47fe04c2c1c780dc474759aa62422",
+      "bytes": 214160
+    },
+    "validation_audit": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/validation/audit.json",
+      "sha256": "f316393c47a9161b809afadf8af0df9497d09fcd580caae3a50390a9e3fbb72e",
+      "bytes": 4330
+    },
+    "decision": {
+      "kind": "file",
+      "path": "reports/live_cycle_offset2/decision.json",
+      "sha256": "e5ca8a1e849e0c03d64184278e58110fce90a3e007a5825e5c0d45440c178c40",
+      "bytes": 3497
+    }
+  },
+  "result": {
+    "incumbent_version": "exp-v3-from-h-offset2-failures",
+    "candidate_version": "exp-v5-live-offset2-failures",
+    "source_split": "valid_train",
+    "development_episode_count": 6,
+    "development_failure_count": 3,
+    "validation_split": "valid_unseen",
+    "validation_task_count": 134,
+    "decision": "retain_candidate",
+    "selected_stable_version": "exp-v3-from-h-offset2-failures",
+    "decision_replay_verified": true
+  }
+}

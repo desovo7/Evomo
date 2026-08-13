@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "workspace": ".",
+  "max_parallel": 3,
+  "stages": [
+    {
+      "stage_id": "development_rollout",
+      "depends_on": [],
+      "outputs": [
+        "reports/live_cycle_offset2/development/I/shard_0",
+        "reports/live_cycle_offset2/development/I/shard_1",
+        "reports/live_cycle_offset2/development/I/shard_2"
+      ],
+      "jobs": [
+        {
+          "job_id": "development-i-gpu-0-shard-0",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_train",
+            "--per-type",
+            "1",
+            "--task-offset",
+            "2",
+            "--task-types",
+            "look_at_obj_in_light",
+            "pick_and_place_simple",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/development/I/shard_0"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "0"
+          }
+        },
+        {
+          "job_id": "development-i-gpu-1-shard-1",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_train",
+            "--per-type",
+            "1",
+            "--task-offset",
+            "2",
+            "--task-types",
+            "pick_clean_then_place_in_recep",
+            "pick_cool_then_place_in_recep",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/development/I/shard_1"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "1"
+          }
+        },
+        {
+          "job_id": "development-i-gpu-2-shard-2",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_train",
+            "--per-type",
+            "1",
+            "--task-offset",
+            "2",
+            "--task-types",
+            "pick_heat_then_place_in_recep",
+            "pick_two_obj_and_place",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/development/I/shard_2"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "2"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "development_merge",
+      "depends_on": [
+        "development_rollout"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/development/I/summary.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-development",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/merge_qwen_multitask_shards.py",
+            "--shard-root",
+            "reports/live_cycle_offset2/development/I",
+            "--output",
+            "reports/live_cycle_offset2/development/I/summary.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "development_audit",
+      "depends_on": [
+        "development_merge"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/development/audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-development",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_multitask_report.py",
+            "--report-dir",
+            "reports/live_cycle_offset2/development",
+            "--variants",
+            "I",
+            "--variant-experience",
+            "I=reports/experience_v2/exp_v3.json",
+            "--protocol-role",
+            "development",
+            "--output",
+            "reports/live_cycle_offset2/development/audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "experience_evolution",
+      "depends_on": [
+        "development_audit"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/candidate.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "evolve-candidate",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/evolve_failure_experiences.py",
+            "--base",
+            "reports/experience_v2/exp_v3.json",
+            "--episodes-root",
+            "reports/live_cycle_offset2/development/I",
+            "--source-split",
+            "valid_train",
+            "--version",
+            "exp-v5-live-offset2-failures",
+            "--enable-progress-rules",
+            "--output",
+            "reports/live_cycle_offset2/candidate.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "evolution_audit",
+      "depends_on": [
+        "experience_evolution"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/evolution_audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-evolution",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_experience_evolution.py",
+            "--base",
+            "reports/experience_v2/exp_v3.json",
+            "--child",
+            "reports/live_cycle_offset2/candidate.json",
+            "--episodes-root",
+            "reports/live_cycle_offset2/development/I",
+            "--source-split",
+            "valid_train",
+            "--output",
+            "reports/live_cycle_offset2/evolution_audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "incumbent_validation_rollout",
+      "depends_on": [
+        "evolution_audit"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/validation/I/shard_0",
+        "reports/live_cycle_offset2/validation/I/shard_1",
+        "reports/live_cycle_offset2/validation/I/shard_2"
+      ],
+      "jobs": [
+        {
+          "job_id": "validation-incumbent-i-gpu-0-shard-0",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "look_at_obj_in_light",
+            "pick_and_place_simple",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/I/shard_0"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "0"
+          }
+        },
+        {
+          "job_id": "validation-incumbent-i-gpu-1-shard-1",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "pick_clean_then_place_in_recep",
+            "pick_cool_then_place_in_recep",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/I/shard_1"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "1"
+          }
+        },
+        {
+          "job_id": "validation-incumbent-i-gpu-2-shard-2",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "pick_heat_then_place_in_recep",
+            "pick_two_obj_and_place",
+            "--variant",
+            "I",
+            "--experience-file",
+            "reports/experience_v2/exp_v3.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/I/shard_2"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "2"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "incumbent_validation_merge",
+      "depends_on": [
+        "incumbent_validation_rollout"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/validation/I/summary.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-incumbent-validation",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/merge_qwen_multitask_shards.py",
+            "--shard-root",
+            "reports/live_cycle_offset2/validation/I",
+            "--output",
+            "reports/live_cycle_offset2/validation/I/summary.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "candidate_validation_rollout",
+      "depends_on": [
+        "incumbent_validation_merge"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/validation/K/shard_0",
+        "reports/live_cycle_offset2/validation/K/shard_1",
+        "reports/live_cycle_offset2/validation/K/shard_2"
+      ],
+      "jobs": [
+        {
+          "job_id": "validation-candidate-k-gpu-0-shard-0",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "look_at_obj_in_light",
+            "pick_and_place_simple",
+            "--variant",
+            "K",
+            "--experience-file",
+            "reports/live_cycle_offset2/candidate.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/K/shard_0"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "0"
+          }
+        },
+        {
+          "job_id": "validation-candidate-k-gpu-1-shard-1",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "pick_clean_then_place_in_recep",
+            "pick_cool_then_place_in_recep",
+            "--variant",
+            "K",
+            "--experience-file",
+            "reports/live_cycle_offset2/candidate.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/K/shard_1"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "1"
+          }
+        },
+        {
+          "job_id": "validation-candidate-k-gpu-2-shard-2",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/run_qwen_multitask_variant.py",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--model-path",
+            "../models/Qwen3-1.7B",
+            "--device",
+            "cuda:0",
+            "--seed",
+            "42",
+            "--max-steps",
+            "30",
+            "--max-new-tokens",
+            "96",
+            "--max-history-items",
+            "6",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--task-types",
+            "pick_heat_then_place_in_recep",
+            "pick_two_obj_and_place",
+            "--variant",
+            "K",
+            "--experience-file",
+            "reports/live_cycle_offset2/candidate.json",
+            "--output-dir",
+            "reports/live_cycle_offset2/validation/K/shard_2"
+          ],
+          "env": {
+            "PYTHONPATH": "src",
+            "CUDA_VISIBLE_DEVICES": "2"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "candidate_validation_merge",
+      "depends_on": [
+        "candidate_validation_rollout"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/validation/K/summary.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-candidate-validation",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/merge_qwen_multitask_shards.py",
+            "--shard-root",
+            "reports/live_cycle_offset2/validation/K",
+            "--output",
+            "reports/live_cycle_offset2/validation/K/summary.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "validation_postprocess",
+      "depends_on": [
+        "candidate_validation_merge"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/validation/comparison.json",
+        "reports/live_cycle_offset2/validation/audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "build-comparison",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/summarize_qwen_multitask.py",
+            "--input-dir",
+            "reports/live_cycle_offset2/validation",
+            "--split",
+            "valid_unseen",
+            "--all-tasks",
+            "--variants",
+            "I",
+            "K"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        },
+        {
+          "job_id": "audit-validation",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_multitask_report.py",
+            "--report-dir",
+            "reports/live_cycle_offset2/validation",
+            "--variants",
+            "I",
+            "K",
+            "--variant-experience",
+            "I=reports/experience_v2/exp_v3.json",
+            "--variant-experience",
+            "K=reports/live_cycle_offset2/candidate.json",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--protocol-role",
+            "evaluation",
+            "--exclude-episodes-root",
+            "reports/live_cycle_offset2/development/I",
+            "--output",
+            "reports/live_cycle_offset2/validation/audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "candidate_gate",
+      "depends_on": [
+        "validation_postprocess"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/decision.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "gate-candidate",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/gate_experience_candidate.py",
+            "--comparison",
+            "reports/live_cycle_offset2/validation/comparison.json",
+            "--validation-audit",
+            "reports/live_cycle_offset2/validation/audit.json",
+            "--evolution-audit",
+            "reports/live_cycle_offset2/evolution_audit.json",
+            "--incumbent",
+            "reports/experience_v2/exp_v3.json",
+            "--candidate",
+            "reports/live_cycle_offset2/candidate.json",
+            "--output",
+            "reports/live_cycle_offset2/decision.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "cycle_manifest",
+      "depends_on": [
+        "candidate_gate"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/cycle_manifest.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "build-manifest",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/build_evolution_cycle_manifest.py",
+            "--cycle-id",
+            "qwen3-1.7b-live-offset2-full-unseen",
+            "--incumbent-experience",
+            "reports/experience_v2/exp_v3.json",
+            "--development-trajectories",
+            "reports/live_cycle_offset2/development/I",
+            "--development-summary",
+            "reports/live_cycle_offset2/development/I/summary.json",
+            "--development-audit",
+            "reports/live_cycle_offset2/development/audit.json",
+            "--candidate-experience",
+            "reports/live_cycle_offset2/candidate.json",
+            "--evolution-audit",
+            "reports/live_cycle_offset2/evolution_audit.json",
+            "--validation-trajectories",
+            "reports/live_cycle_offset2/validation",
+            "--validation-incumbent-summary",
+            "reports/live_cycle_offset2/validation/I/summary.json",
+            "--validation-candidate-summary",
+            "reports/live_cycle_offset2/validation/K/summary.json",
+            "--comparison",
+            "reports/live_cycle_offset2/validation/comparison.json",
+            "--validation-audit",
+            "reports/live_cycle_offset2/validation/audit.json",
+            "--decision",
+            "reports/live_cycle_offset2/decision.json",
+            "--output",
+            "reports/live_cycle_offset2/cycle_manifest.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "manifest_audit",
+      "depends_on": [
+        "cycle_manifest"
+      ],
+      "outputs": [
+        "reports/live_cycle_offset2/cycle_manifest_audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-manifest",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_evolution_cycle_manifest.py",
+            "--manifest",
+            "reports/live_cycle_offset2/cycle_manifest.json",
+            "--output",
+            "reports/live_cycle_offset2/cycle_manifest_audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    }
+  ]
+}

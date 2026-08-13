@@ -1,0 +1,33 @@
+{
+  "episode_id": "5819afe5-4d06-40d1-8dea-d7a94f0cdccc",
+  "task_id": "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004351_281384",
+  "goal": "Place the green bottle on the toilet baisin.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 76,
+  "termination_reason": "success",
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/experience_v2/exp_v3.json",
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 7,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 6,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

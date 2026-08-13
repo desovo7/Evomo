@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "manifest_path": "reports/live_cycle_offset2/cycle_manifest.json",
+  "manifest_sha256": "3c9d3401a5f7f40b4a00ac88bf7ea02ed3e28a2d3881386e0a119e5b60a65d8a",
+  "artifact_count": 12,
+  "file_artifact_count": 10,
+  "directory_artifact_count": 2,
+  "content_file_count": 1130,
+  "replay_equal": true,
+  "result": {
+    "incumbent_version": "exp-v3-from-h-offset2-failures",
+    "candidate_version": "exp-v5-live-offset2-failures",
+    "source_split": "valid_train",
+    "development_episode_count": 6,
+    "development_failure_count": 3,
+    "validation_split": "valid_unseen",
+    "validation_task_count": 134,
+    "decision": "retain_candidate",
+    "selected_stable_version": "exp-v3-from-h-offset2-failures",
+    "decision_replay_verified": true
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "cycle_id": "qwen3-1.7b-live-offset2-full-unseen",
+  "config_sha256": "44c6ec4cb90ea778f40fc558f7422c56efc70d6684aa8f51ebf3d5da6134960f",
+  "status": "complete",
+  "stages": {
+    "development_rollout": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/development/I/shard_0",
+          "sha256": "fe5fe55938c877fa0afc5ce2f075e6feb18f04bbf2826e3bf41bbf375aae53d3",
+          "file_count": 10,
+          "bytes": 228772
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/development/I/shard_1",
+          "sha256": "407e6f34bcedb3a8dc2311d56982d12c9d755243916a44926f41fc6533a79ffc",
+          "file_count": 10,
+          "bytes": 253884
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/development/I/shard_2",
+          "sha256": "5f407edf4a3aa96a03c33ed499a59f3935165e415c4551f09ced742f40d25dd9",
+          "file_count": 10,
+          "bytes": 321918
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "development-i-gpu-0-shard-0",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 29.772339,
+          "log_path": "reports/live_cycle_offset2/executor/logs/development_rollout__development-i-gpu-0-shard-0.log",
+          "log_sha256": "6f11e91340136a3168f354d4b2212b1b35889d5f5b1439d1f730a241d61956ae"
+        },
+        {
+          "job_id": "development-i-gpu-1-shard-1",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 36.336849,
+          "log_path": "reports/live_cycle_offset2/executor/logs/development_rollout__development-i-gpu-1-shard-1.log",
+          "log_sha256": "7a495d11cab677d7422a466b0917872764dee311427c005090a65bd67b1418de"
+        },
+        {
+          "job_id": "development-i-gpu-2-shard-2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 41.567879,
+          "log_path": "reports/live_cycle_offset2/executor/logs/development_rollout__development-i-gpu-2-shard-2.log",
+          "log_sha256": "f956b7f18d71bcb5056936da2038079b64d92645b185f044b99b00962a94287b"
+        }
+      ]
+    },
+    "development_merge": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/development/I/summary.json",
+          "sha256": "2066fb4d5240bd9222d00ee58d0f4b2fcc2c62d1b98b104aa91d7620cfe14675",
+          "bytes": 7195
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-development",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.147535,
+          "log_path": "reports/live_cycle_offset2/executor/logs/development_merge__merge-development.log",
+          "log_sha256": "2066fb4d5240bd9222d00ee58d0f4b2fcc2c62d1b98b104aa91d7620cfe14675"
+        }
+      ]
+    },
+    "development_audit": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/development/audit.json",
+          "sha256": "10276d9dd1a736ca9249f22bf6ff704b7feed77bd1e2964a3633a6ef13bfcbd7",
+          "bytes": 2187
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-development",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.165254,
+          "log_path": "reports/live_cycle_offset2/executor/logs/development_audit__audit-development.log",
+          "log_sha256": "10276d9dd1a736ca9249f22bf6ff704b7feed77bd1e2964a3633a6ef13bfcbd7"
+        }
+      ]
+    },
+    "experience_evolution": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/candidate.json",
+          "sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+          "bytes": 74380
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "evolve-candidate",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.142912,
+          "log_path": "reports/live_cycle_offset2/executor/logs/experience_evolution__evolve-candidate.log",
+          "log_sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef"
+        }
+      ]
+    },
+    "evolution_audit": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/evolution_audit.json",
+          "sha256": "0da29d7f69fcf5f740d3b5f96c2ab3f1faa537b2f01b91bb3961dde0277bd07d",
+          "bytes": 2554
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-evolution",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.138025,
+          "log_path": "reports/live_cycle_offset2/executor/logs/evolution_audit__audit-evolution.log",
+          "log_sha256": "0da29d7f69fcf5f740d3b5f96c2ab3f1faa537b2f01b91bb3961dde0277bd07d"
+        }
+      ]
+    },
+    "incumbent_validation_rollout": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/I/shard_0",
+          "sha256": "1dfb5a1c481ab167ab6ea03ee62d56b31041aaf53a34b5ea49602484efdecfd8",
+          "file_count": 170,
+          "bytes": 6320962
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/I/shard_1",
+          "sha256": "f906ba91dfdec08f878615d03a1997f5d0eeca82269b830229e6b49d80d2b5ed",
+          "file_count": 210,
+          "bytes": 5916164
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/I/shard_2",
+          "sha256": "79d5ffea2a548668e60c5601855b10677696dd05cf392401979208ad0e0ed804",
+          "file_count": 162,
+          "bytes": 5230459
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "validation-incumbent-i-gpu-0-shard-0",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 540.614414,
+          "log_path": "reports/live_cycle_offset2/executor/logs/incumbent_validation_rollout__validation-incumbent-i-gpu-0-shard-0.log",
+          "log_sha256": "9b3fc54d3318c319e381904f71202b467bc08120f1c1c3502bdb303036ed7fdd"
+        },
+        {
+          "job_id": "validation-incumbent-i-gpu-1-shard-1",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 556.899931,
+          "log_path": "reports/live_cycle_offset2/executor/logs/incumbent_validation_rollout__validation-incumbent-i-gpu-1-shard-1.log",
+          "log_sha256": "b476e7aa9e6936e0e09d8ba98b1455505e5dacb87a8dd015994ca12f60cda665"
+        },
+        {
+          "job_id": "validation-incumbent-i-gpu-2-shard-2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 466.67668,
+          "log_path": "reports/live_cycle_offset2/executor/logs/incumbent_validation_rollout__validation-incumbent-i-gpu-2-shard-2.log",
+          "log_sha256": "3082e4bcf72fb9f8cbbf25aff78d6cdd84424cb24b0437acb3383c2d1c14a34f"
+        }
+      ]
+    },
+    "incumbent_validation_merge": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/validation/I/summary.json",
+          "sha256": "292ab7e6f5fca6ca8c6ea84e89ff4b51454852ff55fd62b3524c4b0a71de9b4d",
+          "bytes": 95900
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-incumbent-validation",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.152855,
+          "log_path": "reports/live_cycle_offset2/executor/logs/incumbent_validation_merge__merge-incumbent-validation.log",
+          "log_sha256": "292ab7e6f5fca6ca8c6ea84e89ff4b51454852ff55fd62b3524c4b0a71de9b4d"
+        }
+      ]
+    },
+    "candidate_validation_rollout": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/K/shard_0",
+          "sha256": "ad94addf48ccaf436f91e623f9fc538bb8fd6c6d170481376b246ed5500882a2",
+          "file_count": 170,
+          "bytes": 6332010
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/K/shard_1",
+          "sha256": "55868d37763c5a4ab9cfb0e369a5d155a5f506a9ca665530661ead6eacd7c36e",
+          "file_count": 210,
+          "bytes": 5811398
+        },
+        {
+          "kind": "directory",
+          "path": "reports/live_cycle_offset2/validation/K/shard_2",
+          "sha256": "570dc7e053b060be2dd36467554924a84299c35b1f446be74107f6adc927d599",
+          "file_count": 162,
+          "bytes": 5306613
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "validation-candidate-k-gpu-0-shard-0",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 552.80922,
+          "log_path": "reports/live_cycle_offset2/executor/logs/candidate_validation_rollout__validation-candidate-k-gpu-0-shard-0.log",
+          "log_sha256": "08c6e8283ae7dd5c5144eb8db1001d42a6bf30cae753c5406fd7c81c69afab79"
+        },
+        {
+          "job_id": "validation-candidate-k-gpu-1-shard-1",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 554.346076,
+          "log_path": "reports/live_cycle_offset2/executor/logs/candidate_validation_rollout__validation-candidate-k-gpu-1-shard-1.log",
+          "log_sha256": "4ce09232e6a136a743c4dcf0f874b66c7eda24600b04e300c2fc83a7096d60c2"
+        },
+        {
+          "job_id": "validation-candidate-k-gpu-2-shard-2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 475.848665,
+          "log_path": "reports/live_cycle_offset2/executor/logs/candidate_validation_rollout__validation-candidate-k-gpu-2-shard-2.log",
+          "log_sha256": "777baf2696e3db361361a0be693f9586c2c8149c1b7deb3a757fbfbd7d7eb5b9"
+        }
+      ]
+    },
+    "candidate_validation_merge": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/validation/K/summary.json",
+          "sha256": "3ab179689c81f5392ca8553943f9405c728fdbb03fe538491270ba38f4a2c270",
+          "bytes": 95896
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-candidate-validation",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.152951,
+          "log_path": "reports/live_cycle_offset2/executor/logs/candidate_validation_merge__merge-candidate-validation.log",
+          "log_sha256": "3ab179689c81f5392ca8553943f9405c728fdbb03fe538491270ba38f4a2c270"
+        }
+      ]
+    },
+    "validation_postprocess": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/validation/comparison.json",
+          "sha256": "885b8409354b46eed6c05072f76f659b5ab47fe04c2c1c780dc474759aa62422",
+          "bytes": 214160
+        },
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/validation/audit.json",
+          "sha256": "f316393c47a9161b809afadf8af0df9497d09fcd580caae3a50390a9e3fbb72e",
+          "bytes": 4330
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-validation",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.711868,
+          "log_path": "reports/live_cycle_offset2/executor/logs/validation_postprocess__audit-validation.log",
+          "log_sha256": "f316393c47a9161b809afadf8af0df9497d09fcd580caae3a50390a9e3fbb72e"
+        },
+        {
+          "job_id": "build-comparison",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.163096,
+          "log_path": "reports/live_cycle_offset2/executor/logs/validation_postprocess__build-comparison.log",
+          "log_sha256": "885b8409354b46eed6c05072f76f659b5ab47fe04c2c1c780dc474759aa62422"
+        }
+      ]
+    },
+    "candidate_gate": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/decision.json",
+          "sha256": "e5ca8a1e849e0c03d64184278e58110fce90a3e007a5825e5c0d45440c178c40",
+          "bytes": 3497
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "gate-candidate",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.144588,
+          "log_path": "reports/live_cycle_offset2/executor/logs/candidate_gate__gate-candidate.log",
+          "log_sha256": "e5ca8a1e849e0c03d64184278e58110fce90a3e007a5825e5c0d45440c178c40"
+        }
+      ]
+    },
+    "cycle_manifest": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/cycle_manifest.json",
+          "sha256": "3c9d3401a5f7f40b4a00ac88bf7ea02ed3e28a2d3881386e0a119e5b60a65d8a",
+          "bytes": 3475
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "build-manifest",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.890139,
+          "log_path": "reports/live_cycle_offset2/executor/logs/cycle_manifest__build-manifest.log",
+          "log_sha256": "3c9d3401a5f7f40b4a00ac88bf7ea02ed3e28a2d3881386e0a119e5b60a65d8a"
+        }
+      ]
+    },
+    "manifest_audit": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/live_cycle_offset2/cycle_manifest_audit.json",
+          "sha256": "be05b56967d5d9db8993d21ef297005b49d4158a2187645ea6510f5be081cf31",
+          "bytes": 830
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-manifest",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.872065,
+          "log_path": "reports/live_cycle_offset2/executor/logs/manifest_audit__audit-manifest.log",
+          "log_sha256": "be05b56967d5d9db8993d21ef297005b49d4158a2187645ea6510f5be081cf31"
+        }
+      ]
+    }
+  },
+  "event_head_sha256": "52e1b65b826f6875366d6d9bdedb541600a433de781ab9dda7a5a0fc070ecd76"
+}

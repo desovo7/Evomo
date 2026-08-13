@@ -1,0 +1,108 @@
+{
+  "variant": "I",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "task_count": 2,
+  "success_count": 1,
+  "success_rate": 0.5,
+  "totals": {
+    "steps": 44,
+    "parsed_actions": 39,
+    "format_compliant_actions": 39,
+    "fallback_actions": 2,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 31
+  },
+  "means": {
+    "steps": 22.0,
+    "repeated_actions": 0.5,
+    "unchanged_observations": 0.5,
+    "unique_actions": 15.5
+  },
+  "by_task_type": {
+    "pick_heat_then_place_in_recep": {
+      "task_count": 1,
+      "success_count": 1,
+      "success_rate": 1.0,
+      "steps": 14
+    },
+    "pick_two_obj_and_place": {
+      "task_count": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "steps": 30
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "valid_train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230051_015449",
+      "task_type": "pick_heat_then_place_in_recep",
+      "goal": "Putting away a container.",
+      "termination_reason": "success",
+      "steps": 14,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 14,
+      "format_compliant_actions": 14,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 12,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 13
+    },
+    {
+      "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+      "task_type": "pick_two_obj_and_place",
+      "goal": "Put two boxes on the small table.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 25,
+      "format_compliant_actions": 25,
+      "fallback_actions": 2,
+      "repaired_actions": 0,
+      "experience_overrides": 15,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 18
+    }
+  ],
+  "run": {
+    "variant": "I",
+    "prompt_variant": "experience_guided_action",
+    "policy_id": "qwen3-1.7b-i-experience_guided_action",
+    "model_id": "Qwen3-1.7B",
+    "split": "valid_train",
+    "selection_mode": "per_type",
+    "per_type": 1,
+    "task_offset": 2,
+    "task_types": [
+      "pick_heat_then_place_in_recep",
+      "pick_two_obj_and_place"
+    ],
+    "seed": 42,
+    "max_steps": 30,
+    "max_new_tokens": 96,
+    "max_history_items": 6,
+    "task_ids": [
+      "valid_train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230051_015449",
+      "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115"
+    ],
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "experience_selection": {
+      "selection_source": "explicit_experience_file",
+      "experience_path": "reports/experience_v2/exp_v3.json",
+      "experience_version": "exp-v3-from-h-offset2-failures",
+      "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+      "decision_path": null,
+      "decision_sha256": null,
+      "decision": null,
+      "decision_replay_verified": false
+    }
+  }
+}

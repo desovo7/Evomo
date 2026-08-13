@@ -1,0 +1,113 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 59.02it/s]
+[run] I pick_clean_then_place_in_recep valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303
+[done] I pick_clean_then_place_in_recep success=False steps=30
+[run] I pick_cool_then_place_in_recep valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209
+[done] I pick_cool_then_place_in_recep success=True steps=7
+{
+  "variant": "I",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "task_count": 2,
+  "success_count": 1,
+  "success_rate": 0.5,
+  "totals": {
+    "steps": 37,
+    "parsed_actions": 37,
+    "format_compliant_actions": 37,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 35,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  },
+  "means": {
+    "steps": 18.5,
+    "repeated_actions": 0.0,
+    "unchanged_observations": 0.0,
+    "unique_actions": 6.5
+  },
+  "by_task_type": {
+    "pick_clean_then_place_in_recep": {
+      "task_count": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "steps": 30
+    },
+    "pick_cool_then_place_in_recep": {
+      "task_count": 1,
+      "success_count": 1,
+      "success_rate": 1.0,
+      "steps": 7
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+      "task_type": "pick_clean_then_place_in_recep",
+      "goal": "Put a cleaned rag in a drawer under the right sink.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 30,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 29,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 6
+    },
+    {
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209",
+      "task_type": "pick_cool_then_place_in_recep",
+      "goal": "Put a chilled cup away in the cabinet above the microwave.",
+      "termination_reason": "success",
+      "steps": 7,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 7,
+      "format_compliant_actions": 7,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 6,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 7
+    }
+  ],
+  "run": {
+    "variant": "I",
+    "prompt_variant": "experience_guided_action",
+    "policy_id": "qwen3-1.7b-i-experience_guided_action",
+    "model_id": "Qwen3-1.7B",
+    "split": "valid_train",
+    "selection_mode": "per_type",
+    "per_type": 1,
+    "task_offset": 2,
+    "task_types": [
+      "pick_clean_then_place_in_recep",
+      "pick_cool_then_place_in_recep"
+    ],
+    "seed": 42,
+    "max_steps": 30,
+    "max_new_tokens": 96,
+    "max_history_items": 6,
+    "task_ids": [
+      "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+      "valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209"
+    ],
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "experience_selection": {
+      "selection_source": "explicit_experience_file",
+      "experience_path": "reports/experience_v2/exp_v3.json",
+      "experience_version": "exp-v3-from-h-offset2-failures",
+      "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+      "decision_path": null,
+      "decision_sha256": null,
+      "decision": null,
+      "decision_replay_verified": false
+    }
+  }
+}

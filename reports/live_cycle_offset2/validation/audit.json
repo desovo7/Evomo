@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "protocol_role": "evaluation",
+  "report_dir": "reports/live_cycle_offset2/validation",
+  "same_task_ids": true,
+  "experience_evidence_task_overlap": 0,
+  "excluded_source_task_overlap": 0,
+  "excluded_source_task_count": 6,
+  "discovery_task_count": 134,
+  "variants": [
+    {
+      "variant": "I",
+      "episode_count": 134,
+      "step_count": 2351,
+      "success_count": 114,
+      "task_type_counts": {
+        "look_at_obj_in_light": 18,
+        "pick_and_place_simple": 24,
+        "pick_clean_then_place_in_recep": 31,
+        "pick_cool_then_place_in_recep": 21,
+        "pick_heat_then_place_in_recep": 23,
+        "pick_two_obj_and_place": 17
+      },
+      "experience_override_count": 2089,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 396,
+        "pick_and_place_simple": 355,
+        "pick_clean_then_place_in_recep": 439,
+        "pick_cool_then_place_in_recep": 270,
+        "pick_heat_then_place_in_recep": 256,
+        "pick_two_obj_and_place": 373
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 623,
+        "novelty-before-revisit": 1416,
+        "ordered-task-recipe": 533,
+        "target-object-lock": 140
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 118,
+        "execute_required_clean": 29,
+        "execute_required_cool": 19,
+        "execute_required_heat": 23,
+        "explore_unvisited_location": 429,
+        "explore_unvisited_location_type": 623,
+        "navigate_to_clean_appliance": 29,
+        "navigate_to_cool_appliance": 19,
+        "navigate_to_heat_appliance": 23,
+        "navigate_to_target_destination": 273,
+        "open_unsearched_current_receptacle": 364,
+        "release_non_target_inventory": 3,
+        "take_visible_target_object": 137
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ],
+      "experience_selection_source": "explicit_experience_file",
+      "experience_decision_replay_verified": false
+    },
+    {
+      "variant": "K",
+      "episode_count": 134,
+      "step_count": 2333,
+      "success_count": 116,
+      "task_type_counts": {
+        "look_at_obj_in_light": 18,
+        "pick_and_place_simple": 24,
+        "pick_clean_then_place_in_recep": 31,
+        "pick_cool_then_place_in_recep": 21,
+        "pick_heat_then_place_in_recep": 23,
+        "pick_two_obj_and_place": 17
+      },
+      "experience_override_count": 2082,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 396,
+        "pick_and_place_simple": 355,
+        "pick_clean_then_place_in_recep": 419,
+        "pick_cool_then_place_in_recep": 270,
+        "pick_heat_then_place_in_recep": 256,
+        "pick_two_obj_and_place": 386
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 630,
+        "do-not-retake-delivered-target": 18,
+        "novelty-before-revisit": 1436,
+        "open-current-destination": 1,
+        "ordered-task-recipe": 484,
+        "target-object-lock": 143
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 115,
+        "execute_required_clean": 29,
+        "execute_required_cool": 19,
+        "execute_required_heat": 23,
+        "explore_unvisited_location": 436,
+        "explore_unvisited_location_type": 630,
+        "leave_delivered_target_and_search": 18,
+        "navigate_to_clean_appliance": 29,
+        "navigate_to_cool_appliance": 19,
+        "navigate_to_heat_appliance": 23,
+        "navigate_to_target_destination": 227,
+        "open_current_target_destination": 1,
+        "open_unsearched_current_receptacle": 370,
+        "release_non_target_inventory": 5,
+        "take_visible_target_object": 138
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "do-not-retake-delivered-target",
+        "novelty-before-revisit",
+        "open-current-destination",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ],
+      "experience_selection_source": "explicit_experience_file",
+      "experience_decision_replay_verified": false
+    }
+  ],
+  "totals": {
+    "episodes": 268,
+    "steps": 4684,
+    "successes": 230
+  }
+}

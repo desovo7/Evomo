@@ -1,0 +1,33 @@
+{
+  "episode_id": "2ff36743-cc05-488e-ae58-80470e553123",
+  "task_id": "valid_unseen/pick_two_obj_and_place-Pillow-None-Sofa-219/trial_T20190907_163408_914117",
+  "goal": "Put two pillows on the sofa.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 75,
+  "termination_reason": "max_steps",
+  "experience_version": "exp-v5-live-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/live_cycle_offset2/candidate.json",
+    "experience_version": "exp-v5-live-offset2-failures",
+    "experience_sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

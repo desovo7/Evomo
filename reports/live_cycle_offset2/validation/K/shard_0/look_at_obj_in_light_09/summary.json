@@ -1,0 +1,33 @@
+{
+  "episode_id": "33ae8e71-af57-4def-8fae-6f25226c372a",
+  "task_id": "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_141942_810052",
+  "goal": "examine a CD with a lamp",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 51,
+  "termination_reason": "success",
+  "experience_version": "exp-v5-live-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/live_cycle_offset2/candidate.json",
+    "experience_version": "exp-v5-live-offset2-failures",
+    "experience_sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 26,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 25
+  }
+}

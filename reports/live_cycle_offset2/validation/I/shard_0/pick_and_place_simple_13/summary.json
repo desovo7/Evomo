@@ -1,0 +1,33 @@
+{
+  "episode_id": "d9a7e82b-2b45-4253-9d36-a707c6afbabb",
+  "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021650_880235",
+  "goal": "place a salt shaker in one of the pullout drawers",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 73,
+  "termination_reason": "max_steps",
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/experience_v2/exp_v3.json",
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

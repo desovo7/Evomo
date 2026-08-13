@@ -38,11 +38,18 @@ from evomo.evaluation.cycle_executor import (
     audit_cycle_executor_state,
     run_cycle_executor,
 )
+from evomo.evaluation.qwen_cycle_plan import (
+    QWEN_CYCLE_PLAN_SCHEMA_VERSION,
+    TASK_TYPE_SHARDS,
+    build_qwen_evolution_cycle_plan,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
     "CYCLE_EXECUTOR_SCHEMA_VERSION",
     "CycleExecutor",
+    "QWEN_CYCLE_PLAN_SCHEMA_VERSION",
+    "TASK_TYPE_SHARDS",
     "EpisodeMetrics",
     "ExperienceSelection",
     "EVOLUTION_CYCLE_SCHEMA_VERSION",
@@ -52,6 +59,7 @@ __all__ = [
     "audit_cycle_executor_state",
     "audit_evolution_cycle_manifest",
     "build_evolution_cycle_manifest",
+    "build_qwen_evolution_cycle_plan",
     "compute_episode_metrics",
     "decide_experience_candidate",
     "directory_sha256",

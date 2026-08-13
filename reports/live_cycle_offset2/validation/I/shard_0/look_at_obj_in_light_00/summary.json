@@ -1,0 +1,33 @@
+{
+  "episode_id": "db3ab99a-4df4-4867-b2b6-44491c427642",
+  "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222917_366542",
+  "goal": "Hold the clock and turn on the lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "max_steps",
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/experience_v2/exp_v3.json",
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 4,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 24
+  }
+}

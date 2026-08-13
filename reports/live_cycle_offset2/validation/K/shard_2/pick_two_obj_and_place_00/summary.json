@@ -1,0 +1,33 @@
+{
+  "episode_id": "18c6d8d7-7282-473c-a20a-43e2e0c33632",
+  "task_id": "valid_unseen/pick_two_obj_and_place-CD-None-Safe-308/trial_T20190907_050942_897916",
+  "goal": "Secure two discs in a bedroom safe.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 65,
+  "termination_reason": "success",
+  "experience_version": "exp-v5-live-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/live_cycle_offset2/candidate.json",
+    "experience_version": "exp-v5-live-offset2-failures",
+    "experience_sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 21,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 20,
+    "format_compliant_actions": 20,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 20,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 19
+  }
+}

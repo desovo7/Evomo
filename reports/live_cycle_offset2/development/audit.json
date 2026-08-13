@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "protocol_role": "development",
+  "report_dir": "reports/live_cycle_offset2/development",
+  "same_task_ids": true,
+  "experience_evidence_task_overlap": 2,
+  "excluded_source_task_overlap": null,
+  "excluded_source_task_count": 0,
+  "discovery_task_count": null,
+  "variants": [
+    {
+      "variant": "I",
+      "episode_count": 6,
+      "step_count": 115,
+      "success_count": 3,
+      "task_type_counts": {
+        "look_at_obj_in_light": 1,
+        "pick_and_place_simple": 1,
+        "pick_clean_then_place_in_recep": 1,
+        "pick_cool_then_place_in_recep": 1,
+        "pick_heat_then_place_in_recep": 1,
+        "pick_two_obj_and_place": 1
+      },
+      "experience_override_count": 76,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 11,
+        "pick_and_place_simple": 3,
+        "pick_clean_then_place_in_recep": 29,
+        "pick_cool_then_place_in_recep": 6,
+        "pick_heat_then_place_in_recep": 12,
+        "pick_two_obj_and_place": 15
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 16,
+        "novelty-before-revisit": 25,
+        "ordered-task-recipe": 40,
+        "target-object-lock": 11
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 5,
+        "execute_required_clean": 1,
+        "execute_required_cool": 1,
+        "execute_required_heat": 1,
+        "explore_unvisited_location": 5,
+        "explore_unvisited_location_type": 16,
+        "navigate_to_clean_appliance": 1,
+        "navigate_to_cool_appliance": 1,
+        "navigate_to_heat_appliance": 1,
+        "navigate_to_target_destination": 29,
+        "open_unsearched_current_receptacle": 4,
+        "release_non_target_inventory": 3,
+        "take_visible_target_object": 8
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ],
+      "experience_selection_source": "explicit_experience_file",
+      "experience_decision_replay_verified": false
+    }
+  ],
+  "totals": {
+    "episodes": 6,
+    "steps": 115,
+    "successes": 3
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "status": "passed",
+  "decision": "retain_candidate",
+  "reason_code": "positive_no_regression_but_weak_evidence",
+  "criterion": {
+    "require_zero_incumbent_only_successes": true,
+    "minimum_candidate_only_successes": 1,
+    "maximum_exact_p_value_for_promotion": 0.05
+  },
+  "protocol": {
+    "source_split": "valid_train",
+    "source_role": "development",
+    "source_episode_count": 3,
+    "validation_split": "valid_unseen",
+    "validation_role": "evaluation",
+    "validation_task_count": 134,
+    "experience_evidence_task_overlap": 0,
+    "source_task_overlap": 0
+  },
+  "inputs": {
+    "comparison": {
+      "path": "reports/live_cycle_offset2/validation/comparison.json",
+      "sha256": "885b8409354b46eed6c05072f76f659b5ab47fe04c2c1c780dc474759aa62422"
+    },
+    "validation_audit": {
+      "path": "reports/live_cycle_offset2/validation/audit.json",
+      "sha256": "f316393c47a9161b809afadf8af0df9497d09fcd580caae3a50390a9e3fbb72e"
+    },
+    "evolution_audit": {
+      "path": "reports/live_cycle_offset2/evolution_audit.json",
+      "sha256": "0da29d7f69fcf5f740d3b5f96c2ab3f1faa537b2f01b91bb3961dde0277bd07d"
+    }
+  },
+  "incumbent": {
+    "variant": "I",
+    "path": "reports/experience_v2/exp_v3.json",
+    "version": "exp-v3-from-h-offset2-failures",
+    "sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "success_count": 114,
+    "steps": 2351
+  },
+  "candidate": {
+    "variant": "K",
+    "path": "reports/live_cycle_offset2/candidate.json",
+    "version": "exp-v5-live-offset2-failures",
+    "sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+    "success_count": 116,
+    "steps": 2333
+  },
+  "paired": {
+    "task_count": 134,
+    "both_success": 114,
+    "baseline_only": 0,
+    "candidate_only": 2,
+    "both_fail": 18,
+    "success_delta": 2,
+    "exact_p_value": 0.5
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "task_count": 18,
+      "both_success": 16,
+      "baseline_only": 0,
+      "candidate_only": 0,
+      "both_fail": 2,
+      "success_delta": 0,
+      "exact_p_value": 1.0
+    },
+    "pick_and_place_simple": {
+      "task_count": 24,
+      "both_success": 21,
+      "baseline_only": 0,
+      "candidate_only": 0,
+      "both_fail": 3,
+      "success_delta": 0,
+      "exact_p_value": 1.0
+    },
+    "pick_clean_then_place_in_recep": {
+      "task_count": 31,
+      "both_success": 28,
+      "baseline_only": 0,
+      "candidate_only": 1,
+      "both_fail": 2,
+      "success_delta": 1,
+      "exact_p_value": 1.0
+    },
+    "pick_cool_then_place_in_recep": {
+      "task_count": 21,
+      "both_success": 19,
+      "baseline_only": 0,
+      "candidate_only": 0,
+      "both_fail": 2,
+      "success_delta": 0,
+      "exact_p_value": 1.0
+    },
+    "pick_heat_then_place_in_recep": {
+      "task_count": 23,
+      "both_success": 23,
+      "baseline_only": 0,
+      "candidate_only": 0,
+      "both_fail": 0,
+      "success_delta": 0,
+      "exact_p_value": 1.0
+    },
+    "pick_two_obj_and_place": {
+      "task_count": 17,
+      "both_success": 7,
+      "baseline_only": 0,
+      "candidate_only": 1,
+      "both_fail": 9,
+      "success_delta": 1,
+      "exact_p_value": 1.0
+    }
+  },
+  "selected_stable": {
+    "path": "reports/experience_v2/exp_v3.json",
+    "version": "exp-v3-from-h-offset2-failures",
+    "sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6"
+  },
+  "candidate_retained_for_future_evidence": true
+}

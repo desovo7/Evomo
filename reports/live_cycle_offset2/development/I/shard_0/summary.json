@@ -1,0 +1,108 @@
+{
+  "variant": "I",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "task_count": 2,
+  "success_count": 1,
+  "success_rate": 0.5,
+  "totals": {
+    "steps": 34,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 17,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 14,
+    "unchanged_observations": 14,
+    "unique_actions": 15
+  },
+  "means": {
+    "steps": 17.0,
+    "repeated_actions": 7.0,
+    "unchanged_observations": 7.0,
+    "unique_actions": 7.5
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "task_count": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "steps": 30
+    },
+    "pick_and_place_simple": {
+      "task_count": 1,
+      "success_count": 1,
+      "success_rate": 1.0,
+      "steps": 4
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-304/trial_T20190907_232227_752681",
+      "task_type": "look_at_obj_in_light",
+      "goal": "Hold a bowl while turning a lamp on.",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 5,
+      "format_compliant_actions": 5,
+      "fallback_actions": 17,
+      "repaired_actions": 0,
+      "experience_overrides": 11,
+      "repeated_actions": 14,
+      "unchanged_observations": 14,
+      "unique_actions": 11
+    },
+    {
+      "task_id": "valid_train/pick_and_place_simple-Book-None-Desk-313/trial_T20190909_140606_239445",
+      "task_type": "pick_and_place_simple",
+      "goal": "move the book from the bed to the desk",
+      "termination_reason": "success",
+      "steps": 4,
+      "success": true,
+      "total_reward": 1.0,
+      "parsed_actions": 4,
+      "format_compliant_actions": 4,
+      "fallback_actions": 0,
+      "repaired_actions": 0,
+      "experience_overrides": 3,
+      "repeated_actions": 0,
+      "unchanged_observations": 0,
+      "unique_actions": 4
+    }
+  ],
+  "run": {
+    "variant": "I",
+    "prompt_variant": "experience_guided_action",
+    "policy_id": "qwen3-1.7b-i-experience_guided_action",
+    "model_id": "Qwen3-1.7B",
+    "split": "valid_train",
+    "selection_mode": "per_type",
+    "per_type": 1,
+    "task_offset": 2,
+    "task_types": [
+      "look_at_obj_in_light",
+      "pick_and_place_simple"
+    ],
+    "seed": 42,
+    "max_steps": 30,
+    "max_new_tokens": 96,
+    "max_history_items": 6,
+    "task_ids": [
+      "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-304/trial_T20190907_232227_752681",
+      "valid_train/pick_and_place_simple-Book-None-Desk-313/trial_T20190909_140606_239445"
+    ],
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "experience_selection": {
+      "selection_source": "explicit_experience_file",
+      "experience_path": "reports/experience_v2/exp_v3.json",
+      "experience_version": "exp-v3-from-h-offset2-failures",
+      "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+      "decision_path": null,
+      "decision_sha256": null,
+      "decision": null,
+      "decision_replay_verified": false
+    }
+  }
+}

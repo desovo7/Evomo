@@ -1,0 +1,33 @@
+{
+  "episode_id": "d09aaf97-ce0c-43b2-b048-97655d367abd",
+  "task_id": "valid_unseen/pick_and_place_simple-SoapBottle-None-Toilet-424/trial_T20190907_004404_604165",
+  "goal": "place a soap dispenser on top of the toilet",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 77,
+  "termination_reason": "success",
+  "experience_version": "exp-v5-live-offset2-failures",
+  "experience_selection": {
+    "selection_source": "explicit_experience_file",
+    "experience_path": "reports/live_cycle_offset2/candidate.json",
+    "experience_version": "exp-v5-live-offset2-failures",
+    "experience_sha256": "22fc6c9ea84dba91e487ca3e95b4e9e06bf6de22ab18be8b9ee52a9ba583a0ef",
+    "decision_path": null,
+    "decision_sha256": null,
+    "decision": null,
+    "decision_replay_verified": false
+  },
+  "metrics": {
+    "steps": 7,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 5,
+    "format_compliant_actions": 5,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 6,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}
