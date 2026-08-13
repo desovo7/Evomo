@@ -10,7 +10,8 @@ from pathlib import Path
 from evomo.benchmarks.alfworld import discover_tasks
 from evomo.data import EpisodeStore
 from evomo.envs.alfworld_textworld import AlfworldTextEnvironment
-from evomo.policies import HuggingFaceQwenGenerator, QwenPolicy
+from evomo.evaluation import resolve_experience_selection
+from evomo.policies import HuggingFaceQwenGenerator, PromptVariant, QwenPolicy
 from evomo.rollout import RolloutRunner
 
 
@@ -29,6 +30,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-steps", type=int, default=50)
     parser.add_argument("--max-new-tokens", type=int, default=16)
     parser.add_argument("--max-history-items", type=int, default=6)
+    experience = parser.add_mutually_exclusive_group()
+    experience.add_argument("--experience-file", type=Path)
+    experience.add_argument("--experience-decision", type=Path)
     parser.add_argument(
         "--output",
         type=Path,
@@ -55,18 +59,45 @@ def main() -> None:
             f"{len(discovered.tasks)} playable tasks"
         )
     task = discovered.tasks[args.task_index]
+    selection = (
+        resolve_experience_selection(
+            experience_path=args.experience_file,
+            decision_path=args.experience_decision,
+        )
+        if args.experience_file or args.experience_decision
+        else None
+    )
     generator = HuggingFaceQwenGenerator(
         args.model_path,
         device=args.device,
         max_new_tokens=args.max_new_tokens,
     )
-    policy = QwenPolicy(generator, max_history_items=args.max_history_items)
+    policy = QwenPolicy(
+        generator,
+        policy_id=(
+            "qwen3-1.7b-decision-selected-experience"
+            if selection
+            else "qwen3-1.7b-admissible-v1"
+        ),
+        max_history_items=args.max_history_items,
+        prompt_variant=(
+            PromptVariant.EXPERIENCE_GUIDED_ACTION
+            if selection
+            else PromptVariant.INDEX_BASELINE
+        ),
+        experiences=selection.experiences if selection else None,
+        experience_provenance=selection.provenance if selection else None,
+    )
     episode = RolloutRunner(max_steps=args.max_steps).run_episode(
         task=task,
         environment=AlfworldTextEnvironment(args.data_root),
         policy=policy,
         seed=args.seed,
         store=EpisodeStore(args.output),
+        experience_version=(selection.experiences.version if selection else None),
+        episode_metadata={
+            "experience_selection": dict(selection.provenance)
+        } if selection else None,
     )
 
     restored = list(EpisodeStore(args.output))[-1]
@@ -90,6 +121,9 @@ def main() -> None:
                 "fallback_actions": len(episode.steps) - parse_successes,
                 "output": str(args.output.resolve()),
                 "round_trip_verified": True,
+                "experience_selection": (
+                    dict(selection.provenance) if selection else None
+                ),
             },
             ensure_ascii=False,
             indent=2,

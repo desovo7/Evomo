@@ -1,0 +1,32 @@
+{
+  "variant": "I",
+  "prompt_variant": "experience_guided_action",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "selection_mode": "per_type",
+  "per_type": 1,
+  "task_offset": 0,
+  "task_types": [
+    "pick_and_place_simple"
+  ],
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/pick_and_place_simple-AlarmClock-None-Desk-307/trial_T20190907_072317_014092"
+  ],
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+  "experience_selection": {
+    "selection_source": "candidate_gate_decision",
+    "experience_path": "reports/experience_v2/exp_v3.json",
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "decision_path": "reports/experience_v4/decision.json",
+    "decision_sha256": "d68d769eadcd11b83c3bfdc10654e0fd9244cd54800adbded151ab1479be4712",
+    "decision": "retain_candidate",
+    "decision_replay_verified": true
+  }
+}

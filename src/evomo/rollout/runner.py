@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from typing import Mapping
+
 from evomo.data import Episode, EpisodeRecorder, EpisodeStore, TerminationReason
 from evomo.data.schema import TaskSpec
+from evomo.data.schema import JsonValue
 from evomo.envs.contracts import EnvironmentAdapter
 from evomo.policies.contracts import HistoryItem, Policy, PolicyInput
 
@@ -24,6 +27,8 @@ class RolloutRunner:
         policy: Policy,
         seed: int,
         store: EpisodeStore | None = None,
+        experience_version: str | None = None,
+        episode_metadata: Mapping[str, JsonValue] | None = None,
     ) -> Episode:
         """Run one episode and optionally append it after successful construction.
 
@@ -39,9 +44,11 @@ class RolloutRunner:
             policy_id=policy.policy_id,
             seed=seed,
             initial_observation=reset.observation,
+            experience_version=experience_version,
             metadata={
                 "max_steps": self.max_steps,
                 "reset_info": dict(reset.info),
+                **dict(episode_metadata or {}),
             },
         )
 

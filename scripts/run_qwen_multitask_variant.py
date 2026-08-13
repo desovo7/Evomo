@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -19,8 +18,8 @@ from evomo.evaluation import (
     select_tasks_by_type,
     summarize_variant,
     write_json,
+    resolve_experience_selection,
 )
-from evomo.experience import load_experience_set
 from evomo.policies import HuggingFaceQwenGenerator, PromptVariant, QwenPolicy
 from evomo.rollout import RolloutRunner
 
@@ -64,7 +63,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--max-history-items", type=int, default=6)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--experience-file", type=Path)
+    experience = parser.add_mutually_exclusive_group()
+    experience.add_argument("--experience-file", type=Path)
+    experience.add_argument(
+        "--experience-decision",
+        type=Path,
+        help="Replay a candidate gate decision and load only selected_stable.",
+    )
     args = parser.parse_args()
     if not args.data_root:
         parser.error("--data-root is required when ALFWORLD_DATA is unset")
@@ -81,10 +86,11 @@ def parse_args() -> argparse.Namespace:
     if args.max_history_items < 0:
         parser.error("max-history-items must be non-negative")
     experience_variants = {"G", "H", "I", "J", "K"}
-    if args.variant in experience_variants and args.experience_file is None:
-        parser.error("experience-guided variants require --experience-file")
-    if args.variant not in experience_variants and args.experience_file is not None:
-        parser.error("--experience-file is only valid for experience-guided variants")
+    has_experience = bool(args.experience_file or args.experience_decision)
+    if args.variant in experience_variants and not has_experience:
+        parser.error("experience-guided variants require an experience source")
+    if args.variant not in experience_variants and has_experience:
+        parser.error("experience sources are only valid for experience-guided variants")
     return args
 
 
@@ -92,14 +98,15 @@ def main() -> None:
     args = parse_args()
     prompt_variant = VARIANTS[args.variant]
     policy_id = f"qwen3-1.7b-{args.variant.lower()}-{prompt_variant.value}"
-    experiences = (
-        load_experience_set(args.experience_file) if args.experience_file else None
-    )
-    experience_sha256 = (
-        hashlib.sha256(args.experience_file.read_bytes()).hexdigest()
-        if args.experience_file
+    selection = (
+        resolve_experience_selection(
+            experience_path=args.experience_file,
+            decision_path=args.experience_decision,
+        )
+        if args.experience_file or args.experience_decision
         else None
     )
+    experiences = selection.experiences if selection else None
     discovered = discover_tasks(args.data_root, splits=[args.split]).tasks
     selected = (
         select_all_tasks_by_type(discovered, task_types=tuple(args.task_types))
@@ -128,7 +135,8 @@ def main() -> None:
         "max_history_items": args.max_history_items,
         "task_ids": [task.task_id for task in selected],
         "experience_version": experiences.version if experiences else None,
-        "experience_sha256": experience_sha256,
+        "experience_sha256": selection.sha256 if selection else None,
+        "experience_selection": dict(selection.provenance) if selection else None,
     }
     ensure_run_config(args.output_dir / "run_config.json", run_config)
 
@@ -165,6 +173,7 @@ def main() -> None:
             max_history_items=args.max_history_items,
             prompt_variant=prompt_variant,
             experiences=experiences,
+            experience_provenance=selection.provenance if selection else None,
         )
         print(f"[run] {args.variant} {task.task_type} {task.task_id}", flush=True)
         episode = RolloutRunner(max_steps=args.max_steps).run_episode(
@@ -172,6 +181,10 @@ def main() -> None:
             environment=AlfworldTextEnvironment(args.data_root),
             policy=policy,
             seed=args.seed + task_index,
+            experience_version=experiences.version if experiences else None,
+            episode_metadata={
+                "experience_selection": dict(selection.provenance)
+            } if selection else None,
         )
         persist_episode_artifacts(episode, task_directory)
         completed.append((task_index, episode))

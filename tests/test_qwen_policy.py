@@ -262,6 +262,10 @@ class QwenPolicyTest(unittest.TestCase):
             generator,
             prompt_variant=PromptVariant.EXPERIENCE_GUIDED_ACTION,
             experiences=experiences,
+            experience_provenance={
+                "selection_source": "candidate_gate_decision",
+                "decision_sha256": "abc",
+            },
         )
         policy.reset(task=task, seed=42)
 
@@ -270,6 +274,9 @@ class QwenPolicyTest(unittest.TestCase):
         self.assertEqual(decision.action, "take bowl 2 from cabinet 1")
         self.assertEqual(decision.source, "experience_override")
         self.assertEqual(decision.metadata["experience_version"], "exp-v1")
+        self.assertEqual(
+            decision.metadata["experience_provenance"]["decision_sha256"], "abc"
+        )
         self.assertEqual(
             decision.metadata["experience_override_reason"],
             "take_visible_target_object",

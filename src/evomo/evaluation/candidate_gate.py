@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping
 
@@ -17,6 +18,72 @@ from evomo.experience import (
 
 def file_sha256(path: str | Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+@dataclass(frozen=True, slots=True)
+class ExperienceSelection:
+    """One verified experience file plus rollout-safe provenance metadata."""
+
+    experiences: ExperienceSet
+    path: Path
+    sha256: str
+    provenance: Mapping[str, str | bool | None]
+
+
+def resolve_experience_selection(
+    *,
+    experience_path: str | Path | None = None,
+    decision_path: str | Path | None = None,
+) -> ExperienceSelection:
+    """Resolve either an explicit experience or the stable output of a gate."""
+
+    if (experience_path is None) == (decision_path is None):
+        raise ValueError("supply exactly one experience_path or decision_path")
+    if experience_path is not None:
+        path = Path(experience_path)
+        experiences = load_experience_set(path)
+        digest = file_sha256(path)
+        return ExperienceSelection(
+            experiences=experiences,
+            path=path,
+            sha256=digest,
+            provenance={
+                "selection_source": "explicit_experience_file",
+                "experience_path": path.as_posix(),
+                "experience_version": experiences.version,
+                "experience_sha256": digest,
+                "decision_path": None,
+                "decision_sha256": None,
+                "decision": None,
+                "decision_replay_verified": False,
+            },
+        )
+
+    assert decision_path is not None
+    path = Path(decision_path)
+    decision = json.loads(path.read_text(encoding="utf-8"))
+    audit_experience_candidate_decision(decision, decision_path=path)
+    selected = decision["selected_stable"]
+    selected_path = Path(selected["path"])
+    experiences = load_experience_set(selected_path)
+    digest = file_sha256(selected_path)
+    if experiences.version != selected["version"] or digest != selected["sha256"]:
+        raise ValueError("selected stable experience differs from candidate decision")
+    return ExperienceSelection(
+        experiences=experiences,
+        path=selected_path,
+        sha256=digest,
+        provenance={
+            "selection_source": "candidate_gate_decision",
+            "experience_path": selected_path.as_posix(),
+            "experience_version": experiences.version,
+            "experience_sha256": digest,
+            "decision_path": path.as_posix(),
+            "decision_sha256": file_sha256(path),
+            "decision": decision["decision"],
+            "decision_replay_verified": True,
+        },
+    )
 
 
 def decide_experience_candidate(

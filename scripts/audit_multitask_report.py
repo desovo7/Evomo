@@ -9,6 +9,7 @@ from collections import Counter
 from pathlib import Path
 
 from evomo.benchmarks.alfworld import discover_tasks
+from evomo.evaluation import resolve_experience_selection
 
 
 def load_json(path: Path) -> dict:
@@ -31,6 +32,20 @@ def find_episode_paths(directory: Path) -> list[Path]:
 
 def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
     summary = load_json(directory / "summary.json")
+    expected_selection = summary.get("run", {}).get("experience_selection")
+    if expected_selection:
+        if expected_selection.get("selection_source") == "candidate_gate_decision":
+            resolved = resolve_experience_selection(
+                decision_path=expected_selection.get("decision_path")
+            )
+        elif expected_selection.get("selection_source") == "explicit_experience_file":
+            resolved = resolve_experience_selection(
+                experience_path=expected_selection.get("experience_path")
+            )
+        else:
+            raise ValueError(f"{directory}: unknown experience selection source")
+        if dict(resolved.provenance) != expected_selection:
+            raise ValueError(f"{directory}: run experience selection is not reproducible")
     expected_ids = {row["task_id"] for row in summary["tasks"]}
     episodes: list[dict] = []
     step_count = 0
@@ -49,6 +64,14 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
         if len(rows) != 1:
             raise ValueError(f"{episode_path}: expected one episode, got {len(rows)}")
         episode = rows[0]
+        if expected_selection and episode.get("metadata", {}).get(
+            "experience_selection"
+        ) != expected_selection:
+            raise ValueError(f"{episode_path}: episode experience selection mismatch")
+        if expected_selection and episode.get("experience_version") != summary.get(
+            "run", {}
+        ).get("experience_version"):
+            raise ValueError(f"{episode_path}: episode experience version mismatch")
         steps = episode["steps"]
         step_rows = load_jsonl(episode_path.with_name("steps.jsonl"))
         if len(step_rows) != len(steps):
@@ -62,6 +85,10 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
             if step["action"] not in step["admissible_actions"]:
                 raise ValueError(f"{episode_path}: inadmissible action {step['action']!r}")
             metadata = step["info"]["policy"]["metadata"]
+            if expected_selection and metadata.get(
+                "experience_provenance"
+            ) != expected_selection:
+                raise ValueError(f"{episode_path}: step experience selection mismatch")
             if not isinstance(metadata.get("state_before"), dict):
                 raise ValueError(f"{episode_path}: missing state_before")
             if logged.get("state_before") != metadata["state_before"]:
@@ -117,7 +144,7 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
     elif used_rule_ids or override_count:
         raise ValueError(f"{directory}: experience behavior without an experience file")
 
-    return {
+    result = {
         "variant": summary["variant"],
         "episode_count": len(episodes),
         "step_count": step_count,
@@ -130,6 +157,14 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
         "used_experience_rule_ids": sorted(used_rule_ids),
         "task_ids": sorted(actual_ids),
     }
+    if expected_selection:
+        result["experience_selection_source"] = expected_selection.get(
+            "selection_source"
+        )
+        result["experience_decision_replay_verified"] = expected_selection.get(
+            "decision_replay_verified"
+        )
+    return result
 
 
 def parse_variant_experience(value: str) -> tuple[str, Path]:

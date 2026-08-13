@@ -739,3 +739,39 @@ PYTHONPATH=src python scripts/audit_experience_candidate_gate.py \
 The replay audit reconstructs the complete schema-v2 decision byte-for-byte
 from five content-addressed inputs. For this run it returns
 `retain_candidate`; `selected_stable.version` remains exp-v3.
+
+## Bind the stable decision to rollout trajectories
+
+Experience-guided runners can consume the gate decision directly instead of
+requiring a manually chosen experience path. `--experience-decision` replays
+the decision audit before model loading, resolves only `selected_stable`, and
+rejects a missing, modified, or mismatched selected experience. It is mutually
+exclusive with `--experience-file`.
+
+```bash
+CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python \
+  scripts/run_qwen_multitask_variant.py \
+  --data-root /path/to/alfworld \
+  --model-path ../models/Qwen3-1.7B \
+  --device cuda:0 \
+  --split valid_train \
+  --per-type 1 \
+  --task-types pick_and_place_simple \
+  --variant I \
+  --experience-decision reports/experience_v4/decision.json \
+  --seed 42 \
+  --max-steps 30 \
+  --max-new-tokens 96 \
+  --max-history-items 6 \
+  --output-dir \
+    reports/experience_selection_smoke/qwen3_1.7b_valid_train_simple_1/I
+```
+
+The real smoke episode succeeds in 10 steps. Although the command names only
+the exp-v4 gate decision, the resolver loads exp-v3 because exp-v4 was
+retained rather than promoted. The same selection record—experience path,
+version and SHA, decision path and SHA, decision outcome, and replay status—is
+stored in the immutable run contract, Episode metadata, every policy step,
+the flattened step JSONL, and the readable Markdown trajectory. The audit
+replays the decision again and requires all copies to match. Artifacts are
+under `reports/experience_selection_smoke/`.

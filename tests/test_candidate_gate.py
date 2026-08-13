@@ -10,6 +10,7 @@ from evomo.evaluation import (
     audit_experience_candidate_decision,
     decide_experience_candidate,
     file_sha256,
+    resolve_experience_selection,
 )
 from evomo.experience import ExperienceSet, save_experience_set
 
@@ -276,3 +277,41 @@ def test_gate_decision_replay_detects_tampering(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="not reproducible"):
         audit_experience_candidate_decision(report, decision_path=decision_path)
+
+
+def test_selection_from_decision_loads_only_selected_stable(tmp_path: Path) -> None:
+    report, _ = decide(tmp_path, baseline_only=0, candidate_only=2, p=0.5)
+    decision_path = tmp_path / "decision.json"
+    decision_path.write_text(json.dumps(report), encoding="utf-8")
+
+    selection = resolve_experience_selection(decision_path=decision_path)
+
+    assert selection.experiences.version == "exp-v3"
+    assert selection.provenance["decision"] == "retain_candidate"
+    assert selection.provenance["decision_replay_verified"] is True
+    assert selection.provenance["decision_sha256"] == file_sha256(decision_path)
+
+
+def test_selection_rejects_ambiguous_or_missing_source(tmp_path: Path) -> None:
+    experience = ExperienceSet("exp", "policy", (), ())
+    experience_path = tmp_path / "experience.json"
+    save_experience_set(experience, experience_path)
+
+    with pytest.raises(ValueError, match="exactly one"):
+        resolve_experience_selection()
+    with pytest.raises(ValueError, match="exactly one"):
+        resolve_experience_selection(
+            experience_path=experience_path, decision_path=tmp_path / "decision.json"
+        )
+
+
+def test_explicit_selection_records_unverified_file_provenance(tmp_path: Path) -> None:
+    experience = ExperienceSet("exp", "policy", (), ())
+    experience_path = tmp_path / "experience.json"
+    save_experience_set(experience, experience_path)
+
+    selection = resolve_experience_selection(experience_path=experience_path)
+
+    assert selection.experiences == experience
+    assert selection.provenance["selection_source"] == "explicit_experience_file"
+    assert selection.provenance["decision_replay_verified"] is False

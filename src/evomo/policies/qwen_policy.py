@@ -241,6 +241,7 @@ class QwenPolicy:
         prompt_variant: PromptVariant | str = PromptVariant.INDEX_BASELINE,
         skill_text: str = "",
         experiences: ExperienceSet | None = None,
+        experience_provenance: Mapping[str, JsonValue] | None = None,
     ) -> None:
         if not isinstance(policy_id, str) or not policy_id.strip():
             raise ValueError("policy_id must be a non-empty string")
@@ -252,6 +253,9 @@ class QwenPolicy:
             skill_text = ANTI_LOOP_SKILL
         self._skill_text = skill_text.strip()
         self._experiences = experiences
+        self._experience_provenance = _copy_json_mapping(
+            "experience_provenance", experience_provenance or {}
+        )
         if (
             self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION
             and experiences is None
@@ -458,6 +462,7 @@ class QwenPolicy:
                 "proposed_action": proposed_action,
                 "repair_reason": repair_reason,
                 "experience_version": experience_version,
+                "experience_provenance": self._experience_provenance,
                 "applicable_experience_rule_ids": applicable_rule_ids,
                 "experience_override_reason": experience_override_reason,
                 "experience_rule_ids": experience_rule_ids,

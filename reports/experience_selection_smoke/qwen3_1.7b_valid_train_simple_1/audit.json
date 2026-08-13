@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "protocol_role": "development",
+  "report_dir": "reports/experience_selection_smoke/qwen3_1.7b_valid_train_simple_1",
+  "same_task_ids": true,
+  "experience_evidence_task_overlap": 0,
+  "excluded_source_task_overlap": null,
+  "excluded_source_task_count": 0,
+  "discovery_task_count": null,
+  "variants": [
+    {
+      "variant": "I",
+      "experience_selection_source": "candidate_gate_decision",
+      "experience_decision_replay_verified": true,
+      "episode_count": 1,
+      "step_count": 10,
+      "success_count": 1,
+      "task_type_counts": {
+        "pick_and_place_simple": 1
+      },
+      "experience_override_count": 9,
+      "experience_overrides_by_task_type": {
+        "pick_and_place_simple": 9
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 5,
+        "novelty-before-revisit": 6,
+        "ordered-task-recipe": 2,
+        "target-object-lock": 1
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 1,
+        "explore_unvisited_location_type": 5,
+        "navigate_to_target_destination": 1,
+        "open_unsearched_current_receptacle": 1,
+        "take_visible_target_object": 1
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ]
+    }
+  ],
+  "totals": {
+    "episodes": 1,
+    "steps": 10,
+    "successes": 1
+  }
+}

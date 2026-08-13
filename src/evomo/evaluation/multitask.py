@@ -206,6 +206,7 @@ def merge_variant_summaries(shard_summaries: Iterable[dict]) -> dict:
         "max_history_items",
         "experience_version",
         "experience_sha256",
+        "experience_selection",
     )
     reference_run = shards[0].get("run", {})
     task_ids: set[str] = set()

@@ -1,0 +1,33 @@
+{
+  "episode_id": "1090f1a3-12c2-41c9-88b7-830f42b885b6",
+  "task_id": "valid_train/pick_and_place_simple-AlarmClock-None-Desk-307/trial_T20190907_072317_014092",
+  "goal": "move an alarm clock from a table to a desk",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "success",
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_selection": {
+    "selection_source": "candidate_gate_decision",
+    "experience_path": "reports/experience_v2/exp_v3.json",
+    "experience_version": "exp-v3-from-h-offset2-failures",
+    "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6",
+    "decision_path": "reports/experience_v4/decision.json",
+    "decision_sha256": "d68d769eadcd11b83c3bfdc10654e0fd9244cd54800adbded151ab1479be4712",
+    "decision": "retain_candidate",
+    "decision_replay_verified": true
+  },
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 10,
+    "format_compliant_actions": 10,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 9
+  }
+}

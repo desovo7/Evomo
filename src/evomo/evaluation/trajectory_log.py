@@ -78,6 +78,8 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
         "policy_id": episode.policy_id,
         "seed": episode.seed,
         "termination_reason": episode.termination_reason.value,
+        "experience_version": episode.experience_version,
+        "experience_selection": episode.metadata.get("experience_selection"),
         "metrics": metrics.to_dict(),
     }
     (output_directory / "summary.json").write_text(
@@ -102,6 +104,9 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 "proposed_action": policy_metadata.get("proposed_action"),
                 "repair_reason": policy_metadata.get("repair_reason"),
                 "experience_version": policy_metadata.get("experience_version"),
+                "experience_provenance": policy_metadata.get(
+                    "experience_provenance"
+                ),
                 "applicable_experience_rule_ids": policy_metadata.get(
                     "applicable_experience_rule_ids", []
                 ),
@@ -125,6 +130,8 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
         f"- Goal: {episode.task.goal}",
         f"- Result: success={episode.success}, reason={episode.termination_reason.value}",
         f"- Steps: {metrics.steps}",
+        f"- Experience version: `{episode.experience_version}`",
+        f"- Experience selection: `{episode.metadata.get('experience_selection')}`",
         f"- Parsed/fallback: {metrics.parsed_actions}/{metrics.fallback_actions}",
         f"- Repeated actions: {metrics.repeated_actions}",
         f"- Unchanged observations: {metrics.unchanged_observations}",
@@ -148,6 +155,7 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 f"Proposed action: `{policy_metadata.get('proposed_action')}`",
                 f"Repair reason: `{policy_metadata.get('repair_reason')}`",
                 f"Experience version: `{policy_metadata.get('experience_version')}`",
+                f"Experience provenance: `{policy_metadata.get('experience_provenance')}`",
                 f"Experience override: `{policy_metadata.get('experience_override_reason')}`",
                 f"Experience rules: `{policy_metadata.get('experience_rule_ids', [])}`",
                 "",

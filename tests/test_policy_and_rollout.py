@@ -128,6 +128,25 @@ class RolloutRunnerTest(unittest.TestCase):
         self.assertIn("selected_index", episode.steps[0].info["policy"]["metadata"])
         self.assertTrue(environment.closed)
 
+    def test_rollout_records_experience_selection_at_episode_level(self) -> None:
+        environment = FakeEnvironment([continuing_step(1)])
+        selection = {
+            "selection_source": "candidate_gate_decision",
+            "decision_sha256": "abc",
+        }
+
+        episode = RolloutRunner(max_steps=1).run_episode(
+            task=make_task(),
+            environment=environment,
+            policy=RandomPolicy(),
+            seed=7,
+            experience_version="exp-v3",
+            episode_metadata={"experience_selection": selection},
+        )
+
+        self.assertEqual(episode.experience_version, "exp-v3")
+        self.assertEqual(episode.metadata["experience_selection"], selection)
+
     def test_successful_environment_transition_finishes_episode(self) -> None:
         environment = FakeEnvironment(
             [
