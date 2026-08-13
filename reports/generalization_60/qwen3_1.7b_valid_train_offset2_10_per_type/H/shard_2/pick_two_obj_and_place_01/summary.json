@@ -1,0 +1,22 @@
+{
+  "episode_id": "30179817-d902-4a65-bf7d-1601799eeb73",
+  "task_id": "valid_train/pick_two_obj_and_place-CD-None-Drawer-306/trial_T20190907_025539_829173",
+  "goal": "Place two CDs in the desk drawer.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 53,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 15
+  }
+}

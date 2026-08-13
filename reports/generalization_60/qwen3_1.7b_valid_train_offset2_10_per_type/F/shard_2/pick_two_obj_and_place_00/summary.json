@@ -1,0 +1,22 @@
+{
+  "episode_id": "bdbbb228-3111-44ce-b76e-ae64f9236d07",
+  "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+  "goal": "Put two boxes on the small table.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 52,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 11
+  }
+}

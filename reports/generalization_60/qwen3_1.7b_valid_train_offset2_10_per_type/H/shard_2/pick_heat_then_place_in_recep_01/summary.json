@@ -1,0 +1,22 @@
+{
+  "episode_id": "4d7dfddc-0a66-42cf-8762-bf351f575174",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Cup-None-SideTable-3/trial_T20190908_210847_591144",
+  "goal": "Place a warm cup on the counter where the microwave is.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 43,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 15,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 14
+  }
+}

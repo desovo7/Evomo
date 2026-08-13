@@ -1,0 +1,22 @@
+{
+  "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+  "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+  "goal": "Inspect keys near a lit lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 49,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 24,
+    "format_compliant_actions": 24,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 23,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 27
+  }
+}

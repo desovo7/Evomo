@@ -1,0 +1,22 @@
+{
+  "episode_id": "76e01e4e-8bd2-4072-a924-4ccff05f0039",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Egg-None-DiningTable-15/trial_T20190908_042212_100074",
+  "goal": "Place a heated egg on the table",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 16,
+    "format_compliant_actions": 16,
+    "fallback_actions": 11,
+    "repaired_actions": 3,
+    "experience_overrides": 0,
+    "repeated_actions": 7,
+    "unchanged_observations": 7,
+    "unique_actions": 11
+  }
+}

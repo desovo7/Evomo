@@ -1,0 +1,22 @@
+{
+  "episode_id": "55481afa-8c3c-49cc-9aaf-4b378c749591",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230051_015449",
+  "goal": "Putting away a container.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 14,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 12,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "536c6a82-20f7-47af-b088-147cca614b72",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Kettle-None-Cabinet-2/trial_T20190909_042935_977031",
+  "goal": "Place a clean kettle inside the cabinet.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 50,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 25,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 25,
+    "format_compliant_actions": 25,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 24,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 24
+  }
+}

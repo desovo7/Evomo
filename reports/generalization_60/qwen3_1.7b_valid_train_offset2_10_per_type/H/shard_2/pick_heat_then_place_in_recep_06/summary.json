@@ -1,0 +1,22 @@
+{
+  "episode_id": "4ccec603-3df7-4d35-be12-f192fa7ffcad",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-22/trial_T20190906_184650_216044",
+  "goal": "Put a warm coffee cup into the coffee maker.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

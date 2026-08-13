@@ -1,0 +1,41 @@
+{
+  "variant": "F",
+  "prompt_variant": "state_tracked_repaired_action",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "per_type": 10,
+  "task_offset": 2,
+  "task_types": [
+    "pick_heat_then_place_in_recep",
+    "pick_two_obj_and_place"
+  ],
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230051_015449",
+    "valid_train/pick_heat_then_place_in_recep-Cup-None-SideTable-3/trial_T20190908_210847_591144",
+    "valid_train/pick_heat_then_place_in_recep-Egg-None-DiningTable-15/trial_T20190908_042212_100074",
+    "valid_train/pick_heat_then_place_in_recep-Egg-None-GarbageCan-23/trial_T20190911_011457_072067",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-2/trial_T20190907_070838_688262",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-21/trial_T20190908_113549_665152",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-22/trial_T20190906_184650_216044",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-5/trial_T20190908_040351_384338",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-SideTable-21/trial_T20190909_090802_375850",
+    "valid_train/pick_heat_then_place_in_recep-Mug-None-SideTable-28/trial_T20190908_212801_623417",
+    "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+    "valid_train/pick_two_obj_and_place-CD-None-Drawer-306/trial_T20190907_025539_829173",
+    "valid_train/pick_two_obj_and_place-CD-None-Dresser-303/trial_T20190908_085826_396748",
+    "valid_train/pick_two_obj_and_place-Candle-None-CounterTop-406/trial_T20190908_045958_916084",
+    "valid_train/pick_two_obj_and_place-CellPhone-None-Desk-312/trial_T20190908_122230_946481",
+    "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-318/trial_T20190908_104535_936869",
+    "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-329/trial_T20190909_030028_020737",
+    "valid_train/pick_two_obj_and_place-CellPhone-None-Dresser-330/trial_T20190909_060924_095249",
+    "valid_train/pick_two_obj_and_place-CellPhone-None-Sofa-224/trial_T20190918_223409_525979",
+    "valid_train/pick_two_obj_and_place-Cloth-None-Drawer-411/trial_T20190908_190008_902235"
+  ],
+  "experience_version": null,
+  "experience_sha256": null
+}

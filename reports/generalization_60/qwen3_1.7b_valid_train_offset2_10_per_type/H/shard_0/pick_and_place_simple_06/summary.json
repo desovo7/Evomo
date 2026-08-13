@@ -1,0 +1,22 @@
+{
+  "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+  "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+  "goal": "Put the cell phone on the desk",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 58,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 13,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 9,
+    "unchanged_observations": 9,
+    "unique_actions": 10
+  }
+}

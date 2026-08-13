@@ -396,3 +396,61 @@ admissible, all transition chains were continuous, all experience rule IDs
 resolved against the recorded experience file, and every one of the 17
 successes was an ALFWorld terminal transition with positive reward. Full
 reports are under `reports/experience_v1/`.
+
+## Evaluate experience generalization on 60 disjoint tasks
+
+The next evaluation expands the sample from one to ten tasks per ALFWorld
+category. It uses stable task offset 2, so all 60 evaluation task IDs are
+disjoint from both the offset-0/1 mechanism tests and the four task IDs cited
+as exp-v2 evidence. F and H run on exactly the same tasks with identical model,
+seed, decoding, history, and 30-step limits; H differs only by loading exp-v2.
+Six task types are split into three non-overlapping two-type shards so three
+GPUs can run concurrently, then merged only after validating their run
+contracts and task IDs.
+
+```bash
+REPORT=reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type
+
+PYTHONPATH=src python scripts/merge_qwen_multitask_shards.py \
+  --shard-root "$REPORT/H" \
+  --output "$REPORT/H/summary.json"
+
+PYTHONPATH=src python scripts/summarize_qwen_multitask.py \
+  --input-dir "$REPORT" \
+  --split valid_train \
+  --per-type 10 \
+  --task-offset 2 \
+  --variants F H
+
+PYTHONPATH=src python scripts/audit_multitask_report.py \
+  --report-dir "$REPORT" \
+  --experience-file reports/experience_v1/exp_v2.json \
+  --output "$REPORT/audit.json"
+```
+
+Results by task type:
+
+| Task type | F | H | Delta |
+| --- | ---: | ---: | ---: |
+| Look under light | 3/10 | 5/10 | +2 |
+| Simple pick/place | 4/10 | 4/10 | 0 |
+| Clean then place | 2/10 | 5/10 | +3 |
+| Cool then place | 3/10 | 5/10 | +2 |
+| Heat then place | 1/10 | 9/10 | +8 |
+| Place two objects | 2/10 | 2/10 | 0 |
+| **Overall** | **15/60 (25%)** | **30/60 (50%)** | **+15** |
+
+On matched tasks, H gained 18 successes and lost 3 relative to F. The
+two-sided exact McNemar/binomial p-value over those 21 discordant pairs is
+0.00149. This is evidence that exp-v2 transfers beyond its four evidence task
+IDs on this fixed sample, with most of the gain coming from heat tasks; it is
+not yet a claim about the official ALFWorld test-set score. Simple pick/place
+and two-object tasks receive no exp-v2 rules and show no change.
+
+The checked-in audit covers 120 episodes and 2,912 transitions. It validates
+admissible executed actions, continuous observation chains, state snapshots,
+native terminal rewards for successes, exact F/H task matching, experience
+version and SHA-256, rule IDs and task-type scope, and zero overlap with
+experience evidence tasks. The full paired table, raw model responses, state
+snapshots, and readable trajectories are under
+`reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/`.

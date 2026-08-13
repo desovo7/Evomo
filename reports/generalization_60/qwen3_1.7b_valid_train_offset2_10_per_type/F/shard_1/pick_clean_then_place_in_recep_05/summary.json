@@ -1,0 +1,22 @@
+{
+  "episode_id": "b5914a3c-a58e-4a4e-b3a0-0a15c9e49693",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Fork-None-CounterTop-24/trial_T20190907_032458_736277",
+  "goal": "Put a cleaned fork at the front of the sink.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 47,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 11,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 8,
+    "unchanged_observations": 8,
+    "unique_actions": 16
+  }
+}

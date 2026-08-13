@@ -1,0 +1,22 @@
+{
+  "episode_id": "3ed09672-932d-4d17-9371-f9b08d1329dd",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Mug-None-SideTable-21/trial_T20190909_090802_375850",
+  "goal": "Put a heated mug on top of a small black shelving unit.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 50,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 1,
+    "format_compliant_actions": 1,
+    "fallback_actions": 29,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 28,
+    "unchanged_observations": 28,
+    "unique_actions": 2
+  }
+}

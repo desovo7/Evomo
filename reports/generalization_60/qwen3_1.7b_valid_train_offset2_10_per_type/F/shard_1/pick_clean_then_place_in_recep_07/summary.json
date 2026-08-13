@@ -1,0 +1,22 @@
+{
+  "episode_id": "8b70a1ad-54a5-414c-85be-36a1719d2e4d",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Fork-None-SideTable-21/trial_T20190909_041401_796447",
+  "goal": "Place a washed fork onto the dark wood table.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 49,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 21,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 17,
+    "unchanged_observations": 17,
+    "unique_actions": 4
+  }
+}

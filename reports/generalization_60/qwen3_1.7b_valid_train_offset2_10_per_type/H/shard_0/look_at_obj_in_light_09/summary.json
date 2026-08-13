@@ -1,0 +1,22 @@
+{
+  "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+  "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+  "goal": "Pick a computer up and turn a lamp on.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 51,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 24,
+    "format_compliant_actions": 24,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

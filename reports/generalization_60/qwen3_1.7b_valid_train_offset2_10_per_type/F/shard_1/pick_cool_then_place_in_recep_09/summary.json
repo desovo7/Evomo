@@ -1,0 +1,22 @@
+{
+  "episode_id": "f55dc757-dc7e-4820-bd50-579e499ebebc",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Pan-None-DiningTable-11/trial_T20190908_204414_053313",
+  "goal": "To cool a pan and then place it on the white table across from the fridge.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 61,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 11,
+    "format_compliant_actions": 11,
+    "fallback_actions": 19,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 18,
+    "unchanged_observations": 18,
+    "unique_actions": 10
+  }
+}

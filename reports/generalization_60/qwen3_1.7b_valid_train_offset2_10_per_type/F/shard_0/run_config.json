@@ -1,0 +1,41 @@
+{
+  "variant": "F",
+  "prompt_variant": "state_tracked_repaired_action",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "per_type": 10,
+  "task_offset": 2,
+  "task_types": [
+    "look_at_obj_in_light",
+    "pick_and_place_simple"
+  ],
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-304/trial_T20190907_232227_752681",
+    "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-305/trial_T20190909_000758_132057",
+    "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-316/trial_T20190908_230650_245482",
+    "valid_train/look_at_obj_in_light-CD-None-DeskLamp-307/trial_T20190906_200435_424001",
+    "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+    "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+    "valid_train/look_at_obj_in_light-CreditCard-None-DeskLamp-314/trial_T20190906_201548_667159",
+    "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+    "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-309/trial_T20190907_185713_398582",
+    "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+    "valid_train/pick_and_place_simple-Book-None-Desk-313/trial_T20190909_140606_239445",
+    "valid_train/pick_and_place_simple-CD-None-Dresser-318/trial_T20190907_190246_917982",
+    "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+    "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+    "valid_train/pick_and_place_simple-Candle-None-Toilet-427/trial_T20190909_030427_604487",
+    "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+    "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+    "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+    "valid_train/pick_and_place_simple-CreditCard-None-ArmChair-202/trial_T20190909_011606_013059",
+    "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621"
+  ],
+  "experience_version": null,
+  "experience_sha256": null
+}

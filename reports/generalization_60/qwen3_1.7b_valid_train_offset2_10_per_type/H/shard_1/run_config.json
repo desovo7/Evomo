@@ -1,0 +1,41 @@
+{
+  "variant": "H",
+  "prompt_variant": "experience_guided_action",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "per_type": 10,
+  "task_offset": 2,
+  "task_types": [
+    "pick_clean_then_place_in_recep",
+    "pick_cool_then_place_in_recep"
+  ],
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+    "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-423/trial_T20190908_140728_318318",
+    "valid_train/pick_clean_then_place_in_recep-Cloth-None-Toilet-406/trial_T20190908_102735_461565",
+    "valid_train/pick_clean_then_place_in_recep-DishSponge-None-Shelf-20/trial_T20190907_222456_204496",
+    "valid_train/pick_clean_then_place_in_recep-Egg-None-GarbageCan-11/trial_T20190906_181033_636334",
+    "valid_train/pick_clean_then_place_in_recep-Fork-None-CounterTop-24/trial_T20190907_032458_736277",
+    "valid_train/pick_clean_then_place_in_recep-Fork-None-DiningTable-24/trial_T20190906_205216_940941",
+    "valid_train/pick_clean_then_place_in_recep-Fork-None-SideTable-21/trial_T20190909_041401_796447",
+    "valid_train/pick_clean_then_place_in_recep-Kettle-None-Cabinet-2/trial_T20190909_042935_977031",
+    "valid_train/pick_clean_then_place_in_recep-Kettle-None-DiningTable-17/trial_T20190909_023518_602816",
+    "valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209",
+    "valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-30/trial_T20190909_090746_864458",
+    "valid_train/pick_cool_then_place_in_recep-Egg-None-CounterTop-27/trial_T20190909_002015_890646",
+    "valid_train/pick_cool_then_place_in_recep-Lettuce-None-CounterTop-24/trial_T20190908_015109_682752",
+    "valid_train/pick_cool_then_place_in_recep-Lettuce-None-DiningTable-18/trial_T20190909_122629_020439",
+    "valid_train/pick_cool_then_place_in_recep-Lettuce-None-DiningTable-24/trial_T20190908_062436_694989",
+    "valid_train/pick_cool_then_place_in_recep-Mug-None-CoffeeMachine-11/trial_T20190908_021957_189338",
+    "valid_train/pick_cool_then_place_in_recep-Mug-None-CoffeeMachine-14/trial_T20190906_182932_157770",
+    "valid_train/pick_cool_then_place_in_recep-Mug-None-CoffeeMachine-23/trial_T20190908_143209_571893",
+    "valid_train/pick_cool_then_place_in_recep-Pan-None-DiningTable-11/trial_T20190908_204414_053313"
+  ],
+  "experience_version": "exp-v2-from-g-failures",
+  "experience_sha256": "28839bf0deccb0e9a0535011c8fba72dfdf16381d8dba5f65a8438ebce6705ff"
+}

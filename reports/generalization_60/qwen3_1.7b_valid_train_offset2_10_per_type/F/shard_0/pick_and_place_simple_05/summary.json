@@ -1,0 +1,22 @@
+{
+  "episode_id": "e9b20901-ea52-4ad1-ac53-f486928c2df2",
+  "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+  "goal": "Put the phone on the bed.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 57,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 20,
+    "format_compliant_actions": 20,
+    "fallback_actions": 10,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 5,
+    "unchanged_observations": 5,
+    "unique_actions": 11
+  }
+}

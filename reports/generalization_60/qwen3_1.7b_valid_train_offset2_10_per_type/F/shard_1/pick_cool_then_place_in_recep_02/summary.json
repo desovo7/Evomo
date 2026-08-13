@@ -1,0 +1,22 @@
+{
+  "episode_id": "346a882d-27c4-4526-8bd4-0c55ebab7dbc",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Egg-None-CounterTop-27/trial_T20190909_002015_890646",
+  "goal": "To chill an egg and put it on the counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 54,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 2,
+    "unchanged_observations": 2,
+    "unique_actions": 17
+  }
+}

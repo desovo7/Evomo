@@ -1,0 +1,22 @@
+{
+  "episode_id": "c9e056ce-d217-4425-b007-2a9df7938615",
+  "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+  "goal": "Put a CD on the book shelf.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 54,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

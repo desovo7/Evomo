@@ -1,0 +1,22 @@
+{
+  "episode_id": "ff67c0da-56f8-406f-a42b-bbe88d9a888c",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-21/trial_T20190908_113549_665152",
+  "goal": "Put a warmed mug under a coffee maker.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 47,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 8,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 7,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 7
+  }
+}

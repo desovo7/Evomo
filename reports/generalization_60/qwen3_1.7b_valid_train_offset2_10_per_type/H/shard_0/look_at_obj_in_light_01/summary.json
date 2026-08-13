@@ -1,0 +1,22 @@
+{
+  "episode_id": "9d8ef98f-0e13-4155-b6f3-ded560cc157a",
+  "task_id": "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-305/trial_T20190909_000758_132057",
+  "goal": "Pick up a clear bowl to look at under the dresser lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 43,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 18
+  }
+}

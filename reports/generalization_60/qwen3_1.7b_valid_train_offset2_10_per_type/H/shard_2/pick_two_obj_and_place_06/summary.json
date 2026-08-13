@@ -1,0 +1,22 @@
+{
+  "episode_id": "9bb6df58-f656-43bc-8074-25fbf77d0ed3",
+  "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-329/trial_T20190909_030028_020737",
+  "goal": "Putting two phones in a drawer on a nightstand",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 58,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 21,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 1,
+    "repaired_actions": 1,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 16
+  }
+}

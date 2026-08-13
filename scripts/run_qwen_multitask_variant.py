@@ -11,6 +11,7 @@ from pathlib import Path
 from evomo.benchmarks.alfworld import discover_tasks
 from evomo.envs.alfworld_textworld import AlfworldTextEnvironment
 from evomo.evaluation import (
+    CANONICAL_TASK_TYPES,
     ensure_run_config,
     load_completed_episode,
     persist_episode_artifacts,
@@ -41,6 +42,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--split", default="valid_train")
     parser.add_argument("--per-type", type=int, default=1)
     parser.add_argument("--task-offset", type=int, default=0)
+    parser.add_argument(
+        "--task-types",
+        nargs="+",
+        choices=CANONICAL_TASK_TYPES,
+        default=list(CANONICAL_TASK_TYPES),
+    )
     parser.add_argument("--variant", choices=tuple(VARIANTS), required=True)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-steps", type=int, default=30)
@@ -80,6 +87,7 @@ def main() -> None:
         discover_tasks(args.data_root, splits=[args.split]).tasks,
         per_type=args.per_type,
         offset=args.task_offset,
+        task_types=tuple(args.task_types),
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     run_config = {
@@ -90,6 +98,7 @@ def main() -> None:
         "split": args.split,
         "per_type": args.per_type,
         "task_offset": args.task_offset,
+        "task_types": list(args.task_types),
         "seed": args.seed,
         "max_steps": args.max_steps,
         "max_new_tokens": args.max_new_tokens,

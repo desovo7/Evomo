@@ -10,8 +10,10 @@ from evomo.data import Episode, StepRecord, TaskSpec, TerminationReason
 from evomo.evaluation import (
     CANONICAL_TASK_TYPES,
     build_cross_variant_comparison,
+    build_paired_success_analysis,
     ensure_run_config,
     load_completed_episode,
+    merge_variant_summaries,
     persist_episode_artifacts,
     render_comparison_markdown,
     select_tasks_by_type,
@@ -166,3 +168,94 @@ def test_cross_variant_aggregation_requires_same_tasks() -> None:
     )
     with pytest.raises(ValueError, match="identical task IDs"):
         build_cross_variant_comparison([summary_b, summary_c], split="valid_train", per_type=1)
+
+
+def test_paired_success_analysis_counts_gains_and_regressions() -> None:
+    tasks = [make_task(CANONICAL_TASK_TYPES[0], suffix) for suffix in ("a", "b", "c", "d")]
+    baseline = summarize_variant(
+        variant="F",
+        policy_id="policy-f",
+        episodes=[make_episode(task, success=index in (0, 1)) for index, task in enumerate(tasks)],
+    )
+    candidate = summarize_variant(
+        variant="H",
+        policy_id="policy-h",
+        episodes=[make_episode(task, policy_id="policy-h", success=index in (1, 2, 3)) for index, task in enumerate(tasks)],
+    )
+
+    paired = build_paired_success_analysis(baseline, candidate)
+
+    assert paired["overall"] == {
+        "task_count": 4,
+        "both_success": 1,
+        "baseline_only": 1,
+        "candidate_only": 2,
+        "both_fail": 0,
+        "success_delta": 1,
+        "exact_p_value": 1.0,
+    }
+
+
+def make_shard_summary(task_types: tuple[str, ...], shard_index: int) -> dict:
+    episodes = [
+        make_episode(
+            make_task(task_type, f"{shard_index}-{ordinal}"),
+            policy_id="policy-h",
+            success=ordinal == 0,
+        )
+        for task_type in task_types
+        for ordinal in range(2)
+    ]
+    summary = summarize_variant(variant="H", policy_id="policy-h", episodes=episodes)
+    summary["run"] = {
+        "model_id": "Qwen3-1.7B",
+        "split": "valid_train",
+        "per_type": 2,
+        "task_offset": 2,
+        "seed": 42,
+        "max_steps": 30,
+        "max_new_tokens": 96,
+        "max_history_items": 6,
+        "experience_version": "exp-v2",
+        "experience_sha256": "abc",
+        "task_types": list(task_types),
+        "task_ids": [episode.task.task_id for episode in episodes],
+    }
+    return summary
+
+
+def test_merge_variant_summaries_combines_disjoint_shards() -> None:
+    shards = [
+        make_shard_summary(tuple(CANONICAL_TASK_TYPES[index : index + 2]), index // 2)
+        for index in range(0, 6, 2)
+    ]
+
+    merged = merge_variant_summaries(shards)
+
+    assert merged["task_count"] == 12
+    assert merged["success_count"] == 6
+    assert merged["run"]["shard_count"] == 3
+    assert merged["run"]["task_types"] == sorted(CANONICAL_TASK_TYPES)
+    assert len(merged["run"]["task_ids"]) == 12
+    assert all(item["task_count"] == 2 for item in merged["by_task_type"].values())
+
+
+def test_merge_variant_summaries_rejects_contract_mismatch() -> None:
+    first = make_shard_summary(tuple(CANONICAL_TASK_TYPES[:2]), 0)
+    second = make_shard_summary(tuple(CANONICAL_TASK_TYPES[2:4]), 1)
+    second["run"]["max_steps"] = 50
+
+    with pytest.raises(ValueError, match="max_steps"):
+        merge_variant_summaries([first, second])
+
+
+def test_merge_variant_summaries_rejects_overlapping_types_and_bad_rows() -> None:
+    first = make_shard_summary(tuple(CANONICAL_TASK_TYPES[:2]), 0)
+    overlap = make_shard_summary(tuple(CANONICAL_TASK_TYPES[1:3]), 1)
+    with pytest.raises(ValueError, match="overlap"):
+        merge_variant_summaries([first, overlap])
+
+    second = make_shard_summary(tuple(CANONICAL_TASK_TYPES[2:4]), 1)
+    second["run"]["task_ids"].pop()
+    with pytest.raises(ValueError, match="task rows"):
+        merge_variant_summaries([first, second])

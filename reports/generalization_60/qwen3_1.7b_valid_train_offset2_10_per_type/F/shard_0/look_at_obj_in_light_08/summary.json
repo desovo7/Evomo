@@ -1,0 +1,22 @@
+{
+  "episode_id": "cad2d2c8-9719-4f42-8ee8-554b806adee3",
+  "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-309/trial_T20190907_185713_398582",
+  "goal": "Carry the laptop to turn on the lamp on a table.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 50,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 1,
+    "format_compliant_actions": 1,
+    "fallback_actions": 29,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 28,
+    "unchanged_observations": 28,
+    "unique_actions": 2
+  }
+}
