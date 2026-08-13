@@ -75,6 +75,9 @@ def test_executor_runs_parallel_jobs_then_recovers_without_rerunning(
     assert len(second["stages"]["parallel_rollout"]["jobs"]) == 3
     assert audit["status"] == "passed"
     assert audit["executed_stage_count"] == 2
+    assert audit["adopted_stage_count"] == 0
+    assert audit["resume_run_count"] == 1
+    assert audit["stage_recovery_event_count"] == 2
     assert audit["job_count"] == 4
     later_events = (state_dir / "events.jsonl").read_text(encoding="utf-8")
     assert later_events.startswith(first_events)
@@ -159,3 +162,83 @@ def test_executor_detects_event_chain_tampering_before_resume(tmp_path: Path) ->
 
     with pytest.raises(ValueError, match="event digest mismatch"):
         CycleExecutor(value, state_dir=state_dir).run()
+
+
+def test_audit_rejects_command_event_even_with_rehashed_chain(
+    tmp_path: Path,
+) -> None:
+    value = config(tmp_path)
+    config_path = tmp_path / "config.json"
+    state_dir = tmp_path / "state"
+    write_json(config_path, value)
+    CycleExecutor(value, state_dir=state_dir).run()
+    events_path = state_dir / "events.jsonl"
+    events = [json.loads(line) for line in events_path.read_text().splitlines()]
+    started = next(item for item in events if item["event"] == "job_started")
+    started["command_sha256"] = "0" * 64
+    # Direct event tampering is already caught by the chain. This assertion keeps
+    # the stronger command-to-config invariant covered by rebuilding the chain.
+    from evomo.evaluation.cycle_executor import _event_digest
+
+    previous = None
+    for event in events:
+        event["previous_event_sha256"] = previous
+        event.pop("event_sha256")
+        event["event_sha256"] = _event_digest(event)
+        previous = event["event_sha256"]
+    events_path.write_text(
+        "".join(json.dumps(item, separators=(",", ":")) + "\n" for item in events),
+        encoding="utf-8",
+    )
+    state = json.loads((state_dir / "state.json").read_text())
+    state["event_head_sha256"] = previous
+    write_json(state_dir / "state.json", state)
+
+    with pytest.raises(ValueError, match="job command hash mismatch"):
+        audit_cycle_executor_state(config_path, state_dir=state_dir)
+
+
+def test_failed_stage_retries_with_distinct_audited_attempt_logs(
+    tmp_path: Path,
+) -> None:
+    marker = tmp_path / "marker"
+    output = tmp_path / "output.txt"
+    source = (
+        "from pathlib import Path; "
+        f"m=Path({str(marker)!r}); o=Path({str(output)!r}); "
+        "first=not m.exists(); m.write_text('seen'); "
+        "o.write_text('complete') if not first else None; "
+        "raise SystemExit(7 if first else 0)"
+    )
+    value = {
+        "schema_version": 1,
+        "cycle_id": "retry-cycle",
+        "workspace": str(tmp_path),
+        "max_parallel": 1,
+        "stages": [
+            {
+                "stage_id": "retry",
+                "depends_on": [],
+                "outputs": [str(output)],
+                "jobs": [
+                    {"job_id": "fails-once", "argv": [sys.executable, "-c", source]}
+                ],
+            }
+        ],
+    }
+    config_path = tmp_path / "config.json"
+    state_dir = tmp_path / "state"
+    write_json(config_path, value)
+
+    with pytest.raises(RuntimeError, match="jobs failed"):
+        CycleExecutor(value, state_dir=state_dir).run()
+    state = CycleExecutor(value, state_dir=state_dir).run()
+    audit = audit_cycle_executor_state(config_path, state_dir=state_dir)
+
+    saved_job = state["stages"]["retry"]["jobs"][0]
+    assert saved_job["attempt"] == 2
+    assert audit["status"] == "passed"
+    logs = sorted((state_dir / "logs").glob("*.log"))
+    assert len(logs) == 2
+    assert logs[0].name.endswith("fails-once.log")
+    assert logs[1].name.endswith("fails-once__attempt_002.log")

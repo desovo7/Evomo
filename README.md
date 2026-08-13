@@ -875,3 +875,34 @@ There are 13 hash-chained events, zero model jobs, and a final audit with
 `manifest_replay_verified: true`. New cycles omit `adopt_manifest` and provide
 jobs for every stage, so rollout, evolution, validation, gating, manifest
 construction, and audit use the same recovery mechanism from their first run.
+
+## Execute the real post-rollout evolution chain
+
+The executor has also run in normal, non-adoption mode. The immutable input is
+the already sealed exp-v4 development and validation trajectory set; every
+subsequent CPU stage is rebuilt into an isolated directory:
+
+```text
+200 development episodes
+  -> development trajectory audit
+  -> rebuild exp-v4 from 42 failures
+  -> evolution audit
+  -> [paired comparison || paired validation audit]
+  -> candidate gate
+  -> cycle manifest
+  -> manifest replay audit
+```
+
+Run it with `configs/experience_v4_executed_cycle.json`. Seven stages launch
+eight project CLI jobs; the two validation post-processing jobs run
+concurrently. Every command's argv hash is checked against the immutable
+configuration, every started job has exactly one matching finished event,
+and its return code, log path and log SHA must equal the saved state.
+
+The first real run completes all seven stages. The rebuilt exp-v4 is
+byte-identical to the original checked-in candidate, and the rebuilt gate
+again returns `retain_candidate`. The new manifest audit covers 1,954 content
+records. A second invocation launches no job and records seven stage recovery
+events. The final executor audit reports 7 executed stages, 8 jobs, one resume
+run, 41 hash-chained events, and zero adopted stages. The outputs and all job
+logs are under `reports/experience_v4/executed_cycle/`.

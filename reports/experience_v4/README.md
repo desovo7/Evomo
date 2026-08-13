@@ -22,3 +22,10 @@ SHA-256-chained events: one sealed-manifest adoption followed by one complete
 four-stage recovery. `cycle_executor_audit.json` verifies the immutable config,
 stage output hashes, event chain and manifest replay. No model job was launched
 during adoption.
+
+`executed_cycle/` is stronger execution evidence: it uses the historical
+trajectories only as immutable rollout inputs, then actually launches every
+post-rollout project CLI through the executor. The candidate is regenerated
+byte-for-byte, the paired validation is reprocessed, the gate and manifest are
+rebuilt, and the manifest is independently replayed. Its second invocation
+recovers all seven stages without launching another job.

@@ -27,6 +27,12 @@ def _canonical_sha256(value: Mapping) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _command_sha256(argv: list[str]) -> str:
+    return hashlib.sha256(
+        json.dumps(argv, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
 def _timestamp() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -156,6 +162,7 @@ class CycleExecutor:
         self._sequence = 0
         self._event_head: str | None = None
         self._event_lock = threading.Lock()
+        self._job_attempts: dict[tuple[str, str], int] = {}
 
     def _event(self, event: str, **values) -> str:
         with self._event_lock:
@@ -271,7 +278,12 @@ class CycleExecutor:
     def _run_job(self, stage_id: str, job: Mapping) -> dict:
         job_id = str(job["job_id"])
         argv = list(job["argv"])
-        log_path = self.logs_dir / f"{stage_id}__{job_id}.log"
+        with self._event_lock:
+            key = (stage_id, job_id)
+            attempt = self._job_attempts.get(key, 0) + 1
+            self._job_attempts[key] = attempt
+        suffix = "" if attempt == 1 else f"__attempt_{attempt:03d}"
+        log_path = self.logs_dir / f"{stage_id}__{job_id}{suffix}.log"
         log_path.parent.mkdir(parents=True, exist_ok=True)
         environment = os.environ.copy()
         environment.update(job.get("env", {}))
@@ -280,9 +292,8 @@ class CycleExecutor:
             "job_started",
             stage_id=stage_id,
             job_id=job_id,
-            command_sha256=hashlib.sha256(
-                json.dumps(argv, separators=(",", ":")).encode()
-            ).hexdigest(),
+            attempt=attempt,
+            command_sha256=_command_sha256(argv),
             log_path=log_path.as_posix(),
         )
         with log_path.open("wb") as stream:
@@ -297,6 +308,7 @@ class CycleExecutor:
         duration = time.monotonic() - started
         result = {
             "job_id": job_id,
+            "attempt": attempt,
             "returncode": completed.returncode,
             "duration_seconds": round(duration, 6),
             "log_path": log_path.as_posix(),
@@ -321,6 +333,12 @@ class CycleExecutor:
             cycle_id=self.config["cycle_id"],
             config_hash=self.config_hash,
         )
+        for event in prior_events:
+            if event.get("event") != "job_started":
+                continue
+            key = (str(event.get("stage_id")), str(event.get("job_id")))
+            attempt = int(event.get("attempt", 1))
+            self._job_attempts[key] = max(self._job_attempts.get(key, 0), attempt)
         state_head = state.get("event_head_sha256")
         known_heads = {None} | {
             str(event["event_sha256"]) for event in prior_events
@@ -428,7 +446,7 @@ def audit_cycle_executor_state(
         str(stage["stage_id"]) for stage in stages
     }:
         raise ValueError("cycle executor state stage set mismatch")
-    recovered_count = 0
+    adopted_count = 0
     executed_count = 0
     job_count = 0
     for stage in stages:
@@ -443,7 +461,7 @@ def audit_cycle_executor_state(
             raise ValueError(f"{stage['stage_id']}: output hash mismatch")
         mode = saved.get("completion_mode")
         if mode == "adopted_sealed_manifest":
-            recovered_count += 1
+            adopted_count += 1
             if saved.get("jobs"):
                 raise ValueError(f"{stage['stage_id']}: adopted stage contains jobs")
         elif mode == "executed":
@@ -475,6 +493,54 @@ def audit_cycle_executor_state(
         raise ValueError("cycle executor state event head differs from event log")
     if not events or events[-1].get("event") != "run_completed":
         raise ValueError("cycle executor events lack a terminal completion")
+    configured_jobs = {
+        (str(stage["stage_id"]), str(job["job_id"])): job
+        for stage in stages
+        for job in stage.get("jobs", ())
+    }
+    started_events: dict[tuple[str, str], list[dict]] = {}
+    finished_events: dict[tuple[str, str], list[dict]] = {}
+    for event in events:
+        key = (str(event.get("stage_id", "")), str(event.get("job_id", "")))
+        if event.get("event") == "job_started":
+            started_events.setdefault(key, []).append(event)
+        elif event.get("event") == "job_finished":
+            finished_events.setdefault(key, []).append(event)
+    executed_jobs = {
+        (str(stage["stage_id"]), str(job["job_id"])): job
+        for stage in stages
+        for job in state["stages"][stage["stage_id"]].get("jobs", ())
+    }
+    if set(started_events) != set(executed_jobs) or set(finished_events) != set(
+        executed_jobs
+    ):
+        raise ValueError("cycle executor job event set differs from executed state")
+    for key, saved_job in executed_jobs.items():
+        if key not in configured_jobs:
+            raise ValueError("cycle executor state contains an unconfigured job")
+        starts = started_events[key]
+        finishes = finished_events[key]
+        if len(starts) != len(finishes):
+            raise ValueError("cycle executor job start/finish counts differ")
+        configured = configured_jobs[key]
+        expected_attempts = list(range(1, len(starts) + 1))
+        if [int(item.get("attempt", 1)) for item in starts] != expected_attempts:
+            raise ValueError("cycle executor job start attempts are not contiguous")
+        if [int(item.get("attempt", 1)) for item in finishes] != expected_attempts:
+            raise ValueError("cycle executor job finish attempts are not contiguous")
+        for start, finish in zip(starts, finishes):
+            if start.get("command_sha256") != _command_sha256(configured["argv"]):
+                raise ValueError("cycle executor job command hash mismatch")
+            log_path = Path(str(finish.get("log_path", "")))
+            if not log_path.is_file() or file_sha256(log_path) != finish.get(
+                "log_sha256"
+            ):
+                raise ValueError("cycle executor historical job log hash mismatch")
+        if finishes[-1].get("returncode") != 0:
+            raise ValueError("cycle executor final job attempt did not succeed")
+        for field in ("attempt", "returncode", "log_path", "log_sha256"):
+            if finishes[-1].get(field, 1) != saved_job.get(field, 1):
+                raise ValueError(f"cycle executor job finish {field} mismatch")
     manifest_replay = None
     if config.get("adopt_manifest"):
         manifest_path = _workspace_path(workspace, str(config["adopt_manifest"]))
@@ -486,6 +552,10 @@ def audit_cycle_executor_state(
     for event in events:
         name = str(event["event"])
         event_counts[name] = event_counts.get(name, 0) + 1
+    run_started = [event for event in events if event["event"] == "run_started"]
+    resume_run_count = sum(
+        event.get("state_status") == "complete" for event in run_started
+    )
     return {
         "status": "passed",
         "cycle_id": config["cycle_id"],
@@ -497,7 +567,9 @@ def audit_cycle_executor_state(
         "events_sha256": file_sha256(events_path),
         "stage_count": len(stages),
         "executed_stage_count": executed_count,
-        "recovered_stage_count": recovered_count,
+        "adopted_stage_count": adopted_count,
+        "resume_run_count": resume_run_count,
+        "stage_recovery_event_count": event_counts.get("stage_recovered", 0),
         "job_count": job_count,
         "event_count": len(events),
         "event_head_sha256": event_head,

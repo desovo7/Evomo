@@ -14,6 +14,7 @@ from evomo.evaluation import (
 
 REPOSITORY = Path(__file__).resolve().parents[1]
 MANIFEST = REPOSITORY / "reports/experience_v4/cycle_manifest.json"
+EXECUTED = REPOSITORY / "reports/experience_v4/executed_cycle"
 
 
 def test_directory_hash_is_path_sensitive_and_detects_content_change(
@@ -66,3 +67,27 @@ def test_cycle_manifest_rejects_a_changed_derived_result() -> None:
 
     with pytest.raises(ValueError, match="result is not reproducible"):
         audit_evolution_cycle_manifest(tampered, manifest_path=MANIFEST)
+
+
+def test_executor_rebuilt_real_candidate_and_complete_cycle() -> None:
+    from evomo.evaluation import audit_cycle_executor_state, file_sha256
+
+    config_path = REPOSITORY / "configs/experience_v4_executed_cycle.json"
+    audit = audit_cycle_executor_state(
+        config_path, state_dir=EXECUTED / "executor"
+    )
+    historical_candidate = REPOSITORY / "reports/experience_v4/exp_v4.json"
+    rebuilt_candidate = EXECUTED / "exp_v4.json"
+    decision = json.loads((EXECUTED / "decision.json").read_text(encoding="utf-8"))
+    manifest_audit = json.loads(
+        (EXECUTED / "cycle_manifest_audit.json").read_text(encoding="utf-8")
+    )
+
+    assert file_sha256(rebuilt_candidate) == file_sha256(historical_candidate)
+    assert audit["executed_stage_count"] == 7
+    assert audit["adopted_stage_count"] == 0
+    assert audit["job_count"] == 8
+    assert audit["resume_run_count"] == 1
+    assert audit["stage_recovery_event_count"] == 7
+    assert decision["decision"] == "retain_candidate"
+    assert manifest_audit["replay_equal"] is True

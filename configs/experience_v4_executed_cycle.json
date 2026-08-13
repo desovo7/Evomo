@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "cycle_id": "exp-v3-to-exp-v4-executed-postprocess",
+  "workspace": ".",
+  "max_parallel": 3,
+  "stages": [
+    {
+      "stage_id": "development_audit",
+      "depends_on": [],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/development_audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-development-trajectories",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_multitask_report.py",
+            "--report-dir",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200",
+            "--variants",
+            "I",
+            "--variant-experience",
+            "I=reports/experience_v2/exp_v3.json",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--protocol-role",
+            "development",
+            "--output",
+            "reports/experience_v4/executed_cycle/development_audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "experience_evolution",
+      "depends_on": [
+        "development_audit"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/exp_v4.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "evolve-exp-v4",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/evolve_failure_experiences.py",
+            "--base",
+            "reports/experience_v2/exp_v3.json",
+            "--episodes-root",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+            "--source-split",
+            "valid_train",
+            "--version",
+            "exp-v4-from-full-valid-train-failures",
+            "--enable-progress-rules",
+            "--output",
+            "reports/experience_v4/executed_cycle/exp_v4.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "evolution_audit",
+      "depends_on": [
+        "experience_evolution"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/evolution_audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-evolution",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_experience_evolution.py",
+            "--base",
+            "reports/experience_v2/exp_v3.json",
+            "--child",
+            "reports/experience_v4/executed_cycle/exp_v4.json",
+            "--episodes-root",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+            "--source-split",
+            "valid_train",
+            "--output",
+            "reports/experience_v4/executed_cycle/evolution_audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "validation_postprocess",
+      "depends_on": [
+        "evolution_audit"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/validation"
+      ],
+      "jobs": [
+        {
+          "job_id": "build-paired-comparison",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/summarize_qwen_multitask.py",
+            "--input-dir",
+            "reports/experience_v4/executed_cycle/validation",
+            "--split",
+            "valid_seen",
+            "--all-tasks",
+            "--variants",
+            "I",
+            "K",
+            "--summary",
+            "I=reports/experience_v4/qwen3_1.7b_valid_seen_all_140/I/summary.json",
+            "--summary",
+            "K=reports/experience_v4/qwen3_1.7b_valid_seen_all_140/K/summary.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        },
+        {
+          "job_id": "audit-paired-validation",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_multitask_report.py",
+            "--report-dir",
+            "reports/experience_v4/qwen3_1.7b_valid_seen_all_140",
+            "--variants",
+            "I",
+            "K",
+            "--variant-experience",
+            "I=reports/experience_v2/exp_v3.json",
+            "--variant-experience",
+            "K=reports/experience_v4/executed_cycle/exp_v4.json",
+            "--data-root",
+            "/home/qzluo/.cache/alfworld",
+            "--protocol-role",
+            "evaluation",
+            "--exclude-episodes-root",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+            "--output",
+            "reports/experience_v4/executed_cycle/validation/audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "candidate_gate",
+      "depends_on": [
+        "validation_postprocess"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/decision.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "gate-candidate",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/gate_experience_candidate.py",
+            "--comparison",
+            "reports/experience_v4/executed_cycle/validation/comparison.json",
+            "--validation-audit",
+            "reports/experience_v4/executed_cycle/validation/audit.json",
+            "--evolution-audit",
+            "reports/experience_v4/executed_cycle/evolution_audit.json",
+            "--incumbent",
+            "reports/experience_v2/exp_v3.json",
+            "--candidate",
+            "reports/experience_v4/executed_cycle/exp_v4.json",
+            "--output",
+            "reports/experience_v4/executed_cycle/decision.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "cycle_manifest",
+      "depends_on": [
+        "candidate_gate"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/cycle_manifest.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "build-cycle-manifest",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/build_evolution_cycle_manifest.py",
+            "--cycle-id",
+            "exp-v3-to-exp-v4-executed-postprocess",
+            "--incumbent-experience",
+            "reports/experience_v2/exp_v3.json",
+            "--development-trajectories",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+            "--development-summary",
+            "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I/summary.json",
+            "--development-audit",
+            "reports/experience_v4/executed_cycle/development_audit.json",
+            "--candidate-experience",
+            "reports/experience_v4/executed_cycle/exp_v4.json",
+            "--evolution-audit",
+            "reports/experience_v4/executed_cycle/evolution_audit.json",
+            "--validation-trajectories",
+            "reports/experience_v4/qwen3_1.7b_valid_seen_all_140",
+            "--validation-incumbent-summary",
+            "reports/experience_v4/qwen3_1.7b_valid_seen_all_140/I/summary.json",
+            "--validation-candidate-summary",
+            "reports/experience_v4/qwen3_1.7b_valid_seen_all_140/K/summary.json",
+            "--comparison",
+            "reports/experience_v4/executed_cycle/validation/comparison.json",
+            "--validation-audit",
+            "reports/experience_v4/executed_cycle/validation/audit.json",
+            "--decision",
+            "reports/experience_v4/executed_cycle/decision.json",
+            "--output",
+            "reports/experience_v4/executed_cycle/cycle_manifest.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    },
+    {
+      "stage_id": "manifest_audit",
+      "depends_on": [
+        "cycle_manifest"
+      ],
+      "outputs": [
+        "reports/experience_v4/executed_cycle/cycle_manifest_audit.json"
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-cycle-manifest",
+          "argv": [
+            "/data_b/qzluo/miniconda3/envs/verl-agent/bin/python",
+            "scripts/audit_evolution_cycle_manifest.py",
+            "--manifest",
+            "reports/experience_v4/executed_cycle/cycle_manifest.json",
+            "--output",
+            "reports/experience_v4/executed_cycle/cycle_manifest_audit.json"
+          ],
+          "env": {
+            "PYTHONPATH": "src"
+          }
+        }
+      ]
+    }
+  ]
+}

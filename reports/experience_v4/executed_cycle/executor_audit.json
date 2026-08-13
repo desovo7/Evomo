@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "cycle_id": "exp-v3-to-exp-v4-executed-postprocess",
+  "config_path": "configs/experience_v4_executed_cycle.json",
+  "config_sha256": "c7b550564e0c43e1c7ac1aac83dccfda0c2b4eda6ee11a497271b88938a83d81",
+  "state_path": "reports/experience_v4/executed_cycle/executor/state.json",
+  "state_sha256": "1176b045efa8b86d87991fe05f3522ac3297cb5161abe8123dace96ff2d54f7a",
+  "events_path": "reports/experience_v4/executed_cycle/executor/events.jsonl",
+  "events_sha256": "81e9a8da965b8445ed1a3d1f44f10fd7e30c90a8878cce25b1e4ec0593afde3e",
+  "stage_count": 7,
+  "executed_stage_count": 7,
+  "adopted_stage_count": 0,
+  "resume_run_count": 1,
+  "stage_recovery_event_count": 7,
+  "job_count": 8,
+  "event_count": 41,
+  "event_head_sha256": "439c27cf3f4d9c4a4b5964e66b1f32d9ac9bedd35439475079ce1a309924672f",
+  "event_counts": {
+    "job_finished": 8,
+    "job_started": 8,
+    "run_completed": 2,
+    "run_started": 2,
+    "stage_completed": 7,
+    "stage_recovered": 7,
+    "stage_started": 7
+  },
+  "manifest_replay_verified": null
+}
