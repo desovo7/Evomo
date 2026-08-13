@@ -19,14 +19,22 @@ from evomo.evaluation.multitask import (
     summarize_variant,
     write_json,
 )
+from evomo.evaluation.candidate_gate import (
+    audit_experience_candidate_decision,
+    decide_experience_candidate,
+    file_sha256,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
     "EpisodeMetrics",
     "build_cross_variant_comparison",
     "build_paired_success_analysis",
+    "audit_experience_candidate_decision",
     "compute_episode_metrics",
+    "decide_experience_candidate",
     "ensure_run_config",
+    "file_sha256",
     "load_completed_episode",
     "merge_variant_summaries",
     "persist_episode_artifacts",

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "decision_path": "reports/experience_v4/decision.json",
+  "decision_sha256": "d68d769eadcd11b83c3bfdc10654e0fd9244cd54800adbded151ab1479be4712",
+  "replay_equal": true,
+  "input_hash_count": 5,
+  "decision": "retain_candidate",
+  "selected_stable_version": "exp-v3-from-h-offset2-failures"
+}

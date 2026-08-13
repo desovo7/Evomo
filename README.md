@@ -707,3 +707,35 @@ exp-v3 remains the stable version backed by the frozen full `valid_unseen`
 benchmark. The validation audit covers 280 episodes and 4,274 transitions,
 all 140 discovered tasks, zero evidence/source overlap, and both immutable
 experience hashes. Full artifacts are under `reports/experience_v4/`.
+
+The retention decision is generated rather than handwritten. The candidate
+gate consumes the paired comparison, validation audit, evolution audit, and
+both experience JSON files. It verifies their SHA-256 values, parent lineage,
+development/evaluation roles, exact discovery coverage, zero source/evidence
+overlap, and paired-count consistency before applying this fixed rule:
+
+- reject if any incumbent-only success is observed;
+- promote only for at least one candidate-only success, no regressions, and
+  an exact paired p-value at or below 0.05;
+- otherwise retain a positive no-regression candidate for more evidence while
+  leaving the incumbent stable.
+
+```bash
+PYTHONPATH=src python scripts/gate_experience_candidate.py \
+  --comparison \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/comparison.json \
+  --validation-audit \
+    reports/experience_v4/qwen3_1.7b_valid_seen_all_140/audit.json \
+  --evolution-audit reports/experience_v4/evolution_audit.json \
+  --incumbent reports/experience_v2/exp_v3.json \
+  --candidate reports/experience_v4/exp_v4.json \
+  --output reports/experience_v4/decision.json
+
+PYTHONPATH=src python scripts/audit_experience_candidate_gate.py \
+  --decision reports/experience_v4/decision.json \
+  --output reports/experience_v4/decision_audit.json
+```
+
+The replay audit reconstructs the complete schema-v2 decision byte-for-byte
+from five content-addressed inputs. For this run it returns
+`retain_candidate`; `selected_stable.version` remains exp-v3.
