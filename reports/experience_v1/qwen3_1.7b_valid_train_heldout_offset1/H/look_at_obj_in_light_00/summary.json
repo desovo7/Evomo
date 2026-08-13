@@ -1,0 +1,22 @@
+{
+  "episode_id": "82cbd0c0-c08e-417e-b62d-cb79328f6afb",
+  "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-317/trial_T20190909_201225_052100",
+  "goal": "Turn the lamp on the night stand on while holding a book.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

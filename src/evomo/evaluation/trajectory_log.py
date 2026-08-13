@@ -18,6 +18,7 @@ class EpisodeMetrics:
     format_compliant_actions: int
     fallback_actions: int
     repaired_actions: int
+    experience_overrides: int
     repeated_actions: int
     unchanged_observations: int
     unique_actions: int
@@ -32,12 +33,15 @@ def compute_episode_metrics(episode: Episode) -> EpisodeMetrics:
     repeated_actions = 0
     unchanged_observations = 0
     repaired_actions = 0
+    experience_overrides = 0
     actions: list[str] = []
     for step in episode.steps:
-        policy_metadata = step.info.get("policy", {}).get("metadata", {})
+        policy_info = step.info.get("policy", {})
+        policy_metadata = policy_info.get("metadata", {})
         parsed_actions += int(bool(policy_metadata.get("parse_ok", False)))
         format_compliant_actions += int(bool(policy_metadata.get("required_format_ok", False)))
-        repaired_actions += int(bool(policy_metadata.get("repair_reason")))
+        repaired_actions += int(policy_info.get("source") == "state_prerequisite_repair")
+        experience_overrides += int(policy_info.get("source") == "experience_override")
         unchanged_observations += int(step.observation == step.next_observation)
         if actions and actions[-1] == step.action:
             repeated_actions += 1
@@ -48,8 +52,12 @@ def compute_episode_metrics(episode: Episode) -> EpisodeMetrics:
         total_reward=episode.total_reward,
         parsed_actions=parsed_actions,
         format_compliant_actions=format_compliant_actions,
-        fallback_actions=len(episode.steps) - parsed_actions - repaired_actions,
+        fallback_actions=sum(
+            int(step.info.get("policy", {}).get("source") == "fallback_first_admissible")
+            for step in episode.steps
+        ),
         repaired_actions=repaired_actions,
+        experience_overrides=experience_overrides,
         repeated_actions=repeated_actions,
         unchanged_observations=unchanged_observations,
         unique_actions=len(set(actions)),
@@ -93,6 +101,14 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 "state_before": policy_metadata.get("state_before"),
                 "proposed_action": policy_metadata.get("proposed_action"),
                 "repair_reason": policy_metadata.get("repair_reason"),
+                "experience_version": policy_metadata.get("experience_version"),
+                "applicable_experience_rule_ids": policy_metadata.get(
+                    "applicable_experience_rule_ids", []
+                ),
+                "experience_override_reason": policy_metadata.get(
+                    "experience_override_reason"
+                ),
+                "experience_rule_ids": policy_metadata.get("experience_rule_ids", []),
                 "action": step.action,
                 "next_observation": step.next_observation,
                 "reward": step.reward,
@@ -131,6 +147,9 @@ def write_trajectory_logs(episode: Episode, output_directory: str | Path) -> Epi
                 f"Action: `{step.action}`",
                 f"Proposed action: `{policy_metadata.get('proposed_action')}`",
                 f"Repair reason: `{policy_metadata.get('repair_reason')}`",
+                f"Experience version: `{policy_metadata.get('experience_version')}`",
+                f"Experience override: `{policy_metadata.get('experience_override_reason')}`",
+                f"Experience rules: `{policy_metadata.get('experience_rule_ids', [])}`",
                 "",
                 "Reconstructed state before decision:",
                 "```json",

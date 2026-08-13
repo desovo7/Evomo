@@ -13,6 +13,7 @@ _GO_RE = re.compile(r"^go to (.+)$", re.IGNORECASE)
 _TAKE_RE = re.compile(r"^take (.+) from (.+)$", re.IGNORECASE)
 _MOVE_RE = re.compile(r"^move (.+) to (.+)$", re.IGNORECASE)
 _OPEN_RE = re.compile(r"^open (.+)$", re.IGNORECASE)
+_TOGGLE_RE = re.compile(r"^toggle (.+)$", re.IGNORECASE)
 _TRANSFORM_RE = re.compile(r"^(clean|cool|heat) (.+?) (?:with|using) (.+)$", re.IGNORECASE)
 _ARRIVE_RE = re.compile(r"You arrive at ([^.]+)", re.IGNORECASE)
 
@@ -22,6 +23,9 @@ class AlfworldState:
     """Compact facts known immediately before one policy decision."""
 
     task_recipe: tuple[str, ...]
+    target_object_type: str | None
+    target_destination_type: str | None
+    target_toggle_type: str | None
     current_location: str | None
     inventory: str | None
     visited_locations: tuple[str, ...]
@@ -29,6 +33,7 @@ class AlfworldState:
     empty_receptacles: tuple[str, ...]
     known_placements: tuple[str, ...]
     transformed_objects: tuple[str, ...]
+    toggled_objects: tuple[str, ...]
     stalled_actions: tuple[str, ...]
     recent_actions: tuple[str, ...]
 
@@ -42,6 +47,9 @@ class AlfworldState:
         return "\n".join(
             (
                 f"Task recipe: {' -> '.join(self.task_recipe)}",
+                f"Target object type: {self.target_object_type or 'unknown'}",
+                f"Target destination type: {self.target_destination_type or 'none'}",
+                f"Target toggle type: {self.target_toggle_type or 'none'}",
                 f"Current location: {self.current_location or 'unknown'}",
                 f"Inventory: {self.inventory or 'empty'}",
                 f"Visited locations: {show(self.visited_locations)}",
@@ -49,6 +57,7 @@ class AlfworldState:
                 f"Known empty receptacles: {show(self.empty_receptacles)}",
                 f"Known placements: {show(self.known_placements)}",
                 f"Completed transformations: {show(self.transformed_objects)}",
+                f"Toggled objects: {show(self.toggled_objects)}",
                 f"Actions that recently made no progress: {show(self.stalled_actions)}",
                 f"Recent actions: {show(self.recent_actions)}",
             )
@@ -111,6 +120,7 @@ def reconstruct_alfworld_state(
     empty: set[str] = set()
     placements: dict[str, str] = {}
     transformed: dict[str, set[str]] = {}
+    toggled: set[str] = set()
     stalled: Counter[str] = Counter()
 
     observations = [item.next_observation for item in history]
@@ -158,6 +168,10 @@ def reconstruct_alfworld_state(
             operation, obj, _ = transform_match.groups()
             transformed.setdefault(obj.strip(), set()).add(operation.lower())
 
+        toggle_match = _TOGGLE_RE.fullmatch(action)
+        if toggle_match and not no_progress:
+            toggled.add(toggle_match.group(1).strip())
+
         if action == "inventory":
             lowered = result.lower()
             if "not carrying anything" in lowered:
@@ -177,8 +191,14 @@ def reconstruct_alfworld_state(
     stalled_actions = tuple(
         f"{action} ({count}x)" for action, count in sorted(stalled.items()) if count
     )
+    params = task.metadata.get("pddl_params", {})
+    if not isinstance(params, dict):
+        params = {}
     return AlfworldState(
         task_recipe=task_recipe(task),
+        target_object_type=str(params.get("object_target", "")).strip() or None,
+        target_destination_type=str(params.get("parent_target", "")).strip() or None,
+        target_toggle_type=str(params.get("toggle_target", "")).strip() or None,
         current_location=location,
         inventory=inventory,
         visited_locations=tuple(sorted(visited)),
@@ -186,6 +206,7 @@ def reconstruct_alfworld_state(
         empty_receptacles=tuple(sorted(empty)),
         known_placements=placement_facts,
         transformed_objects=transformation_facts,
+        toggled_objects=tuple(sorted(toggled)),
         stalled_actions=stalled_actions,
         recent_actions=tuple(item.action for item in history[-6:]),
     )

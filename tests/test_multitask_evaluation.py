@@ -74,11 +74,20 @@ def test_select_tasks_by_type_is_stable_and_canonical() -> None:
     assert [task.task_type for task in selected] == list(CANONICAL_TASK_TYPES)
     assert all(task.task_id.endswith("/a") for task in selected)
 
+    held_out = select_tasks_by_type(reversed(tasks), per_type=1, offset=1)
+    assert all(task.task_id.endswith("/z") for task in held_out)
+
 
 def test_select_tasks_by_type_rejects_missing_category() -> None:
     tasks = [make_task(task_type, "a") for task_type in CANONICAL_TASK_TYPES[:-1]]
     with pytest.raises(ValueError, match="has 0 tasks"):
         select_tasks_by_type(tasks)
+
+
+def test_select_tasks_by_type_validates_offset() -> None:
+    tasks = [make_task(task_type, "a") for task_type in CANONICAL_TASK_TYPES]
+    with pytest.raises(ValueError, match="offset=1"):
+        select_tasks_by_type(tasks, offset=1)
 
 
 def test_atomic_persistence_round_trip_and_resume(tmp_path: Path) -> None:

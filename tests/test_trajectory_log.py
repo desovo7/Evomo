@@ -69,6 +69,7 @@ class TrajectoryLogTest(unittest.TestCase):
         self.assertEqual(metrics.repeated_actions, 1)
         self.assertEqual(metrics.format_compliant_actions, 2)
         self.assertEqual(metrics.repaired_actions, 0)
+        self.assertEqual(metrics.experience_overrides, 0)
         self.assertEqual(metrics.unchanged_observations, 1)
 
         with tempfile.TemporaryDirectory() as directory:

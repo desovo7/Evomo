@@ -14,6 +14,7 @@ from evomo.policies.alfworld_state import (
     reconstruct_alfworld_state,
     repair_unavailable_action,
 )
+from evomo.experience import ExperienceSet, choose_experience_override
 
 _ACTION_PATTERN = re.compile(r"<action>\s*(\d+)\s*</action>", re.IGNORECASE)
 _BARE_INDEX_PATTERN = re.compile(r"^\s*(\d+)\s*$")
@@ -47,6 +48,7 @@ class PromptVariant(str, Enum):
     ANTI_LOOP_SKILL = "anti_loop_skill"
     STATE_TRACKED_ACTION_TEXT = "state_tracked_action_text"
     STATE_TRACKED_REPAIRED_ACTION = "state_tracked_repaired_action"
+    EXPERIENCE_GUIDED_ACTION = "experience_guided_action"
 
 
 @dataclass(frozen=True, slots=True)
@@ -149,6 +151,7 @@ def build_action_messages(
     prompt_variant: PromptVariant = PromptVariant.INDEX_BASELINE,
     skill_text: str = "",
     state_text: str = "",
+    experience_text: str = "",
 ) -> list[dict[str, str]]:
     """Render a bounded ALFWorld action-selection prompt."""
 
@@ -193,6 +196,7 @@ def build_action_messages(
     if prompt_variant in (
         PromptVariant.STATE_TRACKED_ACTION_TEXT,
         PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+        PromptVariant.EXPERIENCE_GUIDED_ACTION,
     ):
         instruction = (
             "Use the reconstructed state and task recipe. Do not pick an unrelated "
@@ -203,7 +207,12 @@ def build_action_messages(
         )
     skill_section = f"\n\nEpisode-level skill:\n[{skill_text.strip()}]" if skill_text.strip() else ""
     state_section = f"\n\nReconstructed task state:\n{state_text.strip()}" if state_text.strip() else ""
-    user_content = f"{context}{state_section}{skill_section}\n\n{instruction}"
+    experience_section = (
+        f"\n\nLearned experience rules:\n{experience_text.strip()}"
+        if experience_text.strip()
+        else ""
+    )
+    user_content = f"{context}{state_section}{experience_section}{skill_section}\n\n{instruction}"
     return [
         {
             "role": "system",
@@ -231,6 +240,7 @@ class QwenPolicy:
         max_history_items: int = 6,
         prompt_variant: PromptVariant | str = PromptVariant.INDEX_BASELINE,
         skill_text: str = "",
+        experiences: ExperienceSet | None = None,
     ) -> None:
         if not isinstance(policy_id, str) or not policy_id.strip():
             raise ValueError("policy_id must be a non-empty string")
@@ -241,6 +251,12 @@ class QwenPolicy:
         if self._prompt_variant is PromptVariant.ANTI_LOOP_SKILL and not skill_text.strip():
             skill_text = ANTI_LOOP_SKILL
         self._skill_text = skill_text.strip()
+        self._experiences = experiences
+        if (
+            self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION
+            and experiences is None
+        ):
+            raise ValueError("experience-guided policy requires an ExperienceSet")
         self._policy_id = policy_id
         self._max_history_items = max_history_items
         self._task_id: str | None = None
@@ -280,7 +296,14 @@ class QwenPolicy:
                 if self._prompt_variant in (
                     PromptVariant.STATE_TRACKED_ACTION_TEXT,
                     PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+                    PromptVariant.EXPERIENCE_GUIDED_ACTION,
                 )
+                else ""
+            ),
+            experience_text=(
+                self._experiences.render(policy_input.task.task_type)
+                if self._experiences is not None
+                and self._experiences.applicable_rules(policy_input.task.task_type)
                 else ""
             ),
         )
@@ -292,6 +315,7 @@ class QwenPolicy:
         if self._prompt_variant in (
             PromptVariant.STATE_TRACKED_ACTION_TEXT,
             PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+            PromptVariant.EXPERIENCE_GUIDED_ACTION,
         ):
             reconstructed_state = reconstruct_alfworld_state(
                 policy_input.task,
@@ -312,10 +336,9 @@ class QwenPolicy:
             required_format_ok = parse_ok and action_match is not None
             parse_format = "tagged_exact_action" if parse_ok else None
             selected_index = parsed_index if parse_ok else 0
-            if (
-                not parse_ok
-                and action_text
-                and self._prompt_variant is PromptVariant.STATE_TRACKED_REPAIRED_ACTION
+            if not parse_ok and action_text and self._prompt_variant in (
+                PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+                PromptVariant.EXPERIENCE_GUIDED_ACTION,
             ):
                 repaired = repair_unavailable_action(
                     action_text,
@@ -390,11 +413,37 @@ class QwenPolicy:
             required_format_ok = parse_ok and parse_format == "tagged_index"
         assert selected_index is not None
 
+        experience_override_reason = None
+        experience_rule_ids: tuple[str, ...] = ()
+        experience_version = None
+        applicable_rule_ids: tuple[str, ...] = ()
+        if self._prompt_variant is PromptVariant.EXPERIENCE_GUIDED_ACTION:
+            assert self._experiences is not None
+            experience_version = self._experiences.version
+            applicable_rule_ids = tuple(
+                rule.rule_id
+                for rule in self._experiences.applicable_rules(policy_input.task.task_type)
+            )
+            override = choose_experience_override(
+                task=policy_input.task,
+                state=reconstructed_state,
+                proposed_action=proposed_action,
+                admissible_actions=policy_input.admissible_actions,
+                experiences=self._experiences,
+            )
+            if override is not None:
+                selected_index = override.action_index
+                experience_override_reason = override.reason
+                experience_rule_ids = override.rule_ids
+                repair_reason = None
+
         return ActionDecision(
             action=policy_input.admissible_actions[selected_index],
             policy_id=self.policy_id,
             source=(
-                "model_generation"
+                "experience_override"
+                if experience_override_reason
+                else "model_generation"
                 if parse_ok
                 else "state_prerequisite_repair"
                 if repair_reason
@@ -408,6 +457,10 @@ class QwenPolicy:
                 "state_before": state_snapshot,
                 "proposed_action": proposed_action,
                 "repair_reason": repair_reason,
+                "experience_version": experience_version,
+                "applicable_experience_rule_ids": applicable_rule_ids,
+                "experience_override_reason": experience_override_reason,
+                "experience_rule_ids": experience_rule_ids,
                 "parse_ok": parse_ok,
                 "required_format_ok": required_format_ok,
                 "parse_format": parse_format,

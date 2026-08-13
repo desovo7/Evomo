@@ -18,6 +18,7 @@ def main() -> None:
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--split", default="valid_train")
     parser.add_argument("--per-type", type=int, default=1)
+    parser.add_argument("--task-offset", type=int, default=0)
     parser.add_argument("--variants", nargs="+", default=("B", "C", "D"))
     parser.add_argument(
         "--summary",
@@ -48,6 +49,7 @@ def main() -> None:
         split=args.split,
         per_type=args.per_type,
     )
+    comparison["task_offset"] = args.task_offset
     write_json(args.input_dir / "comparison.json", comparison)
     (args.input_dir / "README.md").write_text(
         render_comparison_markdown(comparison),

@@ -1,0 +1,273 @@
+from __future__ import annotations
+
+from pathlib import Path
+import subprocess
+import sys
+
+from evomo.data import Episode, StepRecord, TaskSpec, TerminationReason
+from evomo.experience import (
+    ExperienceEvidence,
+    ExperienceRule,
+    ExperienceSet,
+    choose_experience_override,
+    evolve_experience_set,
+    extract_failure_experiences,
+    load_experience_set,
+    save_experience_set,
+)
+from evomo.policies import reconstruct_alfworld_state
+
+
+def make_task(task_type: str = "pick_cool_then_place_in_recep") -> TaskSpec:
+    return TaskSpec(
+        task_id=f"valid_train/{task_type}/trial",
+        split="valid_train",
+        task_type=task_type,
+        goal="Place a cooled bowl in a cabinet.",
+        metadata={
+            "pddl_params": {
+                "object_target": "Bowl",
+                "parent_target": "Cabinet",
+                "toggle_target": "",
+            }
+        },
+    )
+
+
+def make_failed_episode() -> Episode:
+    task = make_task()
+    steps = (
+        StepRecord(
+            0,
+            "start",
+            ("go to cabinet 1",),
+            "go to cabinet 1",
+            "You arrive at cabinet 1. In it, you see a cup 1.",
+            0,
+            False,
+            {"policy": {"source": "model_generation", "metadata": {}}},
+        ),
+        StepRecord(
+            1,
+            "You arrive at cabinet 1. In it, you see a cup 1.",
+            ("take cup 1 from cabinet 1",),
+            "take cup 1 from cabinet 1",
+            "You pick up the cup 1 from the cabinet 1.",
+            0,
+            False,
+            {"policy": {"source": "model_generation", "metadata": {}}},
+        ),
+    )
+    return Episode(
+        episode_id="failed-episode",
+        task=task,
+        policy_id="policy-f",
+        seed=42,
+        started_at="2026-01-01T00:00:00+00:00",
+        ended_at="2026-01-01T00:00:01+00:00",
+        initial_observation="start",
+        steps=steps,
+        success=False,
+        termination_reason=TerminationReason.MAX_STEPS,
+        total_reward=0,
+    )
+
+
+def experience_set(task_type: str = "pick_cool_then_place_in_recep") -> ExperienceSet:
+    evidence = ExperienceEvidence("episode", "task", 1, "take cup", "wrong target")
+    return ExperienceSet(
+        version="exp-v1",
+        source_policy_id="policy-f",
+        source_episode_ids=("episode",),
+        rules=(
+            ExperienceRule(
+                "target-object-lock",
+                "target_object_lock",
+                (task_type,),
+                "Only manipulate the target object type.",
+                (evidence,),
+            ),
+            ExperienceRule(
+                "novelty-before-revisit",
+                "novelty_exploration",
+                (task_type,),
+                "Explore new locations first.",
+                (evidence,),
+            ),
+            ExperienceRule(
+                "ordered-task-recipe",
+                "ordered_subgoals",
+                (task_type,),
+                "Transform the target before delivery.",
+                (evidence,),
+            ),
+        ),
+    )
+
+
+def test_extracts_versioned_rules_with_source_evidence(tmp_path: Path) -> None:
+    experiences = extract_failure_experiences([make_failed_episode()], version="exp-v1")
+    output = tmp_path / "experience.json"
+    save_experience_set(experiences, output)
+
+    restored = load_experience_set(output)
+
+    assert restored == experiences
+    assert [rule.rule_id for rule in restored.rules] == [
+        "target-object-lock",
+        "ordered-task-recipe",
+    ]
+    assert restored.rules[0].evidence[0].action == "take cup 1 from cabinet 1"
+    assert restored.source_episode_ids == ("failed-episode",)
+
+
+def test_visible_target_overrides_wrong_model_object() -> None:
+    override = choose_experience_override(
+        task=make_task(),
+        state=reconstruct_alfworld_state(make_task(), (), "cabinet contents"),
+        proposed_action="take cup 1 from cabinet 1",
+        admissible_actions=(
+            "take cup 1 from cabinet 1",
+            "take bowl 2 from cabinet 1",
+        ),
+        experiences=experience_set(),
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "take_visible_target_object"
+    assert override.rule_ids == ("target-object-lock",)
+
+
+def test_target_must_be_cooled_before_delivery() -> None:
+    task = make_task()
+    state = reconstruct_alfworld_state(
+        task,
+        (),
+        "holding bowl",
+    )
+    state = type(state)(
+        **{
+            **state.to_dict(),
+            "inventory": "bowl 2",
+        }
+    )
+    override = choose_experience_override(
+        task=task,
+        state=state,
+        proposed_action="move bowl 2 to cabinet 1",
+        admissible_actions=(
+            "move bowl 2 to cabinet 1",
+            "cool bowl 2 with fridge 1",
+        ),
+        experiences=experience_set(),
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "execute_required_cool"
+
+
+def test_rules_do_not_apply_to_unlisted_task_type() -> None:
+    task = make_task("pick_clean_then_place_in_recep")
+    assert choose_experience_override(
+        task=task,
+        state=reconstruct_alfworld_state(task, (), "start"),
+        proposed_action="look",
+        admissible_actions=("look", "go to cabinet 1"),
+        experiences=experience_set(),
+    ) is None
+
+
+def test_experience_module_imports_in_fresh_interpreter() -> None:
+    result = subprocess.run(
+        [sys.executable, "-c", "from evomo.experience import ExperienceSet"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+
+
+def test_evolves_location_type_diversity_from_repeated_search() -> None:
+    task = make_task("pick_heat_then_place_in_recep")
+    steps = []
+    observation = "start"
+    for index in range(4):
+        next_observation = f"You arrive at cabinet {index + 1}. It is closed."
+        steps.append(
+            StepRecord(
+                index,
+                observation,
+                (f"go to cabinet {index + 1}", "go to countertop 1"),
+                f"go to cabinet {index + 1}",
+                next_observation,
+                0,
+                False,
+                {"policy": {"source": "experience_override", "metadata": {}}},
+            )
+        )
+        observation = next_observation
+    episode = Episode(
+        "g-heat-failure",
+        task,
+        "policy-g",
+        42,
+        "2026-01-01T00:00:00+00:00",
+        "2026-01-01T00:00:01+00:00",
+        "start",
+        tuple(steps),
+        False,
+        TerminationReason.MAX_STEPS,
+        0,
+    )
+
+    evolved = evolve_experience_set(
+        experience_set("pick_heat_then_place_in_recep"),
+        [episode],
+        version="exp-v2",
+    )
+
+    assert evolved.parent_version == "exp-v1"
+    assert evolved.rules[-1].rule_id == "diversify-location-types"
+    assert evolved.rules[-1].evidence[0].step_index == 3
+
+
+def test_diversity_rule_prefers_new_location_type() -> None:
+    task = make_task("pick_heat_then_place_in_recep")
+    base = experience_set("pick_heat_then_place_in_recep")
+    diversity = ExperienceRule(
+        "diversify-location-types",
+        "location_type_diversity",
+        (task.task_type,),
+        "Try a different location type.",
+        base.rules[0].evidence,
+    )
+    evolved = ExperienceSet(
+        "exp-v2",
+        "policy-g",
+        base.rules + (diversity,),
+        ("g-failure",),
+        parent_version="exp-v1",
+    )
+    state = reconstruct_alfworld_state(
+        task,
+        (),
+        "You arrive at cabinet 1. It is open.",
+    )
+
+    override = choose_experience_override(
+        task=task,
+        state=state,
+        proposed_action="go to cabinet 2",
+        admissible_actions=("go to cabinet 2", "go to countertop 1"),
+        experiences=evolved,
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "explore_unvisited_location_type"
+    assert override.rule_ids == (
+        "novelty-before-revisit",
+        "diversify-location-types",
+    )

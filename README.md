@@ -319,3 +319,80 @@ a stable benchmark success rate.
 
 The complete C/E/F comparison and step-level state snapshots are under
 `reports/state_tracking/qwen3_1.7b_valid_train_1_per_type/`.
+
+## Evolve evidence-backed experiences from failures
+
+The first self-evolving loop now uses persisted trajectories as its only
+experience source:
+
+```text
+F failures
+  -> extract exp-v1 (target lock, novel exploration, ordered subgoals)
+  -> evaluate G
+  -> inspect G failures
+  -> evolve exp-v2 (+ location-type diversity)
+  -> evaluate H on source and disjoint held-out tasks
+```
+
+An experience JSON contains a schema version, experience version, parent
+version, source policy, source episode IDs, and typed rules. Each rule carries
+its instruction plus concrete evidence records identifying the source
+episode, task, step, action, and observed failure. The rollout run contract
+stores both the experience version and SHA-256, so replacing a file under the
+same version cannot silently resume old trajectories.
+
+Generate and evolve the checked-in experiences:
+
+```bash
+PYTHONPATH=src python scripts/extract_failure_experiences.py \
+  --episodes-root reports/state_tracking/qwen3_1.7b_valid_train_1_per_type/F \
+  --version exp-v1-from-f-failures \
+  --output reports/experience_v1/exp_v1.json
+
+PYTHONPATH=src python scripts/evolve_failure_experiences.py \
+  --base reports/experience_v1/exp_v1.json \
+  --episodes-root reports/experience_v1/qwen3_1.7b_valid_train_1_per_type/G \
+  --version exp-v2-from-g-failures \
+  --output reports/experience_v1/exp_v2.json
+```
+
+Run H with exp-v2. `--task-offset 0` selects the source-task set and offset 1
+selects the lexicographically next task in every ALFWorld category:
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python \
+  scripts/run_qwen_multitask_variant.py \
+  --model-path ../models/Qwen3-1.7B \
+  --device cuda:0 \
+  --split valid_train \
+  --per-type 1 \
+  --task-offset 1 \
+  --variant H \
+  --experience-file reports/experience_v1/exp_v2.json \
+  --seed 42 \
+  --max-steps 30 \
+  --max-new-tokens 96 \
+  --max-history-items 6 \
+  --output-dir reports/experience_v1/qwen3_1.7b_valid_train_heldout_offset1/H
+```
+
+Strict current-code comparisons:
+
+| Task set | F: state + repair | H: exp-v2 | H steps | H repeats |
+| --- | ---: | ---: | ---: | ---: |
+| Source tasks, offset 0 | 2/6 | 6/6 | 74 | 1 |
+| Held-out tasks, offset 1 | 1/6 | 4/6 | 96 | 0 |
+
+The source and held-out task IDs are disjoint. On held-out tasks, H transfers
+to clean, cool, and heat tasks that F fails. The held-out clean goal changes
+from bowl/shelf to cloth/cart, so the rule follows structured TaskSpec targets
+instead of memorizing a source object. H still fails held-out light and simple
+pick-and-place, and six tasks per set is a mechanism test rather than a stable
+ALFWorld score.
+
+Across the 30 checked-in episodes in this stage, all 580 executed actions were
+admissible, all transition chains were continuous, all experience rule IDs
+resolved against the recorded experience file, and every one of the 17
+successes was an ALFWorld terminal transition with positive reward. Full
+reports are under `reports/experience_v1/`.

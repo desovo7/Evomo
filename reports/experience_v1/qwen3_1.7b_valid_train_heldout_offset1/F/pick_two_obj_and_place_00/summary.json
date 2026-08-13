@@ -1,0 +1,22 @@
+{
+  "episode_id": "9cb07526-7256-4dc5-b081-6a9db6528178",
+  "task_id": "valid_train/pick_two_obj_and_place-Book-None-Desk-309/trial_T20190909_061156_951604",
+  "goal": "Retrieve two books from the bed and place the books on the dresser",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 47,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 1,
+    "repaired_actions": 2,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

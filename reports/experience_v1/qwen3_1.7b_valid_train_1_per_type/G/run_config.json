@@ -1,0 +1,23 @@
+{
+  "variant": "G",
+  "prompt_variant": "experience_guided_action",
+  "policy_id": "qwen3-1.7b-g-experience_guided_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "per_type": 1,
+  "task_offset": 0,
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+    "valid_train/pick_and_place_simple-AlarmClock-None-Desk-307/trial_T20190907_072317_014092",
+    "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+    "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+    "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+    "valid_train/pick_two_obj_and_place-Book-None-Desk-302/trial_T20190906_181314_259738"
+  ],
+  "experience_version": "exp-v1-from-f-failures",
+  "experience_sha256": "e7ca970c201013f5076eea120400d8266b6843a6d6fb38b3f0a2846a52e38a1b"
+}

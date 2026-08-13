@@ -1,0 +1,22 @@
+{
+  "episode_id": "04f1ae7a-2bfa-4e02-bcf1-a7b79af6bee1",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Cart-401/trial_T20190907_045451_101032",
+  "goal": "Put a wet towel on top of the wire rack.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 14
+  }
+}

@@ -11,6 +11,11 @@ from evomo.policies import (
     QwenPolicy,
 )
 from evomo.policies.qwen_policy import build_action_messages
+from evomo.experience import (
+    ExperienceEvidence,
+    ExperienceRule,
+    ExperienceSet,
+)
 
 
 class FakeGenerator:
@@ -221,6 +226,92 @@ class QwenPolicyTest(unittest.TestCase):
             decision.metadata["repair_reason"],
             "navigate_held_object_to_proposed_destination",
         )
+
+    def test_experience_guided_variant_records_rule_override(self) -> None:
+        evidence = ExperienceEvidence("episode", "task", 1, "take cup", "wrong")
+        experiences = ExperienceSet(
+            version="exp-v1",
+            source_policy_id="policy-f",
+            source_episode_ids=("episode",),
+            rules=(
+                ExperienceRule(
+                    "target-object-lock",
+                    "target_object_lock",
+                    ("pick_cool_then_place_in_recep",),
+                    "Only take the target object.",
+                    (evidence,),
+                ),
+            ),
+        )
+        task = TaskSpec(
+            "valid_train/problem/trial",
+            "valid_train",
+            "pick_cool_then_place_in_recep",
+            "Cool a bowl.",
+            metadata={"pddl_params": {"object_target": "Bowl"}},
+        )
+        policy_input = PolicyInput(
+            task,
+            "You see a cup and bowl.",
+            ("take cup 1 from cabinet 1", "take bowl 2 from cabinet 1"),
+            (),
+            0,
+        )
+        generator = FakeGenerator("<action>take cup 1 from cabinet 1</action>")
+        policy = QwenPolicy(
+            generator,
+            prompt_variant=PromptVariant.EXPERIENCE_GUIDED_ACTION,
+            experiences=experiences,
+        )
+        policy.reset(task=task, seed=42)
+
+        decision = policy.decide(policy_input)
+
+        self.assertEqual(decision.action, "take bowl 2 from cabinet 1")
+        self.assertEqual(decision.source, "experience_override")
+        self.assertEqual(decision.metadata["experience_version"], "exp-v1")
+        self.assertEqual(
+            decision.metadata["experience_override_reason"],
+            "take_visible_target_object",
+        )
+        self.assertIn("Learned experience rules", generator.messages[0][1]["content"])
+
+    def test_inapplicable_experience_has_same_model_messages_as_f(self) -> None:
+        evidence = ExperienceEvidence("episode", "task", 0, None, "evidence")
+        experiences = ExperienceSet(
+            "exp-v1",
+            "policy-f",
+            (
+                ExperienceRule(
+                    "clean-only",
+                    "target_object_lock",
+                    ("pick_clean_then_place_in_recep",),
+                    "Only for clean tasks.",
+                    (evidence,),
+                ),
+            ),
+            ("episode",),
+        )
+        policy_input = make_input()
+        f_generator = FakeGenerator("<action>go to desk 1</action>")
+        h_generator = FakeGenerator("<action>go to desk 1</action>")
+        f_policy = QwenPolicy(
+            f_generator,
+            prompt_variant=PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
+        )
+        h_policy = QwenPolicy(
+            h_generator,
+            prompt_variant=PromptVariant.EXPERIENCE_GUIDED_ACTION,
+            experiences=experiences,
+        )
+        f_policy.reset(task=policy_input.task, seed=42)
+        h_policy.reset(task=policy_input.task, seed=42)
+
+        f_policy.decide(policy_input)
+        h_decision = h_policy.decide(policy_input)
+
+        self.assertEqual(f_generator.messages, h_generator.messages)
+        self.assertEqual(h_decision.metadata["applicable_experience_rule_ids"], [])
 
 
 if __name__ == "__main__":

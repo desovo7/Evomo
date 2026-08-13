@@ -1,0 +1,248 @@
+{
+  "version": "exp-v1-from-f-failures",
+  "source_policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "rules": [
+    {
+      "rule_id": "target-object-lock",
+      "kind": "target_object_lock",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep"
+      ],
+      "instruction": "Use pddl_params.object_target as an invariant: do not take, transform, or deliver a different object type; release a wrongly held object first.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 2,
+          "action": "take pen 2 from desk 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 6,
+          "action": "take cup 1 from cabinet 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 15,
+          "action": "take cup 1 from fridge 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 23,
+          "action": "take cup 1 from cabinet 2",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "8ce4bb11-1ad3-4bc3-ae57-a27b245a62da",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 8,
+          "action": "take saltshaker 2 from cabinet 3",
+          "observation": "The policy picked an object whose type did not match object_target."
+        }
+      ]
+    },
+    {
+      "rule_id": "novelty-before-revisit",
+      "kind": "novelty_exploration",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep"
+      ],
+      "instruction": "While searching for the target or a required lamp, open the current closed receptacle, then prefer an unvisited location over a known empty or already explored location.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 10,
+          "action": "go to desk 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 19,
+          "action": "go to sidetable 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 24,
+          "action": "go to desk 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 25,
+          "action": "go to sidetable 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 8,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 9,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 11,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 13,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 15,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 17,
+          "action": "go to cabinet 2",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 19,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 21,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 26,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 28,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 29,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 12,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 14,
+          "action": "go to fridge 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 21,
+          "action": "go to stoveburner 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 22,
+          "action": "go to cabinet 2",
+          "observation": "The target was not held and the policy revisited an explored location."
+        }
+      ]
+    },
+    {
+      "rule_id": "ordered-task-recipe",
+      "kind": "ordered_subgoals",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep"
+      ],
+      "instruction": "Follow the task recipe in order for the target object: acquire it, perform the required clean/cool/heat/light interaction, then deliver or examine it.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps after target acquisition."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        },
+        {
+          "episode_id": "8ce4bb11-1ad3-4bc3-ae57-a27b245a62da",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        }
+      ]
+    }
+  ],
+  "source_episode_ids": [
+    "bdd902de-4715-4a10-aef1-4487723b4e9e",
+    "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+    "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+    "8ce4bb11-1ad3-4bc3-ae57-a27b245a62da"
+  ],
+  "schema_version": 1
+}

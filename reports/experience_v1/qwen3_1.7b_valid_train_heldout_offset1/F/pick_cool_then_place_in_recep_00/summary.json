@@ -1,0 +1,22 @@
+{
+  "episode_id": "f0ec83ea-b2a6-408c-ac76-52d0d684ed15",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Shelf-20/trial_T20190908_034339_870890",
+  "goal": "Put the chilled bowl on the wooden shelf",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 45,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 25,
+    "format_compliant_actions": 25,
+    "fallback_actions": 5,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 3,
+    "unchanged_observations": 3,
+    "unique_actions": 15
+  }
+}

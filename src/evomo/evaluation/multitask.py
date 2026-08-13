@@ -25,12 +25,15 @@ def select_tasks_by_type(
     tasks: Iterable[TaskSpec],
     *,
     per_type: int = 1,
+    offset: int = 0,
     task_types: tuple[str, ...] = CANONICAL_TASK_TYPES,
 ) -> tuple[TaskSpec, ...]:
     """Select the first stable task IDs for every requested task type."""
 
     if not isinstance(per_type, int) or isinstance(per_type, bool) or per_type <= 0:
         raise ValueError("per_type must be a positive integer")
+    if not isinstance(offset, int) or isinstance(offset, bool) or offset < 0:
+        raise ValueError("offset must be a non-negative integer")
     grouped: dict[str, list[TaskSpec]] = {task_type: [] for task_type in task_types}
     for task in tasks:
         if task.task_type in grouped:
@@ -39,11 +42,12 @@ def select_tasks_by_type(
     selected: list[TaskSpec] = []
     for task_type in task_types:
         candidates = sorted(grouped[task_type], key=lambda task: task.task_id)
-        if len(candidates) < per_type:
+        if len(candidates) < offset + per_type:
             raise ValueError(
-                f"task type {task_type!r} has {len(candidates)} tasks; need {per_type}"
+                f"task type {task_type!r} has {len(candidates)} tasks; "
+                f"need {offset + per_type} for offset={offset}, per_type={per_type}"
             )
-        selected.extend(candidates[:per_type])
+        selected.extend(candidates[offset : offset + per_type])
     return tuple(selected)
 
 
@@ -119,6 +123,7 @@ def summarize_variant(
             "format_compliant_actions",
             "fallback_actions",
             "repaired_actions",
+            "experience_overrides",
             "repeated_actions",
             "unchanged_observations",
             "unique_actions",
@@ -198,15 +203,16 @@ def render_comparison_markdown(comparison: dict) -> str:
         f"- Tasks per prompt: {comparison['task_count_per_variant']}",
         f"- Samples per task type: {comparison['per_type']}",
         "",
-        "| Prompt | Success | Parsed actions | Repaired | True fallback | Repeats | Unchanged obs |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Prompt | Success | Parsed actions | Repaired | Experience overrides | True fallback | Repeats | Unchanged obs |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for summary in comparison["variants"]:
         totals = summary["totals"]
         lines.append(
             f"| {summary['variant']} | {summary['success_count']}/{summary['task_count']} "
             f"({summary['success_rate']:.1%}) | {totals['parsed_actions']}/{totals['steps']} | "
-            f"{totals.get('repaired_actions', 0)} | {totals['fallback_actions']} | "
+            f"{totals.get('repaired_actions', 0)} | "
+            f"{totals.get('experience_overrides', 0)} | {totals['fallback_actions']} | "
             f"{totals['repeated_actions']} | {totals['unchanged_observations']} |"
         )
     lines.extend(["", "## Per-task results", ""])
