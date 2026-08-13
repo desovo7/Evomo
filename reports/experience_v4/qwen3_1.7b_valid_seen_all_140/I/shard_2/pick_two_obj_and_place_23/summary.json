@@ -1,0 +1,22 @@
+{
+  "episode_id": "2ce7c67b-ed18-4b1c-8e0d-21b3e764345d",
+  "task_id": "valid_seen/pick_two_obj_and_place-Watch-None-Dresser-205/trial_T20190907_182211_592010",
+  "goal": "Put two watches on the tv stand.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 81,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 20,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 25
+  }
+}

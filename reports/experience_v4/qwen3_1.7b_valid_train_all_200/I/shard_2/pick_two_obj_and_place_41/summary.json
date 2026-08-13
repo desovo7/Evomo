@@ -1,0 +1,22 @@
+{
+  "episode_id": "32c6b4cc-03a9-420a-bdfc-c34bc394e64b",
+  "task_id": "valid_train/pick_two_obj_and_place-ToiletPaper-None-Cabinet-412/trial_T20190908_141555_713466",
+  "goal": "Put an empty roll and full roll of toilet paper in a cupboard.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 108,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 13,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 12,
+    "format_compliant_actions": 12,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 12,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 11
+  }
+}

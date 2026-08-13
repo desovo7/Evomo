@@ -1,0 +1,22 @@
+{
+  "episode_id": "b0ddfb12-7464-439b-85a6-605bf028ff00",
+  "task_id": "valid_seen/pick_heat_then_place_in_recep-Egg-None-CounterTop-2/trial_T20190908_122951_021026",
+  "goal": "Place a heated egg on the kitchen island.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

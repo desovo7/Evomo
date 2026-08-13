@@ -1,0 +1,984 @@
+{
+  "schema_version": 1,
+  "source_root": "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+  "failure_count": 42,
+  "signature_counts": {
+    "destination_navigation_loop": 6,
+    "held_target_light_incomplete": 12,
+    "held_target_task_incomplete": 1,
+    "other_inventory_state": 1,
+    "retake_delivered_target": 9,
+    "target_not_acquired": 13
+  },
+  "failure_counts_by_task_type": {
+    "look_at_obj_in_light": 12,
+    "pick_and_place_simple": 3,
+    "pick_clean_then_place_in_recep": 4,
+    "pick_cool_then_place_in_recep": 5,
+    "pick_heat_then_place_in_recep": 2,
+    "pick_two_obj_and_place": 16
+  },
+  "failures": [
+    {
+      "episode_id": "9f94faf6-2858-4848-b08f-704931394945",
+      "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-317/trial_T20190909_201225_052100",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "book 1",
+      "last_actions": [
+        "open drawer 7",
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 9",
+        "open drawer 9"
+      ]
+    },
+    {
+      "episode_id": "a86edb03-694a-4af2-82b7-0aec8e6afc1f",
+      "task_id": "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-304/trial_T20190907_232227_752681",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "bowl 1",
+      "last_actions": [
+        "examine bowl 1",
+        "examine bowl 1",
+        "examine bowl 1",
+        "examine bowl 1",
+        "examine bowl 1"
+      ]
+    },
+    {
+      "episode_id": "16515971-d5f7-4c4f-8c1e-a4907436241f",
+      "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "cd 1",
+      "last_actions": [
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 7",
+        "open drawer 7",
+        "go to drawer 9"
+      ]
+    },
+    {
+      "episode_id": "470d4191-7288-4cc3-9e16-a251844e9b15",
+      "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "cd 3",
+      "last_actions": [
+        "examine cd 3",
+        "go to desk 1",
+        "look",
+        "look",
+        "move cd 3 to desk 1"
+      ]
+    },
+    {
+      "episode_id": "48ff5ffa-89ee-4594-8229-097e6b1c7640",
+      "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "keychain 4",
+      "last_actions": [
+        "go to shelf 1",
+        "examine keychain 4",
+        "examine keychain 4",
+        "go to drawer 6",
+        "go to shelf 2"
+      ]
+    },
+    {
+      "episode_id": "ded47509-0e73-4b01-adf7-e39213726ad3",
+      "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "laptop 1",
+      "last_actions": [
+        "go to shelf 2",
+        "go to shelf 3",
+        "go to shelf 4",
+        "go to shelf 5",
+        "go to shelf 6"
+      ]
+    },
+    {
+      "episode_id": "f8e5d860-232a-45bd-8cf0-11c30aa294ad",
+      "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-324/trial_T20190908_071137_867346",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "laptop 1",
+      "last_actions": [
+        "go to shelf 2",
+        "go to shelf 3",
+        "go to shelf 4",
+        "go to shelf 5",
+        "look"
+      ]
+    },
+    {
+      "episode_id": "53655da6-83d4-4ed3-b738-741d40c203c2",
+      "task_id": "valid_train/look_at_obj_in_light-Mug-None-DeskLamp-323/trial_T20190907_041046_628363",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "mug 1",
+      "last_actions": [
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 7",
+        "open drawer 7",
+        "go to drawer 9"
+      ]
+    },
+    {
+      "episode_id": "a6455ee9-8072-432b-8c48-18e65f16bdc7",
+      "task_id": "valid_train/look_at_obj_in_light-Pen-None-DeskLamp-305/trial_T20190907_115824_746935",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "pen 2",
+      "last_actions": [
+        "examine drawer 2",
+        "go to drawer 3",
+        "close drawer 3",
+        "examine drawer 3",
+        "look"
+      ]
+    },
+    {
+      "episode_id": "58b4faad-7cf7-4e11-bf5e-58d72bd9a103",
+      "task_id": "valid_train/look_at_obj_in_light-Pillow-None-DeskLamp-309/trial_T20190908_113756_084511",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "pillow 1",
+      "last_actions": [
+        "move pillow 1 to bed 1",
+        "take pillow 1 from bed 1",
+        "examine bed 1",
+        "look",
+        "look"
+      ]
+    },
+    {
+      "episode_id": "87a4f1b2-0397-443a-979c-865de9861117",
+      "task_id": "valid_train/look_at_obj_in_light-Pillow-None-DeskLamp-323/trial_T20190908_053117_107031",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "pillow 1",
+      "last_actions": [
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 7",
+        "open drawer 7",
+        "go to drawer 9"
+      ]
+    },
+    {
+      "episode_id": "2beadcc9-05e5-4733-a286-87a23cec2942",
+      "task_id": "valid_train/look_at_obj_in_light-TissueBox-None-DeskLamp-216/trial_T20190908_033138_836240",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "tissuebox 1",
+      "last_actions": [
+        "move tissuebox 1 to sidetable 3",
+        "take tissuebox 1 from sidetable 3",
+        "look",
+        "examine tissuebox 1",
+        "examine sidetable 3"
+      ]
+    },
+    {
+      "episode_id": "b695161e-49df-4cce-8701-6e990d6780a8",
+      "task_id": "valid_train/pick_and_place_simple-Fork-None-Drawer-12/trial_T20190907_151050_079642",
+      "task_type": "pick_and_place_simple",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 14",
+        "open cabinet 14",
+        "go to cabinet 16",
+        "go to cabinet 17",
+        "go to cabinet 18"
+      ]
+    },
+    {
+      "episode_id": "e324dda4-0714-40d6-acec-fde0ed9bbe2e",
+      "task_id": "valid_train/pick_and_place_simple-KeyChain-None-ArmChair-318/trial_T20190909_114631_650488",
+      "task_type": "pick_and_place_simple",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to drawer 5",
+        "open drawer 5",
+        "go to drawer 6",
+        "open drawer 6",
+        "go to drawer 7"
+      ]
+    },
+    {
+      "episode_id": "552250fa-f133-4e44-84a4-d29ef0fcd72e",
+      "task_id": "valid_train/pick_and_place_simple-Pan-None-DiningTable-15/trial_T20190908_182413_239334",
+      "task_type": "pick_and_place_simple",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 6",
+        "go to cabinet 7",
+        "open cabinet 7",
+        "go to cabinet 8",
+        "open cabinet 8"
+      ]
+    },
+    {
+      "episode_id": "b784f5b8-42f4-427f-b252-1baf1000b536",
+      "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "cloth 4",
+      "last_actions": [
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1"
+      ]
+    },
+    {
+      "episode_id": "a17f9685-610e-46ea-87d4-e7d254f06de4",
+      "task_id": "valid_train/pick_clean_then_place_in_recep-Kettle-None-StoveBurner-30/trial_T20190906_200053_697370",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open cabinet 3",
+        "go to cabinet 4",
+        "open cabinet 4",
+        "go to cabinet 5",
+        "open cabinet 5"
+      ]
+    },
+    {
+      "episode_id": "1894eabe-e9c9-4a1c-8fec-259d0f76a4c6",
+      "task_id": "valid_train/pick_clean_then_place_in_recep-Ladle-None-Drawer-30/trial_T20190908_005155_378803",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "ladle 1",
+      "last_actions": [
+        "go to drawer 10",
+        "go to drawer 1",
+        "go to drawer 10",
+        "go to drawer 1",
+        "go to drawer 10"
+      ]
+    },
+    {
+      "episode_id": "59df6309-741d-4019-b556-789688b4ae68",
+      "task_id": "valid_train/pick_clean_then_place_in_recep-Ladle-None-Drawer-4/trial_T20190909_161523_929674",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "ladle 2",
+      "last_actions": [
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1"
+      ]
+    },
+    {
+      "episode_id": "a8a94a39-b1e7-40b1-a295-6f4d006d7e3a",
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Pan-None-DiningTable-11/trial_T20190908_204414_053313",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open cabinet 6",
+        "go to cabinet 7",
+        "open cabinet 7",
+        "go to cabinet 8",
+        "open cabinet 8"
+      ]
+    },
+    {
+      "episode_id": "57c20796-ac37-428d-82dd-ad7dbce0a400",
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Pan-None-StoveBurner-23/trial_T20190906_215826_707811",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 7",
+        "go to cabinet 8",
+        "go to cabinet 9",
+        "go to drawer 2",
+        "open drawer 2"
+      ]
+    },
+    {
+      "episode_id": "2f2bb85b-e758-42f0-9af8-eecc1dc0f8c9",
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Pot-None-CounterTop-5/trial_T20190908_073249_042493",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 14",
+        "open cabinet 14",
+        "go to cabinet 15",
+        "open cabinet 15",
+        "go to cabinet 16"
+      ]
+    },
+    {
+      "episode_id": "9420a7b4-520c-49d1-81ea-1476e206a1c7",
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Pot-None-DiningTable-27/trial_T20190909_013328_302952",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 5",
+        "open cabinet 5",
+        "go to cabinet 6",
+        "open cabinet 6",
+        "go to cabinet 7"
+      ]
+    },
+    {
+      "episode_id": "7717e7c6-8cd5-4661-8241-3e90940249cb",
+      "task_id": "valid_train/pick_cool_then_place_in_recep-Tomato-None-Microwave-13/trial_T20190910_173429_847749",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to cabinet 2",
+        "open cabinet 2",
+        "go to cabinet 17",
+        "open cabinet 17",
+        "go to cabinet 3"
+      ]
+    },
+    {
+      "episode_id": "3c0fb8a2-c53c-4389-b950-551a8a924556",
+      "task_id": "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-22/trial_T20190906_184650_216044",
+      "task_type": "pick_heat_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open cabinet 15",
+        "go to cabinet 16",
+        "open cabinet 16",
+        "go to cabinet 17",
+        "open cabinet 17"
+      ]
+    },
+    {
+      "episode_id": "2008ef0f-28b9-4670-8a0d-3c37650f4e9b",
+      "task_id": "valid_train/pick_heat_then_place_in_recep-Plate-None-CounterTop-1/trial_T20190909_115700_060162",
+      "task_type": "pick_heat_then_place_in_recep",
+      "signature": "held_target_task_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "plate 1",
+      "last_actions": [
+        "open cabinet 7",
+        "go to cabinet 8",
+        "open cabinet 8",
+        "take plate 1 from cabinet 8",
+        "go to microwave 1"
+      ]
+    },
+    {
+      "episode_id": "ce0c2865-dd4d-4598-8a8f-d4e96005608f",
+      "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        25
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "take box 1 from coffeetable 1",
+        "move box 1 to coffeetable 1",
+        "examine coffeetable 1",
+        "examine coffeetable 1",
+        "go to sidetable 1"
+      ]
+    },
+    {
+      "episode_id": "addd657a-f163-4e38-807b-04093d256b5d",
+      "task_id": "valid_train/pick_two_obj_and_place-Candle-None-CounterTop-406/trial_T20190908_045958_916084",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        18,
+        20,
+        25,
+        27
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "take candle 1 from countertop 1",
+        "move candle 1 to countertop 1",
+        "take candle 1 from countertop 1",
+        "move candle 1 to countertop 1",
+        "take soapbottle 2 from countertop 1"
+      ]
+    },
+    {
+      "episode_id": "2320b6a2-522d-4a53-8789-0c1a68d51b2b",
+      "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-318/trial_T20190908_104535_936869",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "cellphone 1",
+      "last_actions": [
+        "go to drawer 10",
+        "go to drawer 1",
+        "go to drawer 10",
+        "go to drawer 1",
+        "go to drawer 10"
+      ]
+    },
+    {
+      "episode_id": "c0424c51-5223-4ba6-9ebf-2574b31c6aee",
+      "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-329/trial_T20190909_030028_020737",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "cellphone 2",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "5a4d6255-8313-47c2-957d-96c198d9abb6",
+      "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Sofa-224/trial_T20190918_223409_525979",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 17",
+        "go to drawer 2",
+        "open drawer 2",
+        "go to drawer 18",
+        "open drawer 18"
+      ]
+    },
+    {
+      "episode_id": "215fb09e-37bb-4945-bc63-5043dbbc04c5",
+      "task_id": "valid_train/pick_two_obj_and_place-Cloth-None-Drawer-411/trial_T20190908_190008_902235",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "other_inventory_state",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "towel 1",
+      "last_actions": [
+        "go to towelholder 1",
+        "examine towelholder 1",
+        "go to towelholder 2",
+        "take towel 1 from towelholder 2",
+        "move towel 1 to towelholder 2"
+      ]
+    },
+    {
+      "episode_id": "236b4f6c-b7cb-40cd-828d-0d2658ef65c6",
+      "task_id": "valid_train/pick_two_obj_and_place-Pencil-None-Drawer-327/trial_T20190908_103604_088470",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "pencil 3",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "1bb91034-3c2c-4772-8e5f-e5d33f86a019",
+      "task_id": "valid_train/pick_two_obj_and_place-Pencil-None-SideTable-329/trial_T20190909_040132_412120",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        17,
+        19,
+        27
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "move cd 1 to drawer 4",
+        "go to sidetable 1",
+        "take pencil 1 from sidetable 1",
+        "move pencil 1 to sidetable 1",
+        "go to drawer 1"
+      ]
+    },
+    {
+      "episode_id": "b4ae3b69-55c6-4297-a26c-f6e9d49f4e7a",
+      "task_id": "valid_train/pick_two_obj_and_place-RemoteControl-None-ArmChair-208/trial_T20190908_000903_032547",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        25
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "take remotecontrol 1 from armchair 1",
+        "move remotecontrol 1 to armchair 1",
+        "go to shelf 2",
+        "go to shelf 1",
+        "examine shelf 1"
+      ]
+    },
+    {
+      "episode_id": "4d807be0-7b63-4d02-bf48-3a8b085477fa",
+      "task_id": "valid_train/pick_two_obj_and_place-SoapBottle-None-Toilet-426/trial_T20190907_184729_585161",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 8",
+        "go to towelholder 2",
+        "examine towelholder 2",
+        "go to toilet 1",
+        "take soapbottle 1 from toilet 1"
+      ]
+    },
+    {
+      "episode_id": "9556c48f-b682-48f0-b1ce-8aa2f5e4584c",
+      "task_id": "valid_train/pick_two_obj_and_place-SprayBottle-None-CounterTop-409/trial_T20190908_131755_202053",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        27
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "move towel 1 to towelholder 2",
+        "go to countertop 1",
+        "take spraybottle 1 from countertop 1",
+        "move spraybottle 1 to countertop 1",
+        "take soapbottle 2 from countertop 1"
+      ]
+    },
+    {
+      "episode_id": "ac02dda5-3139-466c-9a80-fd04ac8d5d13",
+      "task_id": "valid_train/pick_two_obj_and_place-SprayBottle-None-GarbageCan-420/trial_T20190907_174658_354066",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        17,
+        22,
+        24,
+        27,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "move spraybottle 1 to garbagecan 1",
+        "examine garbagecan 1",
+        "take spraybottle 1 from garbagecan 1",
+        "move spraybottle 1 to garbagecan 1",
+        "take spraybottle 1 from garbagecan 1"
+      ]
+    },
+    {
+      "episode_id": "4aa9f477-6f51-4387-8d7b-eb60ce1e9f63",
+      "task_id": "valid_train/pick_two_obj_and_place-Statue-None-Dresser-213/trial_T20190909_065309_623947",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 5",
+        "go to drawer 6",
+        "open drawer 6",
+        "go to drawer 7",
+        "open drawer 7"
+      ]
+    },
+    {
+      "episode_id": "c740a9fa-087a-4876-b7c9-eb073816dd79",
+      "task_id": "valid_train/pick_two_obj_and_place-TissueBox-None-DiningTable-230/trial_T20190909_145553_211575",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        18,
+        20,
+        25,
+        27
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "take tissuebox 1 from diningtable 1",
+        "move tissuebox 1 to diningtable 1",
+        "take tissuebox 1 from diningtable 1",
+        "move tissuebox 1 to diningtable 1",
+        "examine diningtable 1"
+      ]
+    },
+    {
+      "episode_id": "4b986ebb-9464-4a9e-bb21-6b96c2444aaf",
+      "task_id": "valid_train/pick_two_obj_and_place-ToiletPaper-None-Drawer-409/trial_T20190906_193417_937668",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "move towel 1 to towelholder 1",
+        "go to toiletpaperhanger 1",
+        "examine toiletpaperhanger 1",
+        "go to drawer 6",
+        "close drawer 3"
+      ]
+    },
+    {
+      "episode_id": "6d013840-ba61-4d8a-ba66-9b8cf73bf050",
+      "task_id": "valid_train/pick_two_obj_and_place-Watch-None-CoffeeTable-209/trial_T20190909_020350_646515",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        19,
+        21,
+        23,
+        26,
+        28
+      ],
+      "terminal_inventory": "watch 1",
+      "last_actions": [
+        "examine coffeetable 1",
+        "take watch 1 from coffeetable 1",
+        "move watch 1 to coffeetable 1",
+        "take watch 1 from coffeetable 1",
+        "move watch 1 to coffeetable 1"
+      ]
+    }
+  ]
+}

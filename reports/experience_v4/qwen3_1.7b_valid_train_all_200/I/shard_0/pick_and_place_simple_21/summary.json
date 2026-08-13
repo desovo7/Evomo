@@ -1,0 +1,22 @@
+{
+  "episode_id": "552250fa-f133-4e44-84a4-d29ef0fcd72e",
+  "task_id": "valid_train/pick_and_place_simple-Pan-None-DiningTable-15/trial_T20190908_182413_239334",
+  "goal": "Move the white pan from the stove to the white table.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 82,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 25,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

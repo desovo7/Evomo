@@ -1,0 +1,22 @@
+{
+  "episode_id": "95f977e6-5791-4fa8-87e9-3e0a388de107",
+  "task_id": "valid_seen/pick_and_place_simple-Candle-None-Toilet-407/trial_T20190909_055248_059513",
+  "goal": "Put a candle on the back of a toilet.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 60,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 8,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 7,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 7
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "a48df6ce-d5ed-4359-9bc9-01af01d6ba37",
+  "task_id": "valid_seen/pick_and_place_simple-ToiletPaper-None-ToiletPaperHanger-415/trial_T20190908_050518_595510",
+  "goal": "Put a roll of toilet paper on the toilet paper holder.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 85,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 14,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 13,
+    "format_compliant_actions": 13,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 13,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

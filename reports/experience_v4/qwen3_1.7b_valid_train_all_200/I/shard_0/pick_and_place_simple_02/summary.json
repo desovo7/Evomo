@@ -1,0 +1,22 @@
+{
+  "episode_id": "55a673b8-5ac0-4b11-9862-a62c09332456",
+  "task_id": "valid_train/pick_and_place_simple-Book-None-Desk-313/trial_T20190909_140606_239445",
+  "goal": "move the book from the bed to the desk",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 63,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 4,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 3,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "candidate_version": "exp-v4-from-full-valid-train-failures",
+  "candidate_sha256": "f7f6d2692daf069dbf141b6ec35505af6c303eb54d2376592618dee5730283a8",
+  "source_split": "valid_train",
+  "source_role": "development",
+  "source_task_count": 200,
+  "source_failure_count": 42,
+  "validation_split": "valid_seen",
+  "validation_role": "evaluation",
+  "validation_task_count": 140,
+  "incumbent_success_count": 110,
+  "candidate_success_count": 112,
+  "candidate_only_successes": 2,
+  "incumbent_only_successes": 0,
+  "exact_p_value": 0.5,
+  "incumbent_steps": 2165,
+  "candidate_steps": 2109,
+  "decision": "retain_as_no_regression_candidate",
+  "stable_version": "exp-v3-from-h-offset2-failures",
+  "reason": "The complete validation split shows two gains and no regressions, but only two discordant pairs provide weak statistical evidence. Exp-v3 remains the stable version backed by the frozen complete valid_unseen benchmark.",
+  "valid_unseen_used_for_learning": false
+}

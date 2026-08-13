@@ -1,0 +1,22 @@
+{
+  "episode_id": "7247b58f-276f-4eab-9524-5dcef15dde22",
+  "task_id": "valid_seen/pick_and_place_simple-Book-None-SideTable-329/trial_T20190908_050633_745514",
+  "goal": "move a magazine from the bed to the table",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 55,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 4,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 3,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

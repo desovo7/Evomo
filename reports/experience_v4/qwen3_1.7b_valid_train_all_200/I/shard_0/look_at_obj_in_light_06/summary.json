@@ -1,0 +1,22 @@
+{
+  "episode_id": "16515971-d5f7-4c4f-8c1e-a4907436241f",
+  "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+  "goal": "Pick up a disc and turn a lamp on.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

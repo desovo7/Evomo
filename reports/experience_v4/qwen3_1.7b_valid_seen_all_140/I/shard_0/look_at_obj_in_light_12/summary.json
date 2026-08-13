@@ -1,0 +1,22 @@
+{
+  "episode_id": "eddf2668-9af2-4210-8bd4-36b54eba1a1a",
+  "task_id": "valid_seen/look_at_obj_in_light-Vase-None-DeskLamp-303/trial_T20190907_150418_457594",
+  "goal": "Turn on the desk lamp while holding a yellow disc",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 54,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 30,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 24,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

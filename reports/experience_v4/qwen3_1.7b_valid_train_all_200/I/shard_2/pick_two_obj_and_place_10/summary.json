@@ -1,0 +1,22 @@
+{
+  "episode_id": "5a4d6255-8313-47c2-957d-96c198d9abb6",
+  "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Sofa-224/trial_T20190918_223409_525979",
+  "goal": "Put two phones on a couch.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 77,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 25,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

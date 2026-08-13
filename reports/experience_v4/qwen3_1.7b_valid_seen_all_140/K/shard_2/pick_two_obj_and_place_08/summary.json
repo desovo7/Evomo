@@ -1,0 +1,22 @@
+{
+  "episode_id": "d39feecb-315f-4e92-a171-d1d8ed87fe77",
+  "task_id": "valid_seen/pick_two_obj_and_place-Knife-None-Drawer-18/trial_T20190907_065232_689984",
+  "goal": "place two knifes in the kitchen drawer",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 66,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 from evomo.data import EpisodeStore
-from evomo.experience import load_experience_set
+from evomo.experience import load_experience_set, validate_evolution_source
 
 
 def main() -> None:
@@ -15,6 +15,7 @@ def main() -> None:
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--child", type=Path, required=True)
     parser.add_argument("--episodes-root", type=Path, required=True)
+    parser.add_argument("--source-split", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -26,6 +27,9 @@ def main() -> None:
     episodes = []
     for path in sorted(args.episodes_root.rglob("episode.jsonl")):
         episodes.extend(EpisodeStore(path).load_all())
+    episodes = list(
+        validate_evolution_source(episodes, expected_split=args.source_split)
+    )
     failed = {episode.episode_id: episode for episode in episodes if not episode.success}
     if len(failed) != sum(not episode.success for episode in episodes):
         raise ValueError("duplicate failed episode IDs")
@@ -47,6 +51,7 @@ def main() -> None:
         for rule in base.rules
         for item in rule.evidence
     }
+    base_rule_ids = {rule.rule_id for rule in base.rules}
     new_evidence_count = 0
     evidence_by_rule = {}
     source_task_types = {episode.task.task_type for episode in failed.values()}
@@ -65,8 +70,8 @@ def main() -> None:
                 if item.action != episode.steps[item.step_index].action:
                     raise ValueError(f"rule {rule.rule_id}: evidence action differs from trajectory")
             new_items.append(item)
-        if not new_items:
-            raise ValueError(f"rule {rule.rule_id}: child contains no new evidence")
+        if not new_items and rule.rule_id not in base_rule_ids:
+            raise ValueError(f"new rule {rule.rule_id}: child contains no new evidence")
         evidence_types = {
             failed[item.episode_id].task.task_type for item in new_items
         }
@@ -85,6 +90,8 @@ def main() -> None:
         "child_version": child.version,
         "parent_version": child.parent_version,
         "source_policy_id": child.source_policy_id,
+        "source_split": args.source_split,
+        "source_role": "development",
         "source_episode_count": len(failed),
         "source_task_types": sorted(source_task_types),
         "new_evidence_count": new_evidence_count,

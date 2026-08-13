@@ -1,0 +1,22 @@
+{
+  "episode_id": "ff99b44f-13ab-418d-bece-6e76a10ebf75",
+  "task_id": "valid_train/pick_and_place_simple-ToiletPaper-None-ToiletPaperHanger-430/trial_T20190908_102055_678050",
+  "goal": "Place a toilet paper roll in a toilet paper dispenser.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 100,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 4,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 3,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

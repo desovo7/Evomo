@@ -14,6 +14,8 @@ if TYPE_CHECKING:
     from evomo.policies.alfworld_state import AlfworldState
 
 EXPERIENCE_SCHEMA_VERSION = 1
+DEVELOPMENT_SPLITS = frozenset({"train", "valid_train"})
+EVALUATION_SPLITS = frozenset({"valid_seen", "valid_unseen"})
 _TAKE_RE = re.compile(r"^take (.+) from (.+)$", re.IGNORECASE)
 _MOVE_RE = re.compile(r"^move (.+) to (.+)$", re.IGNORECASE)
 _GO_RE = re.compile(r"^go to (.+)$", re.IGNORECASE)
@@ -123,6 +125,29 @@ def save_experience_set(experiences: ExperienceSet, path: str | Path) -> None:
 def load_experience_set(path: str | Path) -> ExperienceSet:
     with Path(path).open(encoding="utf-8") as stream:
         return ExperienceSet.from_dict(json.load(stream))
+
+
+def validate_evolution_source(
+    episodes: Iterable[Episode], *, expected_split: str
+) -> tuple[Episode, ...]:
+    """Reject experience learning from evaluation splits or mixed source data."""
+
+    episodes = tuple(episodes)
+    if not episodes:
+        raise ValueError("evolution source contains no episodes")
+    if expected_split not in DEVELOPMENT_SPLITS:
+        role = "evaluation" if expected_split in EVALUATION_SPLITS else "unknown"
+        raise ValueError(
+            f"experience source split {expected_split!r} has role {role!r}; "
+            f"allowed development splits are {sorted(DEVELOPMENT_SPLITS)}"
+        )
+    observed_splits = {episode.task.split for episode in episodes}
+    if observed_splits != {expected_split}:
+        raise ValueError(
+            f"evolution source must contain only split {expected_split!r}; "
+            f"observed {sorted(observed_splits)}"
+        )
+    return episodes
 
 
 def promote_experience_by_task_type(
@@ -363,6 +388,7 @@ def evolve_experience_set(
     *,
     version: str,
     repeated_type_threshold: int = 4,
+    enable_progress_rules: bool = False,
 ) -> ExperienceSet:
     """Merge failure evidence into a new child version of an experience set."""
 
@@ -432,16 +458,23 @@ def evolve_experience_set(
     revisits: list[ExperienceEvidence] = []
     unfinished: list[ExperienceEvidence] = []
     diversity: list[ExperienceEvidence] = []
+    delivered_retakes: list[ExperienceEvidence] = []
+    destination_loops: list[ExperienceEvidence] = []
     rule_types: dict[str, set[str]] = {
         "target-object-lock": set(),
         "novelty-before-revisit": set(),
         "ordered-task-recipe": set(),
         "diversify-location-types": set(),
+        "do-not-retake-delivered-target": set(),
+        "open-current-destination": set(),
     }
     for episode in episodes:
         target = _normalized_type(task_targets(episode.task)["object"])
+        destination = _normalized_type(task_targets(episode.task)["destination"])
         visited_type_counts: dict[str, int] = {}
         visited_locations: set[str] = set()
+        delivered_objects: set[str] = set()
+        recent_destination_goes: list[tuple[int, str]] = []
         for step in episode.steps:
             take = _TAKE_RE.fullmatch(step.action)
             if take and target and _object_type(take.group(1)) != target:
@@ -456,6 +489,32 @@ def evolve_experience_set(
                         "object_target.",
                     )
                 )
+            if enable_progress_rules and take and (
+                take.group(1).strip().casefold() in delivered_objects
+                and _object_type(take.group(2)) == destination
+            ):
+                rule_types["do-not-retake-delivered-target"].add(
+                    episode.task.task_type
+                )
+                delivered_retakes.append(
+                    ExperienceEvidence(
+                        episode.episode_id,
+                        episode.task.task_id,
+                        step.step_index,
+                        step.action,
+                        "The policy took a target instance back from its required "
+                        "destination after already delivering it.",
+                    )
+                )
+            move = _MOVE_RE.fullmatch(step.action)
+            if (
+                enable_progress_rules
+                and move
+                and _object_type(move.group(1)) == target
+                and _object_type(move.group(2)) == destination
+                and "you move" in step.next_observation.casefold()
+            ):
+                delivered_objects.add(move.group(1).strip().casefold())
             match = _GO_RE.fullmatch(step.action)
             if not match:
                 continue
@@ -480,6 +539,9 @@ def evolve_experience_set(
                     )
                 )
             visited_locations.add(place.casefold())
+            if enable_progress_rules and place_type == destination:
+                recent_destination_goes.append((step.step_index, step.action))
+                recent_destination_goes = recent_destination_goes[-8:]
             if (
                 visited_type_counts[place_type] >= repeated_type_threshold
                 and len(available_types - set(visited_type_counts)) > 0
@@ -495,6 +557,28 @@ def evolve_experience_set(
                         "unvisited location types remained admissible.",
                     )
                 )
+        if enable_progress_rules and len(recent_destination_goes) >= 3:
+            final_state = episode.steps[-1].info.get("policy", {}).get(
+                "metadata", {}
+            ).get("state_before", {})
+            inventory = (
+                final_state.get("inventory")
+                if isinstance(final_state, Mapping)
+                else None
+            )
+            if inventory and _object_type(str(inventory)) == target:
+                rule_types["open-current-destination"].add(episode.task.task_type)
+                for step_index, action in recent_destination_goes:
+                    destination_loops.append(
+                        ExperienceEvidence(
+                            episode.episode_id,
+                            episode.task.task_id,
+                            step_index,
+                            action,
+                            "While holding the target, the policy repeatedly navigated "
+                            "between destination instances instead of opening the current one.",
+                        )
+                    )
         rule_types["ordered-task-recipe"].add(episode.task.task_type)
         unfinished.append(
             ExperienceEvidence(
@@ -532,6 +616,20 @@ def evolve_experience_set(
             "unvisited location of a different type before trying more numbered "
             "instances of the same type.",
             diversity,
+        ),
+        "do-not-retake-delivered-target": (
+            "delivered_target_lock",
+            "For two-object tasks, once a target instance has been moved to the "
+            "required destination, never take that same instance back from there; "
+            "search for a distinct second instance.",
+            delivered_retakes,
+        ),
+        "open-current-destination": (
+            "destination_opening",
+            "While holding a ready target at a closed instance of the required "
+            "destination type, open that current destination before navigating to "
+            "another numbered instance.",
+            destination_loops,
         ),
     }
     existing = {rule.rule_id: rule for rule in base.rules}
@@ -597,6 +695,56 @@ def choose_experience_override(
             goes.append((index, match.group(1).strip()))
         elif match := _OPEN_RE.fullmatch(action):
             opens.append((index, match.group(1).strip()))
+
+    if "delivered_target_lock" in kinds and task.task_type == "pick_two_obj_and_place":
+        delivered = {
+            fact.rsplit(" in/on ", 1)[0].casefold()
+            for fact in state.known_placements
+            if " in/on " in fact
+            and _object_type(fact.rsplit(" in/on ", 1)[-1]) == destination
+        }
+        proposed_take = _TAKE_RE.fullmatch(proposed_action or "")
+        if proposed_take and proposed_take.group(1).strip().casefold() in delivered:
+            for index, obj, _ in takes:
+                if _object_type(obj) == target and obj.casefold() not in delivered:
+                    return ExperienceOverride(
+                        index,
+                        "take_distinct_undelivered_target",
+                        (kinds["delivered_target_lock"],),
+                    )
+            for index, place in goes:
+                if (
+                    not state.current_location
+                    or place.casefold() != state.current_location.casefold()
+                ):
+                    return ExperienceOverride(
+                        index,
+                        "leave_delivered_target_and_search",
+                        (kinds["delivered_target_lock"],),
+                    )
+            for index, action in enumerate(admissible_actions):
+                take = _TAKE_RE.fullmatch(action)
+                if not take or take.group(1).strip().casefold() not in delivered:
+                    return ExperienceOverride(
+                        index,
+                        "block_retake_of_delivered_target",
+                        (kinds["delivered_target_lock"],),
+                    )
+
+    if "destination_opening" in kinds and state.inventory:
+        if _object_type(state.inventory) == target and state.current_location:
+            for index, receptacle in opens:
+                if (
+                    receptacle.casefold() == state.current_location.casefold()
+                    and _object_type(receptacle) == destination
+                    and receptacle.casefold()
+                    not in {item.casefold() for item in state.opened_receptacles}
+                ):
+                    return ExperienceOverride(
+                        index,
+                        "open_current_target_destination",
+                        (kinds["destination_opening"],),
+                    )
 
     if "target_object_lock" in kinds:
         if state.inventory and _object_type(state.inventory) != target:

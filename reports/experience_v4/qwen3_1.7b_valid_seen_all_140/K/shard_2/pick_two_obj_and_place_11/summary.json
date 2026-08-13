@@ -1,0 +1,22 @@
+{
+  "episode_id": "2c6b35dd-bfd7-48a8-984e-33d33d8c5812",
+  "task_id": "valid_seen/pick_two_obj_and_place-RemoteControl-None-Ottoman-203/trial_T20190906_182952_858723",
+  "goal": "Put two remotes on an ottoman.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 69,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 16,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 15,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

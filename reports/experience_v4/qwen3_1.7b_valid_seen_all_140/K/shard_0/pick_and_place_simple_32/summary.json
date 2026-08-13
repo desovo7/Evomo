@@ -1,0 +1,22 @@
+{
+  "episode_id": "4e680a6f-0d1b-4cfd-9550-0a8ed3216f1f",
+  "task_id": "valid_seen/pick_and_place_simple-Vase-None-CoffeeTable-207/trial_T20190909_091246_807206",
+  "goal": "Place a vase on a coffee table",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 87,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 9,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

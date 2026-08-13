@@ -1,0 +1,22 @@
+{
+  "episode_id": "2f2bb85b-e758-42f0-9af8-eecc1dc0f8c9",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Pot-None-CounterTop-5/trial_T20190908_073249_042493",
+  "goal": "Chill a pot and place it on the counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 97,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

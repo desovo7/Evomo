@@ -1,0 +1,22 @@
+{
+  "episode_id": "c75e584c-bf92-44bf-80ed-6ae87d7febfa",
+  "task_id": "valid_seen/pick_and_place_simple-SoapBottle-None-Cabinet-414/trial_T20190908_110131_524518",
+  "goal": "Move a bottle from the counter to the drawer.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 77,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "d1bdde6d-350c-4fd6-94d1-b0b2f616620e",
+  "task_id": "valid_seen/pick_and_place_simple-SprayBottle-None-Toilet-415/trial_T20190909_075955_678702",
+  "goal": "put the spray bottle on the back of the toilet",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 81,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 6,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 5,
+    "format_compliant_actions": 5,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 5,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 5
+  }
+}

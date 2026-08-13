@@ -1,0 +1,22 @@
+{
+  "episode_id": "4b986ebb-9464-4a9e-bb21-6b96c2444aaf",
+  "task_id": "valid_train/pick_two_obj_and_place-ToiletPaper-None-Drawer-409/trial_T20190906_193417_937668",
+  "goal": "Place the toilet paper and cardboard roll into the bathroom vanity.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 109,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 23,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 27
+  }
+}

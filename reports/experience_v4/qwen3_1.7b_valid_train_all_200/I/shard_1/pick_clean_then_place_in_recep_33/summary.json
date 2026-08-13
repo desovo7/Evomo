@@ -1,0 +1,22 @@
+{
+  "episode_id": "a18d4022-fc0c-4ea2-9fd7-fc95d1b3c900",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-SoapBar-None-Toilet-428/trial_T20190907_041322_837354",
+  "goal": "Put a wet bar of soap on the back of the toilet.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 75,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 12,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 12,
+    "format_compliant_actions": 12,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 11,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 10
+  }
+}

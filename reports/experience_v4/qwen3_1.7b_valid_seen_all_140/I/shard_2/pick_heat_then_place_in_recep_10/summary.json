@@ -1,0 +1,22 @@
+{
+  "episode_id": "4141514f-76f1-4755-95f6-25c69a35d12a",
+  "task_id": "valid_seen/pick_heat_then_place_in_recep-Potato-None-Fridge-11/trial_T20190909_011341_436523",
+  "goal": "Heat and chill a potato.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 52,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

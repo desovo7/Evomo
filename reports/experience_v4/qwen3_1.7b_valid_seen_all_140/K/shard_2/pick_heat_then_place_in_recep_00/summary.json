@@ -1,0 +1,22 @@
+{
+  "episode_id": "c76cf349-82ba-493d-99ad-a6f5f3185d2a",
+  "task_id": "valid_seen/pick_heat_then_place_in_recep-Apple-None-DiningTable-26/trial_T20190907_060234_011675",
+  "goal": "Put a heated apple on the table.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

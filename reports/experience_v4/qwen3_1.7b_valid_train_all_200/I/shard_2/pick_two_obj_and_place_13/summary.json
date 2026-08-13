@@ -1,0 +1,22 @@
+{
+  "episode_id": "da52a99a-6e89-49ca-a35b-d0f8faf3b6f5",
+  "task_id": "valid_train/pick_two_obj_and_place-CreditCard-None-DiningTable-329/trial_T20190918_154222_318527",
+  "goal": "Bring two credit cards to the desk",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 80,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 16,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 15,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 14
+  }
+}

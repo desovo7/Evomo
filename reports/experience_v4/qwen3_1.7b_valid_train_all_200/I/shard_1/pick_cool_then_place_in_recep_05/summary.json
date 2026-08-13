@@ -1,0 +1,22 @@
+{
+  "episode_id": "ba73fcf5-b064-4649-9703-f7a1da338397",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Lettuce-None-CounterTop-24/trial_T20190908_015109_682752",
+  "goal": "Put a chilled head of lettuce on a kitchen counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 84,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 20,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 19,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 18
+  }
+}

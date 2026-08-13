@@ -1,0 +1,22 @@
+{
+  "episode_id": "9420a7b4-520c-49d1-81ea-1476e206a1c7",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Pot-None-DiningTable-27/trial_T20190909_013328_302952",
+  "goal": "Pick up a pan from the stove, refrigerate it, put in on the table",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 98,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 26,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

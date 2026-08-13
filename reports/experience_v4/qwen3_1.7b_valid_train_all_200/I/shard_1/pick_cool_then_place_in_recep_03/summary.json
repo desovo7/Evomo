@@ -1,0 +1,22 @@
+{
+  "episode_id": "c23dab8d-301e-4f80-abd8-898ce8c9aaa6",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Cup-None-Cabinet-30/trial_T20190909_090746_864458",
+  "goal": "To cool a bowl plus place it in the right cabinet above the fridge.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 82,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 29,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 27
+  }
+}

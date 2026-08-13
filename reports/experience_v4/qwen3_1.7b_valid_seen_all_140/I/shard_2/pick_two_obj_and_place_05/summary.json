@@ -1,0 +1,22 @@
+{
+  "episode_id": "02faf62e-c94c-42b3-8ef5-8607c08bf43e",
+  "task_id": "valid_seen/pick_two_obj_and_place-CreditCard-None-Dresser-311/trial_T20190907_201917_045715",
+  "goal": "Put two credit cards on a cabinet.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 63,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 16,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 15,
+    "format_compliant_actions": 15,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 15,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 14
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "f6abaabc-ac4e-4a01-8742-1bb02f69ddcb",
+  "task_id": "valid_train/pick_and_place_simple-RemoteControl-None-Ottoman-208/trial_T20190909_100851_710423",
+  "goal": "Move a remote to the ottoman.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 88,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 11,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 10,
+    "format_compliant_actions": 10,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 10,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 10
+  }
+}

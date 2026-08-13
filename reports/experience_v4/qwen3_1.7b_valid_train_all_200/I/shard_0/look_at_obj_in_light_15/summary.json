@@ -1,0 +1,22 @@
+{
+  "episode_id": "2d083e76-a556-4631-a487-9962f4c97b9d",
+  "task_id": "valid_train/look_at_obj_in_light-Pen-None-DeskLamp-316/trial_T20190908_061847_951064",
+  "goal": "Pick up the pen from the desk and turn on the light.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 57,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 18,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 7,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 4,
+    "unchanged_observations": 4,
+    "unique_actions": 13
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "6acc844b-8894-4657-89a3-647ac7786244",
+  "task_id": "valid_seen/pick_and_place_simple-Book-None-Sofa-229/trial_T20190907_042856_259139",
+  "goal": "Move a book from a desk to a sofa.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 56,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 18,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 18
+  }
+}

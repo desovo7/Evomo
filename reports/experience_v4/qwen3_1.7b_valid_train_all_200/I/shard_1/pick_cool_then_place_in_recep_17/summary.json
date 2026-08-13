@@ -1,0 +1,22 @@
+{
+  "episode_id": "4fc6bb51-fb8f-47ac-aad8-dde2358ed3c9",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Plate-None-Shelf-7/trial_T20190907_125004_299560",
+  "goal": "Put a cold plate on the shelf.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 96,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 18,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 17
+  }
+}

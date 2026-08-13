@@ -1,0 +1,22 @@
+{
+  "episode_id": "23bb4efa-377b-41b0-90dc-fa72e912a8a3",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-Plate-None-Fridge-5/trial_T20190909_112854_740612",
+  "goal": "Place a rinsed plate in the fridge.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 62,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 26,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 26,
+    "format_compliant_actions": 26,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 23,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 24
+  }
+}

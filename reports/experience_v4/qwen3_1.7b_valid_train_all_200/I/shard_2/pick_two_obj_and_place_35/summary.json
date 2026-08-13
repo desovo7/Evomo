@@ -1,0 +1,22 @@
+{
+  "episode_id": "ac02dda5-3139-466c-9a80-fd04ac8d5d13",
+  "task_id": "valid_train/pick_two_obj_and_place-SprayBottle-None-GarbageCan-420/trial_T20190907_174658_354066",
+  "goal": "put two green spray bottles in to the trash can",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 102,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 18,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 18
+  }
+}

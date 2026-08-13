@@ -1,0 +1,22 @@
+{
+  "episode_id": "45503d22-962d-43f2-8bb4-b5481dd600ea",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-423/trial_T20190908_140728_318318",
+  "goal": "Put a clean rag in the drawer.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 45,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 16,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 16,
+    "format_compliant_actions": 16,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 15,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 14
+  }
+}

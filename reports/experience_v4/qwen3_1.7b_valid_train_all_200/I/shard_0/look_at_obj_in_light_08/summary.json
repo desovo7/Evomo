@@ -1,0 +1,22 @@
+{
+  "episode_id": "36b03765-a5ca-4ce1-8af3-3fd9d5afed87",
+  "task_id": "valid_train/look_at_obj_in_light-CreditCard-None-DeskLamp-314/trial_T20190906_201548_667159",
+  "goal": "Turn on the lamp while holding the credit card.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 50,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 28,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 7,
+    "repaired_actions": 0,
+    "experience_overrides": 16,
+    "repeated_actions": 3,
+    "unchanged_observations": 3,
+    "unique_actions": 21
+  }
+}

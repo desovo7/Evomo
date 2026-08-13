@@ -1,0 +1,22 @@
+{
+  "episode_id": "f8e5d860-232a-45bd-8cf0-11c30aa294ad",
+  "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-324/trial_T20190908_071137_867346",
+  "goal": "Look at computer in lamp light.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 54,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 25,
+    "format_compliant_actions": 25,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "bb9d4379-0b17-41db-912b-3017f452fe48",
+  "task_id": "valid_seen/pick_cool_then_place_in_recep-Pan-None-StoveBurner-18/trial_T20190906_181023_216915",
+  "goal": "Place a chilled frying pan on the stove.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 82,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 6,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 6,
+    "format_compliant_actions": 6,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 5,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 5
+  }
+}

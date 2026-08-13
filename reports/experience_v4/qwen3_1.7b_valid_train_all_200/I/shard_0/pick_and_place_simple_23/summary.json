@@ -1,0 +1,22 @@
+{
+  "episode_id": "c61575f2-f8f8-4180-aa6c-7547343f8210",
+  "task_id": "valid_train/pick_and_place_simple-PepperShaker-None-CounterTop-27/trial_T20190909_010859_836097",
+  "goal": "Move a pepper grinder to the counter top",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 84,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 5,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 3,
+    "format_compliant_actions": 3,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 4,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

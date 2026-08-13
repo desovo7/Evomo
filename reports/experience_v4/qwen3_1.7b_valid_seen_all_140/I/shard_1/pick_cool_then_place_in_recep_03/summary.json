@@ -1,0 +1,22 @@
+{
+  "episode_id": "1d40c70c-00d3-4409-a902-f9c8a57737b9",
+  "task_id": "valid_seen/pick_cool_then_place_in_recep-Apple-None-Microwave-5/trial_T20190908_150807_823817",
+  "goal": "Put a chilled apple in the microwave.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 72,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

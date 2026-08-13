@@ -1,0 +1,22 @@
+{
+  "episode_id": "b695161e-49df-4cce-8701-6e990d6780a8",
+  "task_id": "valid_train/pick_and_place_simple-Fork-None-Drawer-12/trial_T20190907_151050_079642",
+  "goal": "Put a fork in the drawer.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 73,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "5ec49e47-88fa-4354-9046-72ed90d2b4d5",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-Ladle-None-DiningTable-27/trial_T20190911_131350_027076",
+  "goal": "put clean spoon on the table",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 56,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

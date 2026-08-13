@@ -1,0 +1,22 @@
+{
+  "episode_id": "6d013840-ba61-4d8a-ba66-9b8cf73bf050",
+  "task_id": "valid_train/pick_two_obj_and_place-Watch-None-CoffeeTable-209/trial_T20190909_020350_646515",
+  "goal": "Put two watches on a coffee table.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 111,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 21,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 19
+  }
+}

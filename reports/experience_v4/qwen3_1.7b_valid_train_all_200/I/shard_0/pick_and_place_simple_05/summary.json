@@ -1,0 +1,22 @@
+{
+  "episode_id": "28dfb27c-56f4-42c8-aa27-1db4b4f43bc0",
+  "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+  "goal": "Put a candle in the cabinet.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 66,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 6,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 5,
+    "format_compliant_actions": 5,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 5,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 5
+  }
+}

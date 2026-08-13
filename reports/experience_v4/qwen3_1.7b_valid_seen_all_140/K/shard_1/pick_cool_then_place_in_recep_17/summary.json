@@ -1,0 +1,22 @@
+{
+  "episode_id": "f27c0c18-96a7-4a61-9996-11c1a02103b5",
+  "task_id": "valid_seen/pick_cool_then_place_in_recep-Plate-None-CounterTop-1/trial_T20190906_205324_559361",
+  "goal": "cool off a white plate",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 86,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "5995afe8-a32f-4d0a-8371-f5c709fa037f",
+  "task_id": "valid_seen/pick_and_place_simple-Pencil-None-Desk-310/trial_T20190909_113054_894334",
+  "goal": "Place a pencil on a desk.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 72,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 9,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

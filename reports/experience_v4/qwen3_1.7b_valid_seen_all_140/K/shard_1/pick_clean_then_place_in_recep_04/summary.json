@@ -1,0 +1,22 @@
+{
+  "episode_id": "b7f0724e-bc9c-4e46-b53c-6eeb6f702938",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-ButterKnife-None-Drawer-8/trial_T20190909_124425_112757",
+  "goal": "Place a clean knife in a drawer.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 46,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

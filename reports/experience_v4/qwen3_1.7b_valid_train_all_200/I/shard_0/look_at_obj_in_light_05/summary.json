@@ -1,0 +1,22 @@
+{
+  "episode_id": "84bf421d-f7f4-4403-82c9-b29d746734d0",
+  "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-307/trial_T20190906_200435_424001",
+  "goal": "Pick up the CD behind the clock.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 47,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 30,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 6,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 2,
+    "unchanged_observations": 2,
+    "unique_actions": 21
+  }
+}

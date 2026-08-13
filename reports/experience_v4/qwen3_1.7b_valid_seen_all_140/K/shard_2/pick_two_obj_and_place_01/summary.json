@@ -1,0 +1,22 @@
+{
+  "episode_id": "ffff7788-4657-4498-8c22-98048530595d",
+  "task_id": "valid_seen/pick_two_obj_and_place-Book-None-Desk-302/trial_T20190906_181233_363875",
+  "goal": "Put two books on a desk.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 59,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 14,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 12,
+    "format_compliant_actions": 12,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 13,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 12
+  }
+}

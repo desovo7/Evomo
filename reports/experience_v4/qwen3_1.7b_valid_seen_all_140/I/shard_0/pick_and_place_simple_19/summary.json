@@ -1,0 +1,22 @@
+{
+  "episode_id": "bc3009ee-51c4-47f0-810c-c13c815786e5",
+  "task_id": "valid_seen/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_021000_274398",
+  "goal": "Place a remote control on a chair.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 74,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 5,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 4,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

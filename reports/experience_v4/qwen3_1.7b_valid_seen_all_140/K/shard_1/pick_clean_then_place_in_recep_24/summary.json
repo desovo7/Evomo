@@ -1,0 +1,22 @@
+{
+  "episode_id": "5b13a853-6577-4450-943e-10e8fc35f307",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-SoapBar-None-Toilet-428/trial_T20190907_041436_588106",
+  "goal": "Place the wet soap on top of the toilet next to the other soaps.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 66,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 9,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 7,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

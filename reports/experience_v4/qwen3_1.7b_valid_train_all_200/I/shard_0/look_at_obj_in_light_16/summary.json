@@ -1,0 +1,22 @@
+{
+  "episode_id": "58b4faad-7cf7-4e11-bf5e-58d72bd9a103",
+  "task_id": "valid_train/look_at_obj_in_light-Pillow-None-DeskLamp-309/trial_T20190908_113756_084511",
+  "goal": "Walk across the room and pick up a pillow from the bed, lastly turning the lamp on.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 58,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 4,
+    "repaired_actions": 0,
+    "experience_overrides": 21,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 26
+  }
+}

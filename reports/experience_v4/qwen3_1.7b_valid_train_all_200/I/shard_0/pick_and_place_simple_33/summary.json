@@ -1,0 +1,22 @@
+{
+  "episode_id": "7d439642-743a-4b18-95cb-e86c9b6a67e1",
+  "task_id": "valid_train/pick_and_place_simple-Statue-None-CoffeeTable-229/trial_T20190908_132941_479938",
+  "goal": "Pick up the dog figurine on the wooden coffee table.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 94,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 18,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 17,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 17
+  }
+}

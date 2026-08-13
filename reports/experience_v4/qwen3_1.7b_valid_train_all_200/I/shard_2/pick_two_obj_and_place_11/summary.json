@@ -1,0 +1,22 @@
+{
+  "episode_id": "215fb09e-37bb-4945-bc63-5043dbbc04c5",
+  "task_id": "valid_train/pick_two_obj_and_place-Cloth-None-Drawer-411/trial_T20190908_190008_902235",
+  "goal": "Place rags in the drawer.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 78,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 26,
+    "format_compliant_actions": 26,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 24
+  }
+}

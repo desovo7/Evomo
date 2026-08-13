@@ -1,0 +1,22 @@
+{
+  "episode_id": "2beadcc9-05e5-4733-a286-87a23cec2942",
+  "task_id": "valid_train/look_at_obj_in_light-TissueBox-None-DeskLamp-216/trial_T20190908_033138_836240",
+  "goal": "Examine the tissue box by the light of the lamp on the table.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 60,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 16,
+    "format_compliant_actions": 16,
+    "fallback_actions": 6,
+    "repaired_actions": 0,
+    "experience_overrides": 17,
+    "repeated_actions": 6,
+    "unchanged_observations": 6,
+    "unique_actions": 22
+  }
+}

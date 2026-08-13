@@ -1,0 +1,22 @@
+{
+  "episode_id": "e0254078-bf0f-4d6c-a0f0-fa8043ec4f33",
+  "task_id": "valid_seen/pick_cool_then_place_in_recep-Tomato-None-CounterTop-12/trial_T20190909_063844_274181",
+  "goal": "Put a cool tomato on the counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 89,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 17,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 17
+  }
+}

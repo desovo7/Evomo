@@ -1,0 +1,22 @@
+{
+  "episode_id": "1ac820cd-3b61-4461-9f2f-07aa4aeb1e94",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-SoapBar-None-Drawer-423/trial_T20190906_202340_749336",
+  "goal": "Put away clean soap.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 64,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 8,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 7,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 7
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "4d807be0-7b63-4d02-bf48-3a8b085477fa",
+  "task_id": "valid_train/pick_two_obj_and_place-SoapBottle-None-Toilet-426/trial_T20190907_184729_585161",
+  "goal": "Put the lotion bottles on top of the toilet",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 99,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 26,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 28
+  }
+}

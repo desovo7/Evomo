@@ -1,0 +1,22 @@
+{
+  "episode_id": "781e3a85-c97c-4427-9ff1-6a310f911a67",
+  "task_id": "valid_train/pick_and_place_simple-Pillow-None-ArmChair-321/trial_T20190908_104900_888704",
+  "goal": "Place a cushion on a chair.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 86,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 5,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 4,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "1271ee7f-a8af-4fd1-8b07-2518bf63c04e",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Pan-None-Cabinet-1/trial_T20190908_130833_956410",
+  "goal": "Put a cleaned pan in a cabinet right of the stove.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 63,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

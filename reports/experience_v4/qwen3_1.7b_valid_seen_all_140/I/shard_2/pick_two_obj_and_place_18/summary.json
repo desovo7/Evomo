@@ -1,0 +1,22 @@
+{
+  "episode_id": "638a69e8-97ce-49bd-88dd-e10374d9509f",
+  "task_id": "valid_seen/pick_two_obj_and_place-SprayBottle-None-Toilet-429/trial_T20190907_033843_707544",
+  "goal": "Place spray bottles on the back of a toilet",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 76,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 15,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 13,
+    "format_compliant_actions": 13,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

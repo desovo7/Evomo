@@ -1,0 +1,22 @@
+{
+  "episode_id": "b88b70e0-34da-4eed-9242-1d61a85e2ede",
+  "task_id": "valid_seen/look_at_obj_in_light-Bowl-None-DeskLamp-301/trial_T20190909_150719_492274",
+  "goal": "take the bowl to the lamp",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 43,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

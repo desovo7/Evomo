@@ -1,0 +1,22 @@
+{
+  "episode_id": "4864f820-3285-4719-b303-95026a04ed17",
+  "task_id": "valid_seen/pick_cool_then_place_in_recep-Pot-None-DiningTable-21/trial_T20190909_004531_429065",
+  "goal": "Put a cold pot on a table.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 87,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "e77bba9c-2fdd-4315-b863-9448390b0376",
+  "task_id": "valid_seen/look_at_obj_in_light-CD-None-DeskLamp-320/trial_T20190907_224451_655673",
+  "goal": "Carry a CD while turning on a lamp",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 25,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 14,
+    "format_compliant_actions": 14,
+    "fallback_actions": 6,
+    "repaired_actions": 0,
+    "experience_overrides": 11,
+    "repeated_actions": 3,
+    "unchanged_observations": 3,
+    "unique_actions": 14
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "e7c8dfd0-7663-45e5-91c8-d82ebc47996a",
+  "task_id": "valid_train/pick_and_place_simple-ToiletPaper-None-ToiletPaperHanger-412/trial_T20190907_181227_790902",
+  "goal": "Move an empty toilet paper roll to the toilet paper roll holder",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 98,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 4,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 4,
+    "format_compliant_actions": 4,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 3,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

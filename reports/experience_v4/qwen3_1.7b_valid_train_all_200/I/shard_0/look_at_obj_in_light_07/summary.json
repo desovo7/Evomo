@@ -1,0 +1,22 @@
+{
+  "episode_id": "470d4191-7288-4cc3-9e16-a251844e9b15",
+  "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+  "goal": "Turn on the lamp while holding a disc.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 49,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 19,
+    "format_compliant_actions": 19,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 24,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 28
+  }
+}

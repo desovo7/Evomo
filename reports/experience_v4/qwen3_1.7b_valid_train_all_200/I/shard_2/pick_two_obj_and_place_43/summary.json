@@ -1,0 +1,22 @@
+{
+  "episode_id": "80f2ed1f-e3e8-4f06-b450-f81486d7fc7a",
+  "task_id": "valid_train/pick_two_obj_and_place-ToiletPaper-None-Toilet-405/trial_T20190909_065947_451268",
+  "goal": "Put two toilet paper rolls on the toilet tank.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 110,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 12,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 11,
+    "format_compliant_actions": 11,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 11,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 10
+  }
+}

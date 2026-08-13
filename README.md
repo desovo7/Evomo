@@ -352,6 +352,7 @@ PYTHONPATH=src python scripts/extract_failure_experiences.py \
 PYTHONPATH=src python scripts/evolve_failure_experiences.py \
   --base reports/experience_v1/exp_v1.json \
   --episodes-root reports/experience_v1/qwen3_1.7b_valid_train_1_per_type/G \
+  --source-split valid_train \
   --version exp-v2-from-g-failures \
   --output reports/experience_v1/exp_v2.json
 ```
@@ -475,6 +476,7 @@ PYTHONPATH=src python scripts/evolve_failure_experiences.py \
   --base reports/experience_v1/exp_v2.json \
   --episodes-root \
     reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/H \
+  --source-split valid_train \
   --version exp-v3-from-h-offset2-failures \
   --output reports/experience_v2/exp_v3.json
 
@@ -483,6 +485,7 @@ PYTHONPATH=src python scripts/audit_experience_evolution.py \
   --child reports/experience_v2/exp_v3.json \
   --episodes-root \
     reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/H \
+  --source-split valid_train \
   --output reports/experience_v2/evolution_audit.json
 ```
 
@@ -639,3 +642,68 @@ split during this benchmark run.
 
 Full trajectories and reports are under
 `reports/full_valid_unseen/qwen3_1.7b_all_134/`.
+
+## Evolve exp-v4 only from development data
+
+The complete `valid_unseen` result above remains frozen and is not an exp-v4
+training source. A protocol gate now permits experience extraction only from
+`train` or `valid_train`; it rejects `valid_seen`, `valid_unseen`, mixed, or
+mislabeled trajectory collections. Evaluation audits still require zero
+overlap with both experience evidence and development source tasks.
+
+Exp-v3 was run over all 200 playable `valid_train` tasks on three GPUs. It
+solved 158/200 (79.0%); the 42 failures were classified before changing the
+policy. Two deterministic progress failures had direct action evidence:
+
+- nine episodes took a target instance back after delivering it in a
+  two-object task;
+- six episodes repeatedly switched between destination instances while
+  holding a ready target instead of opening the current closed destination.
+
+Exp-v4 adds one scoped executable rule for each failure. It does not add a
+new light-search rule because those failures did not expose one sufficiently
+specific causal action pattern.
+
+```bash
+PYTHONPATH=src python scripts/evolve_failure_experiences.py \
+  --base reports/experience_v2/exp_v3.json \
+  --episodes-root reports/experience_v4/qwen3_1.7b_valid_train_all_200/I \
+  --source-split valid_train \
+  --enable-progress-rules \
+  --version exp-v4-from-full-valid-train-failures \
+  --output reports/experience_v4/exp_v4.json
+
+PYTHONPATH=src python scripts/audit_experience_evolution.py \
+  --base reports/experience_v2/exp_v3.json \
+  --child reports/experience_v4/exp_v4.json \
+  --episodes-root reports/experience_v4/qwen3_1.7b_valid_train_all_200/I \
+  --source-split valid_train \
+  --output reports/experience_v4/evolution_audit.json
+```
+
+The evolution audit resolves all 88 newly retained evidence records to the
+42 failed source episodes. Regeneration from the same trajectories is byte
+identical; exp-v4 SHA-256 is
+`f7f6d2692daf069dbf141b6ec35505af6c303eb54d2376592618dee5730283a8`.
+
+Exp-v3 (I) and exp-v4 (K) were then evaluated on every playable `valid_seen`
+task without using validation feedback to edit the candidate:
+
+| Task type | I / exp-v3 | K / exp-v4 | Delta |
+| --- | ---: | ---: | ---: |
+| Look under light | 8/13 | 8/13 | 0 |
+| Simple pick/place | 33/35 | 33/35 | 0 |
+| Clean then place | 20/27 | 22/27 | +2 |
+| Cool then place | 18/25 | 18/25 | 0 |
+| Heat then place | 12/16 | 12/16 | 0 |
+| Place two objects | 19/24 | 19/24 | 0 |
+| **Overall** | **110/140 (78.6%)** | **112/140 (80.0%)** | **+2** |
+
+K has two candidate-only successes, no regressions, and reduces total steps
+from 2,165 to 2,109. The paired exact p-value is 0.5, so this is a positive
+but statistically weak validation result rather than evidence of a large
+general improvement. Exp-v4 is retained as a no-regression candidate;
+exp-v3 remains the stable version backed by the frozen full `valid_unseen`
+benchmark. The validation audit covers 280 episodes and 4,274 transitions,
+all 140 discovered tasks, zero evidence/source overlap, and both immutable
+experience hashes. Full artifacts are under `reports/experience_v4/`.

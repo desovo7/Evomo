@@ -1,0 +1,22 @@
+{
+  "episode_id": "5d4966f5-856e-4512-be40-3b5bcf771099",
+  "task_id": "valid_seen/look_at_obj_in_light-AlarmClock-None-DeskLamp-323/trial_T20190909_044715_250790",
+  "goal": "look at the clock under the lamp",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 42,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 23,
+    "format_compliant_actions": 23,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

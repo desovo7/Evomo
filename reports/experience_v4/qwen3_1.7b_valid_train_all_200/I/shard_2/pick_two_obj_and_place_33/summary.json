@@ -1,0 +1,22 @@
+{
+  "episode_id": "9556c48f-b682-48f0-b1ce-8aa2f5e4584c",
+  "task_id": "valid_train/pick_two_obj_and_place-SprayBottle-None-CounterTop-409/trial_T20190908_131755_202053",
+  "goal": "Move two spray bottles to the counter.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 100,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 25,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 27
+  }
+}

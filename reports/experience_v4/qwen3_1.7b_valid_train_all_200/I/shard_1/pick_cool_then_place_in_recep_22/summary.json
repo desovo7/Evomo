@@ -1,0 +1,22 @@
+{
+  "episode_id": "7717e7c6-8cd5-4661-8241-3e90940249cb",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Tomato-None-Microwave-13/trial_T20190910_173429_847749",
+  "goal": "Put a chilled tomato in the microwave.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 101,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 26,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

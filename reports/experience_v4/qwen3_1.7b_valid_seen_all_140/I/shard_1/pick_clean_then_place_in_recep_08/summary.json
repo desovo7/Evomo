@@ -1,0 +1,22 @@
+{
+  "episode_id": "7bbb0c6a-77c0-48d8-9653-5f6ad7552ef4",
+  "task_id": "valid_seen/pick_clean_then_place_in_recep-DishSponge-None-CounterTop-403/trial_T20190908_144357_621068",
+  "goal": "Put a wet sponge on the counter.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 50,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 7,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 6,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

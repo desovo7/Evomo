@@ -1,0 +1,22 @@
+{
+  "episode_id": "4aa9f477-6f51-4387-8d7b-eb60ce1e9f63",
+  "task_id": "valid_train/pick_two_obj_and_place-Statue-None-Dresser-213/trial_T20190909_065309_623947",
+  "goal": "Move two statues from the coffee table to the dresser.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 104,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

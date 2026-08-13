@@ -1,0 +1,22 @@
+{
+  "episode_id": "addd657a-f163-4e38-807b-04093d256b5d",
+  "task_id": "valid_train/pick_two_obj_and_place-Candle-None-CounterTop-406/trial_T20190908_045958_916084",
+  "goal": "Place two candles on the sink counter top",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 72,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 20,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 20
+  }
+}

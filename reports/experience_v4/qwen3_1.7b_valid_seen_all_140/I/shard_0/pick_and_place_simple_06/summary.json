@@ -1,0 +1,22 @@
+{
+  "episode_id": "51f9e535-f9ab-4631-aadb-ebe66f2322a0",
+  "task_id": "valid_seen/pick_and_place_simple-Candle-None-Toilet-429/trial_T20190908_052232_887934",
+  "goal": "Put a bottle on the back of a newspaper.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 61,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 8,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 7,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 7
+  }
+}

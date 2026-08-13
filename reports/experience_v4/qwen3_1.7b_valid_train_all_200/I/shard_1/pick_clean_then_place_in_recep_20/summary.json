@@ -1,0 +1,22 @@
+{
+  "episode_id": "3805c819-b46a-4e74-8cdf-180b0150360b",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Lettuce-None-GarbageCan-17/trial_T20190907_163845_626537",
+  "goal": "Put a clean head of lettuce in the red trash bin.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 62,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 6,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 6,
+    "format_compliant_actions": 6,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 5,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

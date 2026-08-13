@@ -1,0 +1,22 @@
+{
+  "episode_id": "f02f8bf3-9a9f-4c15-b62f-2e22340dcc6c",
+  "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Dresser-330/trial_T20190909_060924_095249",
+  "goal": "Put two cell phones on a dresser.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 76,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 9,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 7
+  }
+}

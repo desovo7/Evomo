@@ -1,0 +1,22 @@
+{
+  "episode_id": "e7f0a2e8-4e5b-419d-b607-7be605c54d87",
+  "task_id": "valid_seen/pick_heat_then_place_in_recep-Potato-None-Fridge-12/trial_T20190908_014451_271080",
+  "goal": "cook the potato with microwave, put the potato in the refrigerator",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-k-experience_guided_action",
+  "seed": 53,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 12,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 11,
+    "format_compliant_actions": 11,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 10,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 11
+  }
+}

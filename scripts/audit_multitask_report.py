@@ -166,6 +166,15 @@ def main() -> None:
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
+        "--protocol-role",
+        choices=("development", "evaluation"),
+        default="evaluation",
+        help=(
+            "Development reports may overlap prior development evidence; "
+            "evaluation reports must remain disjoint."
+        ),
+    )
+    parser.add_argument(
         "--data-root",
         type=Path,
         help="For all_tasks runs, verify coverage against dataset discovery.",
@@ -213,7 +222,7 @@ def main() -> None:
             for item in rule["evidence"]
         } | evidence_ids
     overlap = evaluation_ids.intersection(evidence_ids)
-    if overlap:
+    if overlap and args.protocol_role == "evaluation":
         raise ValueError(f"evaluation tasks overlap experience evidence: {sorted(overlap)}")
     excluded_task_ids: set[str] = set()
     for root in args.exclude_episodes_root:
@@ -237,9 +246,10 @@ def main() -> None:
     public_results = [{k: v for k, v in result.items() if k != "task_ids"} for result in results]
     report = {
         "status": "passed",
+        "protocol_role": args.protocol_role,
         "report_dir": str(args.report_dir),
         "same_task_ids": True,
-        "experience_evidence_task_overlap": 0 if experiences else None,
+        "experience_evidence_task_overlap": len(overlap) if experiences else None,
         "excluded_source_task_overlap": 0 if args.exclude_episodes_root else None,
         "excluded_source_task_count": len(excluded_task_ids),
         "discovery_task_count": discovery_task_count,

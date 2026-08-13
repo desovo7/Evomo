@@ -1,0 +1,22 @@
+{
+  "episode_id": "fce94e1b-ea57-4c1c-8ceb-0e0b83ae8b84",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Mug-None-CoffeeMachine-23/trial_T20190908_143209_571893",
+  "goal": "Place the chilled mug in the coffee machine.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 89,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 9,
+    "format_compliant_actions": 9,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

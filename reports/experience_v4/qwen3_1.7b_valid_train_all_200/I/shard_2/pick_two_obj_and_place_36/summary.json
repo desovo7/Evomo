@@ -1,0 +1,22 @@
+{
+  "episode_id": "ac2a82bc-e91d-4f81-b528-eab5661dcf9b",
+  "task_id": "valid_train/pick_two_obj_and_place-SprayBottle-None-Toilet-417/trial_T20190908_071820_505015",
+  "goal": "Put two spray onto the flusher",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 103,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 9,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 8,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

@@ -388,6 +388,85 @@ def test_two_object_rule_skips_an_instance_already_delivered() -> None:
     assert override.reason == "take_visible_target_object"
 
 
+def test_delivered_target_rule_hard_blocks_retake() -> None:
+    task = make_task("pick_two_obj_and_place")
+    base = experience_set(task.task_type)
+    delivered_rule = ExperienceRule(
+        "do-not-retake-delivered-target",
+        "delivered_target_lock",
+        (task.task_type,),
+        "Do not retake an already delivered target.",
+        base.rules[0].evidence,
+    )
+    experiences = ExperienceSet(
+        "exp-v4",
+        "policy-i",
+        base.rules + (delivered_rule,),
+        ("failure",),
+        parent_version=base.version,
+    )
+    state = reconstruct_alfworld_state(task, (), "start")
+    state = type(state)(
+        **{
+            **state.to_dict(),
+            "current_location": "cabinet 1",
+            "known_placements": ("bowl 1 in/on cabinet 1",),
+        }
+    )
+
+    override = choose_experience_override(
+        task=task,
+        state=state,
+        proposed_action="take bowl 1 from cabinet 1",
+        admissible_actions=("take bowl 1 from cabinet 1", "go to countertop 1"),
+        experiences=experiences,
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "leave_delivered_target_and_search"
+
+
+def test_destination_opening_rule_opens_before_switching_instances() -> None:
+    task = make_task("pick_clean_then_place_in_recep")
+    base = experience_set(task.task_type)
+    opening_rule = ExperienceRule(
+        "open-current-destination",
+        "destination_opening",
+        (task.task_type,),
+        "Open the current destination first.",
+        base.rules[0].evidence,
+    )
+    experiences = ExperienceSet(
+        "exp-v4",
+        "policy-i",
+        base.rules + (opening_rule,),
+        ("failure",),
+        parent_version=base.version,
+    )
+    state = reconstruct_alfworld_state(task, (), "start")
+    state = type(state)(
+        **{
+            **state.to_dict(),
+            "current_location": "cabinet 1",
+            "inventory": "bowl 2",
+            "transformed_objects": ("bowl 2: cool",),
+        }
+    )
+
+    override = choose_experience_override(
+        task=task,
+        state=state,
+        proposed_action="go to cabinet 2",
+        admissible_actions=("go to cabinet 2", "open cabinet 1"),
+        experiences=experiences,
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "open_current_target_destination"
+
+
 def test_promotes_candidate_rules_only_for_selected_task_types() -> None:
     incumbent = experience_set("pick_heat_then_place_in_recep")
     candidate_rule = ExperienceRule(

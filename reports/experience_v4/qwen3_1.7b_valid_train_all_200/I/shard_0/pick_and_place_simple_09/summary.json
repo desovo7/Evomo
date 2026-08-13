@@ -1,0 +1,22 @@
+{
+  "episode_id": "43d8e3c7-2a13-4158-a1e1-1f904e8813c1",
+  "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+  "goal": "Place a towel on a toilet tank.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 70,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 6,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 6,
+    "format_compliant_actions": 6,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 5,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 5
+  }
+}
