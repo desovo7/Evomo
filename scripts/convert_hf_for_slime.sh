@@ -12,10 +12,10 @@ output_dir=${2:?torch_dist output directory required}
 source "$workspace/configs/slime_qwen3_1_7b_model.sh"
 export PYTHONPATH="$workspace/src:$runtime_deps:$slime_root:$megatron_root"
 export CUDA_DEVICE_MAX_CONNECTIONS=1
-"$slime_python" -m torch.distributed.run --nproc_per_node 3 \
+CUDA_VISIBLE_DEVICES=0 "$slime_python" -m torch.distributed.run --nproc_per_node 1 \
   "$slime_root/tools/convert_hf_to_torch_dist.py" \
   --hf-checkpoint "$hf_checkpoint" --save "$output_dir" \
   --megatron-to-hf-mode bridge "${MODEL_ARGS[@]}" \
-  --tensor-model-parallel-size 1 --pipeline-model-parallel-size 3 \
+  --tensor-model-parallel-size 1 --pipeline-model-parallel-size 1 \
   --context-parallel-size 1 --expert-model-parallel-size 1 \
   --expert-tensor-parallel-size 1 --seq-length 4096

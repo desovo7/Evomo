@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "cycle_id": "experience-pool-v1-stage3-slime-grpo",
+  "workspace": ".",
+  "max_parallel": 3,
+  "state_dir": "reports/experience_pool_v1/stage3/executor",
+  "stages": [
+    {
+      "stage_id": "convert_sft_for_slime",
+      "depends_on": [],
+      "outputs": ["runs/experience_pool_v1/stage3/sft_torch_dist"],
+      "jobs": [{"job_id": "convert-sft-hf-to-torch-dist", "argv": ["bash", "scripts/convert_hf_for_slime.sh", "runs/experience_pool_v1/stage2/sft/checkpoint", "runs/experience_pool_v1/stage3/sft_torch_dist"], "env": {"CUDA_VISIBLE_DEVICES": "0"}}]
+    },
+    {
+      "stage_id": "full_pool_grpo",
+      "depends_on": ["convert_sft_for_slime"],
+      "outputs": ["runs/experience_pool_v1/stage3/grpo/torch_dist", "runs/experience_pool_v1/stage3/grpo/hf_rollout_322"],
+      "jobs": [{"job_id": "slime-full-pool-episode-grpo", "argv": ["bash", "scripts/run_slime_alfworld_grpo.sh", "runs/experience_pool_v1/stage2/sft/checkpoint", "runs/experience_pool_v1/stage3/sft_torch_dist", "runs/experience_pool_v1/stage3/grpo", "configs/experience_pool_v1_slime_prompts.jsonl", "configs/experience_pool_v1_grpo.yaml"], "env": {"CUDA_VISIBLE_DEVICES": "0,1,2"}}]
+    },
+    {
+      "stage_id": "record_grpo",
+      "depends_on": ["full_pool_grpo"],
+      "outputs": ["reports/experience_pool_v1/stage3/grpo_train_report.json"],
+      "jobs": [{"job_id": "record-slime-grpo", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/record_slime_grpo_run.py", "--hf-checkpoint", "runs/experience_pool_v1/stage3/grpo/hf_rollout_322", "--torch-dist-checkpoint", "runs/experience_pool_v1/stage3/grpo/torch_dist", "--prompt-manifest", "configs/experience_pool_v1_slime_prompts.manifest.json", "--output", "reports/experience_pool_v1/stage3/grpo_train_report.json"], "env": {"PYTHONPATH": "src"}}]
+    },
+    {
+      "stage_id": "grpo_rollout",
+      "depends_on": ["record_grpo"],
+      "outputs": ["runs/experience_pool_v1/stage3/L/shard_0", "runs/experience_pool_v1/stage3/L/shard_1", "runs/experience_pool_v1/stage3/L/shard_2"],
+      "jobs": [
+        {"job_id": "grpo-gpu-0", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "runs/experience_pool_v1/stage3/grpo/hf_rollout_322", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "0", "--task-shard-count", "3", "--variant", "L", "--experience-file", "reports/experience_v2/exp_v3.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage3/L/shard_0"], "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "0"}},
+        {"job_id": "grpo-gpu-1", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "runs/experience_pool_v1/stage3/grpo/hf_rollout_322", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "1", "--task-shard-count", "3", "--variant", "L", "--experience-file", "reports/experience_v2/exp_v3.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage3/L/shard_1"], "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "1"}},
+        {"job_id": "grpo-gpu-2", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/run_qwen_multitask_variant.py", "--data-root", "/home/qzluo/.cache/alfworld", "--model-path", "runs/experience_pool_v1/stage3/grpo/hf_rollout_322", "--device", "cuda:0", "--split", "train", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--task-shard-index", "2", "--task-shard-count", "3", "--variant", "L", "--experience-file", "reports/experience_v2/exp_v3.json", "--seed", "42", "--max-steps", "30", "--max-new-tokens", "96", "--max-history-items", "6", "--output-dir", "runs/experience_pool_v1/stage3/L/shard_2"], "env": {"PYTHONPATH": "src", "CUDA_VISIBLE_DEVICES": "2"}}
+      ]
+    },
+    {
+      "stage_id": "merge",
+      "depends_on": ["grpo_rollout"],
+      "outputs": ["runs/experience_pool_v1/stage3/L/summary.json"],
+      "jobs": [{"job_id": "merge-stage3", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/merge_qwen_multitask_shards.py", "--shard-root", "runs/experience_pool_v1/stage3/L", "--output", "runs/experience_pool_v1/stage3/L/summary.json"], "env": {"PYTHONPATH": "src"}}]
+    },
+    {
+      "stage_id": "audit",
+      "depends_on": ["merge"],
+      "outputs": ["reports/experience_pool_v1/stage3/audit.json"],
+      "jobs": [{"job_id": "audit-stage3", "argv": ["/data_b/qzluo/miniconda3/envs/verl-agent/bin/python", "scripts/audit_multitask_report.py", "--report-dir", "runs/experience_pool_v1/stage3", "--variants", "L", "--variant-experience", "L=reports/experience_v2/exp_v3.json", "--task-manifest", "configs/experience_pool_v1_tasks.jsonl", "--protocol-role", "development", "--output", "reports/experience_pool_v1/stage3/audit.json"], "env": {"PYTHONPATH": "src"}}]
+    }
+  ]
+}
