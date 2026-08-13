@@ -1,0 +1,22 @@
+{
+  "episode_id": "2f4e4d17-0f46-49c0-b060-453b455ff11c",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Lettuce-None-CounterTop-15/trial_T20190907_070041_442493",
+  "goal": "Put a washed cabbage on the counter by the coffee machine.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 10,
+    "format_compliant_actions": 10,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 9
+  }
+}

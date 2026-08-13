@@ -1,0 +1,22 @@
+{
+  "episode_id": "f0b15d6a-55be-4a72-a99e-9893019bb022",
+  "task_id": "valid_train/pick_and_place_simple-Glassbottle-None-Cabinet-17/trial_T20190906_182221_722403",
+  "goal": "Place the chilled glass in the cabinet.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 50,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 23,
+    "format_compliant_actions": 23,
+    "fallback_actions": 7,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 6,
+    "unchanged_observations": 6,
+    "unique_actions": 6
+  }
+}

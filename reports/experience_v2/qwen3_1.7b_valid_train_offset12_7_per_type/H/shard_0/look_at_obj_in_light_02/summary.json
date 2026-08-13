@@ -1,0 +1,22 @@
+{
+  "episode_id": "fcaf95d7-f8e7-41d0-a980-f78c5c9261f2",
+  "task_id": "valid_train/look_at_obj_in_light-Pen-None-DeskLamp-305/trial_T20190907_115824_746935",
+  "goal": "Examine a pen next to the light of a lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 44,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 21,
+    "format_compliant_actions": 21,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 14,
+    "repeated_actions": 2,
+    "unchanged_observations": 2,
+    "unique_actions": 20
+  }
+}

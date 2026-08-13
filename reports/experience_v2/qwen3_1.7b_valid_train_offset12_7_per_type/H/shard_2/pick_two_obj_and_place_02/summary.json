@@ -1,0 +1,22 @@
+{
+  "episode_id": "09a28885-aea6-462b-b5ab-969b4e475238",
+  "task_id": "valid_train/pick_two_obj_and_place-CreditCard-None-Safe-323/trial_T20190907_001424_961488",
+  "goal": "Secure credit cards in safe.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 51,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 2,
+    "unchanged_observations": 2,
+    "unique_actions": 16
+  }
+}

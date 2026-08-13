@@ -74,7 +74,13 @@ def make_failed_episode() -> Episode:
 
 
 def experience_set(task_type: str = "pick_cool_then_place_in_recep") -> ExperienceSet:
-    evidence = ExperienceEvidence("episode", "task", 1, "take cup", "wrong target")
+    evidence = ExperienceEvidence(
+        "episode",
+        f"valid_train/{task_type}-Bowl-None-Cabinet-1/trial",
+        1,
+        "take cup",
+        "wrong target",
+    )
     return ExperienceSet(
         version="exp-v1",
         source_policy_id="policy-f",
@@ -271,3 +277,109 @@ def test_diversity_rule_prefers_new_location_type() -> None:
         "novelty-before-revisit",
         "diversify-location-types",
     )
+
+
+def test_evolves_an_existing_diversity_rule_and_expands_task_scope() -> None:
+    base = experience_set("pick_heat_then_place_in_recep")
+    diversity = ExperienceRule(
+        "diversify-location-types",
+        "location_type_diversity",
+        ("pick_heat_then_place_in_recep",),
+        "Try a different location type.",
+        base.rules[0].evidence,
+    )
+    exp_v2 = ExperienceSet(
+        "exp-v2",
+        "policy-g",
+        base.rules + (diversity,),
+        ("g-failure",),
+        parent_version="exp-v1",
+    )
+    failure = make_failed_episode()
+
+    exp_v3 = evolve_experience_set(exp_v2, [failure], version="exp-v3")
+
+    assert exp_v3.parent_version == "exp-v2"
+    assert exp_v3.source_policy_id == "policy-f"
+    rules = {rule.rule_id: rule for rule in exp_v3.rules}
+    assert "pick_cool_then_place_in_recep" in rules["target-object-lock"].task_types
+    assert len(rules["target-object-lock"].evidence) == 2
+    assert rules["diversify-location-types"] == diversity
+
+
+def test_evolution_retains_evidence_for_every_expanded_task_type() -> None:
+    base = experience_set("pick_heat_then_place_in_recep")
+    base = ExperienceSet(
+        "exp-v2",
+        "policy-g",
+        base.rules
+        + (
+            ExperienceRule(
+                "diversify-location-types",
+                "location_type_diversity",
+                ("pick_heat_then_place_in_recep",),
+                "Try a different location type.",
+                base.rules[0].evidence,
+            ),
+        ),
+        ("g-failure",),
+        parent_version="exp-v1",
+    )
+    failures = []
+    for task_type in ("pick_and_place_simple", "pick_two_obj_and_place"):
+        original = make_failed_episode()
+        failures.append(
+            Episode(
+                f"failure-{task_type}",
+                make_task(task_type),
+                original.policy_id,
+                original.seed,
+                original.started_at,
+                original.ended_at,
+                original.initial_observation,
+                original.steps,
+                False,
+                original.termination_reason,
+                0,
+            )
+        )
+
+    evolved = evolve_experience_set(base, failures, version="exp-v2")
+    rule = next(rule for rule in evolved.rules if rule.rule_id == "target-object-lock")
+
+    for task_type in rule.task_types:
+        if task_type in {"pick_and_place_simple", "pick_two_obj_and_place"}:
+            assert any(
+                task_type in evidence.task_id.split("/")
+                or any(
+                    segment.startswith(f"{task_type}-")
+                    for segment in evidence.task_id.split("/")
+                )
+                for evidence in rule.evidence
+            )
+
+
+def test_two_object_rule_skips_an_instance_already_delivered() -> None:
+    task = make_task("pick_two_obj_and_place")
+    state = reconstruct_alfworld_state(task, (), "start")
+    state = type(state)(
+        **{
+            **state.to_dict(),
+            "known_placements": ("bowl 1 in/on cabinet 1",),
+        }
+    )
+
+    override = choose_experience_override(
+        task=task,
+        state=state,
+        proposed_action="take bowl 1 from cabinet 1",
+        admissible_actions=(
+            "take bowl 1 from cabinet 1",
+            "take bowl 2 from cabinet 1",
+        ),
+        experiences=experience_set("pick_two_obj_and_place"),
+    )
+
+    assert override is not None
+    assert override.action_index == 1
+    assert override.reason == "take_visible_target_object"

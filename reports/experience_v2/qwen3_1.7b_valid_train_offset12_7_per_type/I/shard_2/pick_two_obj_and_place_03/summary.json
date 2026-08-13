@@ -1,0 +1,22 @@
+{
+  "episode_id": "455e8f29-b80f-4cec-a3d2-7723afdf0f23",
+  "task_id": "valid_train/pick_two_obj_and_place-CreditCard-None-Sofa-206/trial_T20190906_203615_424745",
+  "goal": "Put two credit cards on the couch.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 52,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 8
+  }
+}

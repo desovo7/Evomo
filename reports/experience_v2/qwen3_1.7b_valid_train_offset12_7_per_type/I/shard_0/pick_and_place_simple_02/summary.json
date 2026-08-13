@@ -1,0 +1,22 @@
+{
+  "episode_id": "7be8ba8e-705a-4010-8cd7-49ca3ded9b31",
+  "task_id": "valid_train/pick_and_place_simple-HandTowel-None-Cabinet-412/trial_T20190906_200520_896836",
+  "goal": "Move the white towel from the wall to the cabinet under the sink on the left",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 51,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 7,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 7,
+    "format_compliant_actions": 7,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 6,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

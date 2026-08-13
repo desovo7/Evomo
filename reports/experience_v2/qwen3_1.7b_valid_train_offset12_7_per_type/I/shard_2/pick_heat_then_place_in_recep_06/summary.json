@@ -1,0 +1,22 @@
+{
+  "episode_id": "4080503d-628a-40c5-9659-173fe00a9f77",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Tomato-None-CounterTop-2/trial_T20190908_171656_745023",
+  "goal": "Heat a tomato and place it on the counter.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 48,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 14,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 11,
+    "format_compliant_actions": 11,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 13,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 13
+  }
+}

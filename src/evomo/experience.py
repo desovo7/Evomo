@@ -125,6 +125,38 @@ def load_experience_set(path: str | Path) -> ExperienceSet:
         return ExperienceSet.from_dict(json.load(stream))
 
 
+def _retain_scoped_evidence(
+    evidence: Iterable[ExperienceEvidence],
+    task_types: Iterable[str],
+    *,
+    limit: int = 48,
+) -> tuple[ExperienceEvidence, ...]:
+    """Bound evidence while retaining one concrete item per declared task type."""
+
+    items = tuple(evidence)
+    task_types = tuple(task_types)
+    if limit < len(task_types):
+        raise ValueError("evidence limit cannot cover every declared task type")
+
+    selected: list[ExperienceEvidence] = []
+    for task_type in task_types:
+        match = next(
+            (
+                item
+                for item in items
+                if any(
+                    segment == task_type or segment.startswith(f"{task_type}-")
+                    for segment in item.task_id.split("/")
+                )
+            ),
+            None,
+        )
+        if match is not None and match not in selected:
+            selected.append(match)
+    selected.extend(item for item in items if item not in selected)
+    return tuple(selected[:limit])
+
+
 def extract_failure_experiences(
     episodes: Iterable[Episode], *, version: str
 ) -> ExperienceSet:
@@ -254,7 +286,7 @@ def evolve_experience_set(
     version: str,
     repeated_type_threshold: int = 4,
 ) -> ExperienceSet:
-    """Add evidence-backed rules discovered after evaluating a prior experience set."""
+    """Merge failure evidence into a new child version of an experience set."""
 
     episodes = tuple(episode for episode in episodes if not episode.success)
     if not episodes:
@@ -262,32 +294,120 @@ def evolve_experience_set(
     policies = {episode.policy_id for episode in episodes}
     if len(policies) != 1:
         raise ValueError("evolution episodes must use one policy")
-    if any(rule.rule_id == "diversify-location-types" for rule in base.rules):
-        raise ValueError("base experience already contains location-type diversity")
     if repeated_type_threshold < 2:
         raise ValueError("repeated_type_threshold must be at least two")
 
-    evidence: list[ExperienceEvidence] = []
-    affected_types: set[str] = set()
+    # Preserve the first published evolution exactly: exp-v1 adds only the
+    # location-type diversity rule. Later versions merge fresh evidence into
+    # the complete rule set.
+    if not any(rule.rule_id == "diversify-location-types" for rule in base.rules):
+        evidence: list[ExperienceEvidence] = []
+        affected_types: set[str] = set()
+        for episode in episodes:
+            visited_type_counts: dict[str, int] = {}
+            for step in episode.steps:
+                match = _GO_RE.fullmatch(step.action)
+                if not match:
+                    continue
+                place_type = _object_type(match.group(1))
+                available_types = {
+                    _object_type(candidate.group(1))
+                    for action in step.admissible_actions
+                    if (candidate := _GO_RE.fullmatch(action))
+                }
+                visited_type_counts[place_type] = visited_type_counts.get(place_type, 0) + 1
+                if (
+                    visited_type_counts[place_type] >= repeated_type_threshold
+                    and len(available_types - set(visited_type_counts)) > 0
+                ):
+                    affected_types.add(episode.task.task_type)
+                    evidence.append(
+                        ExperienceEvidence(
+                            episode.episode_id,
+                            episode.task.task_id,
+                            step.step_index,
+                            step.action,
+                            f"Visited location type {place_type!r} repeatedly while other "
+                            "unvisited location types remained admissible.",
+                        )
+                    )
+        if not evidence:
+            raise ValueError("no repeated location-type exploration found")
+        diversity_rule = ExperienceRule(
+            "diversify-location-types",
+            "location_type_diversity",
+            tuple(sorted(affected_types)),
+            "When searching and one location type has already been explored, prefer an "
+            "unvisited location of a different type before trying more numbered "
+            "instances of the same type.",
+            tuple(evidence[:24]),
+        )
+        return ExperienceSet(
+            version=version,
+            source_policy_id=next(iter(policies)),
+            rules=base.rules + (diversity_rule,),
+            source_episode_ids=tuple(episode.episode_id for episode in episodes),
+            parent_version=base.version,
+        )
+
+    wrong_object: list[ExperienceEvidence] = []
+    revisits: list[ExperienceEvidence] = []
+    unfinished: list[ExperienceEvidence] = []
+    diversity: list[ExperienceEvidence] = []
+    rule_types: dict[str, set[str]] = {
+        "target-object-lock": set(),
+        "novelty-before-revisit": set(),
+        "ordered-task-recipe": set(),
+        "diversify-location-types": set(),
+    }
     for episode in episodes:
+        target = _normalized_type(task_targets(episode.task)["object"])
         visited_type_counts: dict[str, int] = {}
+        visited_locations: set[str] = set()
         for step in episode.steps:
+            take = _TAKE_RE.fullmatch(step.action)
+            if take and target and _object_type(take.group(1)) != target:
+                rule_types["target-object-lock"].add(episode.task.task_type)
+                wrong_object.append(
+                    ExperienceEvidence(
+                        episode.episode_id,
+                        episode.task.task_id,
+                        step.step_index,
+                        step.action,
+                        "The policy manipulated an object whose type did not match "
+                        "object_target.",
+                    )
+                )
             match = _GO_RE.fullmatch(step.action)
             if not match:
                 continue
-            place_type = _object_type(match.group(1))
+            place = match.group(1).strip()
+            place_type = _object_type(place)
             available_types = {
                 _object_type(candidate.group(1))
                 for action in step.admissible_actions
                 if (candidate := _GO_RE.fullmatch(action))
             }
             visited_type_counts[place_type] = visited_type_counts.get(place_type, 0) + 1
+            if place.casefold() in visited_locations:
+                rule_types["novelty-before-revisit"].add(episode.task.task_type)
+                revisits.append(
+                    ExperienceEvidence(
+                        episode.episode_id,
+                        episode.task.task_id,
+                        step.step_index,
+                        step.action,
+                        "The target was not complete and the policy revisited an "
+                        "explored location.",
+                    )
+                )
+            visited_locations.add(place.casefold())
             if (
                 visited_type_counts[place_type] >= repeated_type_threshold
                 and len(available_types - set(visited_type_counts)) > 0
             ):
-                affected_types.add(episode.task.task_type)
-                evidence.append(
+                rule_types["diversify-location-types"].add(episode.task.task_type)
+                diversity.append(
                     ExperienceEvidence(
                         episode.episode_id,
                         episode.task.task_id,
@@ -297,21 +417,68 @@ def evolve_experience_set(
                         "unvisited location types remained admissible.",
                     )
                 )
-    if not evidence:
-        raise ValueError("no repeated location-type exploration found")
-    diversity_rule = ExperienceRule(
-        "diversify-location-types",
-        "location_type_diversity",
-        tuple(sorted(affected_types)),
-        "When searching and one location type has already been explored, prefer an "
-        "unvisited location of a different type before trying more numbered instances "
-        "of the same type.",
-        tuple(evidence[:24]),
-    )
+        rule_types["ordered-task-recipe"].add(episode.task.task_type)
+        unfinished.append(
+            ExperienceEvidence(
+                episode.episode_id,
+                episode.task.task_id,
+                None,
+                None,
+                "Episode reached max_steps without completing the ordered task recipe.",
+            )
+        )
+
+    additions = {
+        "target-object-lock": (
+            "target_object_lock",
+            "Use pddl_params.object_target as an invariant: do not take, transform, "
+            "or deliver a different object type; release a wrongly held object first.",
+            wrong_object,
+        ),
+        "novelty-before-revisit": (
+            "novelty_exploration",
+            "While searching for an unfinished target, open the current closed "
+            "receptacle, then prefer an unvisited location over an explored location.",
+            revisits,
+        ),
+        "ordered-task-recipe": (
+            "ordered_subgoals",
+            "Follow the task recipe in order for the target object: acquire it, perform "
+            "the required interaction, then deliver or examine it. For two-object "
+            "tasks, deliver two distinct target instances.",
+            unfinished,
+        ),
+        "diversify-location-types": (
+            "location_type_diversity",
+            "When searching and one location type has already been explored, prefer an "
+            "unvisited location of a different type before trying more numbered "
+            "instances of the same type.",
+            diversity,
+        ),
+    }
+    existing = {rule.rule_id: rule for rule in base.rules}
+    merged_rules: list[ExperienceRule] = []
+    for rule_id in additions:
+        kind, instruction, evidence = additions[rule_id]
+        prior = existing.pop(rule_id, None)
+        if prior is None and not evidence:
+            continue
+        types = set(prior.task_types if prior else ()) | rule_types[rule_id]
+        combined_evidence = list(prior.evidence if prior else ()) + evidence
+        merged_rules.append(
+            ExperienceRule(
+                rule_id,
+                prior.kind if prior else kind,
+                tuple(sorted(types)),
+                prior.instruction if prior else instruction,
+                _retain_scoped_evidence(combined_evidence, sorted(types)),
+            )
+        )
+    merged_rules.extend(existing.values())
     return ExperienceSet(
         version=version,
         source_policy_id=next(iter(policies)),
-        rules=base.rules + (diversity_rule,),
+        rules=tuple(merged_rules),
         source_episode_ids=tuple(episode.episode_id for episode in episodes),
         parent_version=base.version,
     )
@@ -364,7 +531,18 @@ def choose_experience_override(
                     )
         if state.inventory is None:
             for index, obj, _ in takes:
-                if _object_type(obj) == target:
+                already_delivered = any(
+                    fact.casefold().startswith(f"{obj.casefold()} in/on ")
+                    and _object_type(fact.rsplit(" in/on ", 1)[-1]) == destination
+                    for fact in state.known_placements
+                )
+                if (
+                    _object_type(obj) == target
+                    and not (
+                        task.task_type == "pick_two_obj_and_place"
+                        and already_delivered
+                    )
+                ):
                     return ExperienceOverride(
                         index,
                         "take_visible_target_object",

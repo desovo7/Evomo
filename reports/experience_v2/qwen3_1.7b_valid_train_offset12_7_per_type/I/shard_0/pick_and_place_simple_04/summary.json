@@ -1,0 +1,22 @@
+{
+  "episode_id": "4e508f9a-8d93-4fce-8a29-f671fc4744e1",
+  "task_id": "valid_train/pick_and_place_simple-KeyChain-None-CoffeeTable-227/trial_T20190907_161844_256041",
+  "goal": "Move a set of keys from a chair to a coffee table.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 53,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 5,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 5,
+    "format_compliant_actions": 5,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 4,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 4
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "d71e52c5-06fb-463b-90c1-ffd268ee2cac",
+  "task_id": "valid_train/pick_cool_then_place_in_recep-Plate-None-DiningTable-23/trial_T20190910_025008_561989",
+  "goal": "Put a chilled gold plate on the table.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 53,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 11,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 11,
+    "format_compliant_actions": 11,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 10,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 9
+  }
+}

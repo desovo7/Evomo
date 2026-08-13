@@ -1,0 +1,22 @@
+{
+  "episode_id": "ed189e8f-4f15-422f-91ae-e7923e6fb1d4",
+  "task_id": "valid_train/pick_two_obj_and_place-KeyChain-None-Dresser-318/trial_T20190907_181205_590674",
+  "goal": "Put two sets of keys on a table.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 54,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 23,
+    "format_compliant_actions": 23,
+    "fallback_actions": 3,
+    "repaired_actions": 4,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 16
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "f21134a3-b02e-46e6-a194-cb38b5ef410c",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Ladle-None-Drawer-4/trial_T20190909_161523_929674",
+  "goal": "put a washed ladle into a drawer",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 47,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 12
+  }
+}

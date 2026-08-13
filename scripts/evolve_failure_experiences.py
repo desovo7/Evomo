@@ -22,10 +22,24 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     episodes = []
-    for path in sorted(args.episodes_root.glob("*/episode.jsonl")):
+    for path in sorted(args.episodes_root.rglob("episode.jsonl")):
         episodes.extend(EpisodeStore(path).load_all())
+    episode_ids = [episode.episode_id for episode in episodes]
+    if len(episode_ids) != len(set(episode_ids)):
+        raise ValueError("evolution source contains duplicate episode IDs")
+    base = load_experience_set(args.base)
+    observed_versions = {
+        step.info.get("policy", {}).get("metadata", {}).get("experience_version")
+        for episode in episodes
+        for step in episode.steps
+    }
+    if observed_versions != {base.version}:
+        raise ValueError(
+            f"evolution episodes must all use base version {base.version!r}; "
+            f"observed {sorted(map(str, observed_versions))}"
+        )
     evolved = evolve_experience_set(
-        load_experience_set(args.base), episodes, version=args.version
+        base, episodes, version=args.version
     )
     save_experience_set(evolved, args.output)
     print(json.dumps(evolved.to_dict(), ensure_ascii=False, indent=2))

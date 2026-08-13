@@ -1,0 +1,22 @@
+{
+  "episode_id": "6e3ffac4-4413-4f2b-a5c4-7ef2c0952263",
+  "task_id": "valid_train/pick_heat_then_place_in_recep-Plate-None-CounterTop-1/trial_T20190909_115700_060162",
+  "goal": "Put a warm plate on the counter.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 43,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 27,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "d2cde3d8-0ca3-419a-be32-1ed554ddca63",
+  "task_id": "valid_train/pick_two_obj_and_place-Cup-None-Shelf-1/trial_T20190908_015402_128805",
+  "goal": "Put the glasses away on the shelf.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 53,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 17
+  }
+}

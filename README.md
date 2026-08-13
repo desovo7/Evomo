@@ -454,3 +454,67 @@ version and SHA-256, rule IDs and task-type scope, and zero overlap with
 experience evidence tasks. The full paired table, raw model responses, state
 snapshots, and readable trajectories are under
 `reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/`.
+
+## Evolve exp-v3 and evaluate on a second disjoint set
+
+The next evolution consumes all 30 H failures from the offset-2 run. The
+general evolution now merges new evidence into existing rules, expands rule
+scope from observed failures, bounds retained evidence with stable category
+coverage, and records the prior version as its parent. Recursive episode
+discovery lets it consume the three-GPU shard logs directly.
+
+The failures reveal that exp-v2 never applied to simple pick/place or
+two-object tasks, where the policy repeatedly manipulated non-target objects.
+Exp-v3 adds direct target-lock and ordered-delivery evidence for both types.
+For two-object tasks, an instance already delivered to the destination is
+skipped using a placement fact derived from the environment's successful
+`move` response.
+
+```bash
+PYTHONPATH=src python scripts/evolve_failure_experiences.py \
+  --base reports/experience_v1/exp_v2.json \
+  --episodes-root \
+    reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/H \
+  --version exp-v3-from-h-offset2-failures \
+  --output reports/experience_v2/exp_v3.json
+
+PYTHONPATH=src python scripts/audit_experience_evolution.py \
+  --base reports/experience_v1/exp_v2.json \
+  --child reports/experience_v2/exp_v3.json \
+  --episodes-root \
+    reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/H \
+  --output reports/experience_v2/evolution_audit.json
+```
+
+The evolution audit resolves each retained new evidence item to a real source
+episode and, where present, its exact step and action. It verifies 30 failed
+source episodes, source policy and base-version consistency, parent lineage,
+and 138 new evidence records across four rules.
+
+Offset 12 with seven tasks per category is the largest balanced contiguous
+sample that does not reuse indices 0 through 11 because light tasks have only
+19 playable `valid_train` entries. It yields 42 tasks disjoint from the
+exp-v3 source set and all retained exp-v2/v3 evidence. H and I use identical
+prompts, model, tasks, seeds, greedy decoding, history, and limits; H loads
+exp-v2 while I loads exp-v3.
+
+| Task type | H / exp-v2 | I / exp-v3 | Delta |
+| --- | ---: | ---: | ---: |
+| Look under light | 2/7 | 1/7 | -1 |
+| Simple pick/place | 2/7 | 5/7 | +3 |
+| Clean then place | 4/7 | 4/7 | 0 |
+| Cool then place | 3/7 | 5/7 | +2 |
+| Heat then place | 6/7 | 6/7 | 0 |
+| Place two objects | 2/7 | 7/7 | +5 |
+| **Overall** | **19/42 (45.2%)** | **28/42 (66.7%)** | **+9** |
+
+There are 11 I-only successes and two H-only successes (two-sided exact
+McNemar/binomial p=0.02246). Exp-v3 improves both newly covered categories
+and preserves heat, but the light regression shows evolution is not assumed
+to be monotonic. The next version should diagnose that regression rather than
+accept every broader rule unconditionally.
+
+The report audit covers 84 episodes and 1,741 transitions, validates both
+experience files independently by version and SHA-256, and confirms zero task
+overlap with either version's evidence. Full logs are under
+`reports/experience_v2/qwen3_1.7b_valid_train_offset12_7_per_type/`.

@@ -31,6 +31,7 @@ VARIANTS = {
     "F": PromptVariant.STATE_TRACKED_REPAIRED_ACTION,
     "G": PromptVariant.EXPERIENCE_GUIDED_ACTION,
     "H": PromptVariant.EXPERIENCE_GUIDED_ACTION,
+    "I": PromptVariant.EXPERIENCE_GUIDED_ACTION,
 }
 
 
@@ -64,10 +65,10 @@ def parse_args() -> argparse.Namespace:
         parser.error("task-offset must be non-negative")
     if args.max_history_items < 0:
         parser.error("max-history-items must be non-negative")
-    if args.variant in {"G", "H"} and args.experience_file is None:
-        parser.error("variants G/H require --experience-file")
-    if args.variant not in {"G", "H"} and args.experience_file is not None:
-        parser.error("--experience-file is only valid for variants G/H")
+    if args.variant in {"G", "H", "I"} and args.experience_file is None:
+        parser.error("variants G/H/I require --experience-file")
+    if args.variant not in {"G", "H", "I"} and args.experience_file is not None:
+        parser.error("--experience-file is only valid for variants G/H/I")
     return args
 
 

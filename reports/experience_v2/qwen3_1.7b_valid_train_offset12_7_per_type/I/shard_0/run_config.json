@@ -1,0 +1,35 @@
+{
+  "variant": "I",
+  "prompt_variant": "experience_guided_action",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "model_id": "Qwen3-1.7B",
+  "split": "valid_train",
+  "per_type": 7,
+  "task_offset": 12,
+  "task_types": [
+    "look_at_obj_in_light",
+    "pick_and_place_simple"
+  ],
+  "seed": 42,
+  "max_steps": 30,
+  "max_new_tokens": 96,
+  "max_history_items": 6,
+  "task_ids": [
+    "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-324/trial_T20190908_071137_867346",
+    "valid_train/look_at_obj_in_light-Mug-None-DeskLamp-323/trial_T20190907_041046_628363",
+    "valid_train/look_at_obj_in_light-Pen-None-DeskLamp-305/trial_T20190907_115824_746935",
+    "valid_train/look_at_obj_in_light-Pen-None-DeskLamp-316/trial_T20190908_061847_951064",
+    "valid_train/look_at_obj_in_light-Pillow-None-DeskLamp-309/trial_T20190908_113756_084511",
+    "valid_train/look_at_obj_in_light-Pillow-None-DeskLamp-323/trial_T20190908_053117_107031",
+    "valid_train/look_at_obj_in_light-TissueBox-None-DeskLamp-216/trial_T20190908_033138_836240",
+    "valid_train/pick_and_place_simple-Fork-None-Drawer-12/trial_T20190907_151050_079642",
+    "valid_train/pick_and_place_simple-Glassbottle-None-Cabinet-17/trial_T20190906_182221_722403",
+    "valid_train/pick_and_place_simple-HandTowel-None-Cabinet-412/trial_T20190906_200520_896836",
+    "valid_train/pick_and_place_simple-KeyChain-None-ArmChair-318/trial_T20190909_114631_650488",
+    "valid_train/pick_and_place_simple-KeyChain-None-CoffeeTable-227/trial_T20190907_161844_256041",
+    "valid_train/pick_and_place_simple-KeyChain-None-SideTable-309/trial_T20190908_215011_025401",
+    "valid_train/pick_and_place_simple-KeyChain-None-SideTable-322/trial_T20190909_091733_848923"
+  ],
+  "experience_version": "exp-v3-from-h-offset2-failures",
+  "experience_sha256": "a6be7a11e341c278026aa484ac9834de2c041a475d3b7f60f00b225de4286ad6"
+}

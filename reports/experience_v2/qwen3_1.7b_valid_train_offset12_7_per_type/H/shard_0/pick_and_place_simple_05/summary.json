@@ -1,0 +1,22 @@
+{
+  "episode_id": "aaf6a989-fd99-4e36-949c-1713ed9819ab",
+  "task_id": "valid_train/pick_and_place_simple-KeyChain-None-SideTable-309/trial_T20190908_215011_025401",
+  "goal": "Move a set of keys to the bedside table.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 54,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 21,
+    "format_compliant_actions": 21,
+    "fallback_actions": 8,
+    "repaired_actions": 1,
+    "experience_overrides": 0,
+    "repeated_actions": 5,
+    "unchanged_observations": 5,
+    "unique_actions": 15
+  }
+}

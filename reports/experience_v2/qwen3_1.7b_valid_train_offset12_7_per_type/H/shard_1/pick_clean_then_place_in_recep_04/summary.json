@@ -1,0 +1,22 @@
+{
+  "episode_id": "6c5129a4-fbad-4156-ae2a-d0ae55d910d8",
+  "task_id": "valid_train/pick_clean_then_place_in_recep-Ladle-None-Drawer-30/trial_T20190908_005155_378803",
+  "goal": "Rinse a ladle and put it away in the drawer.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 46,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 30
+  }
+}

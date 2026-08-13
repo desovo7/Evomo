@@ -24,6 +24,9 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
     step_count = 0
     override_count = 0
     used_rule_ids: set[str] = set()
+    rule_use_counts: Counter[str] = Counter()
+    override_reason_counts: Counter[str] = Counter()
+    overrides_by_task_type: Counter[str] = Counter()
     rule_types = (
         {rule["rule_id"]: set(rule["task_types"]) for rule in experience["rules"]}
         if experience is not None
@@ -65,7 +68,12 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
             if bool(metadata.get("experience_override_reason")) != bool(rule_ids):
                 raise ValueError(f"{episode_path}: experience override metadata is inconsistent")
             used_rule_ids.update(rule_ids)
-            override_count += int(bool(metadata.get("experience_override_reason")))
+            rule_use_counts.update(rule_ids)
+            override_reason = metadata.get("experience_override_reason")
+            override_count += int(bool(override_reason))
+            if override_reason:
+                override_reason_counts[override_reason] += 1
+                overrides_by_task_type[episode["task"]["task_type"]] += 1
             previous = step["next_observation"]
         if episode["success"]:
             if (
@@ -104,49 +112,104 @@ def audit_variant(directory: Path, *, experience: dict | None = None) -> dict:
         "success_count": sum(bool(episode["success"]) for episode in episodes),
         "task_type_counts": dict(sorted(Counter(ep["task"]["task_type"] for ep in episodes).items())),
         "experience_override_count": override_count,
+        "experience_overrides_by_task_type": dict(sorted(overrides_by_task_type.items())),
+        "experience_rule_use_counts": dict(sorted(rule_use_counts.items())),
+        "experience_override_reason_counts": dict(sorted(override_reason_counts.items())),
         "used_experience_rule_ids": sorted(used_rule_ids),
         "task_ids": sorted(actual_ids),
     }
 
 
+def parse_variant_experience(value: str) -> tuple[str, Path]:
+    if "=" not in value:
+        raise argparse.ArgumentTypeError("expected VARIANT=PATH")
+    variant, path = value.split("=", 1)
+    if not variant or not path:
+        raise argparse.ArgumentTypeError("variant and path must be non-empty")
+    return variant, Path(path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report-dir", type=Path, required=True)
-    parser.add_argument("--experience-file", type=Path)
+    parser.add_argument("--variants", nargs="+", default=("F", "H"))
+    parser.add_argument(
+        "--variant-experience",
+        action="append",
+        type=parse_variant_experience,
+        default=[],
+        metavar="VARIANT=PATH",
+    )
+    parser.add_argument(
+        "--experience-file",
+        type=Path,
+        help="Backward-compatible alias for --variant-experience H=PATH.",
+    )
+    parser.add_argument(
+        "--exclude-episodes-root",
+        action="append",
+        type=Path,
+        default=[],
+        help="Reject overlap with every episode task under this root (repeatable).",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
-    experience = load_json(args.experience_file) if args.experience_file else None
+    experience_paths = dict(args.variant_experience)
+    if len(experience_paths) != len(args.variant_experience):
+        parser.error("variant experience mappings must be unique")
+    if args.experience_file:
+        if "H" in experience_paths:
+            parser.error("H experience was supplied twice")
+        experience_paths["H"] = args.experience_file
+    unknown = set(experience_paths) - set(args.variants)
+    if unknown:
+        parser.error(f"experience supplied for unrequested variants: {sorted(unknown)}")
+    experiences = {variant: load_json(path) for variant, path in experience_paths.items()}
     results = [
-        audit_variant(args.report_dir / "F"),
-        audit_variant(args.report_dir / "H", experience=experience),
+        audit_variant(args.report_dir / variant, experience=experiences.get(variant))
+        for variant in args.variants
     ]
-    if results[0]["task_ids"] != results[1]["task_ids"]:
-        raise ValueError("F and H do not cover identical task IDs")
+    if any(result["task_ids"] != results[0]["task_ids"] for result in results[1:]):
+        raise ValueError("variants do not cover identical task IDs")
     evaluation_ids = set(results[0]["task_ids"])
-    if experience is not None:
+    evidence_ids: set[str] = set()
+    for experience in experiences.values():
         evidence_ids = {
             item["task_id"]
             for rule in experience["rules"]
             for item in rule["evidence"]
-        }
-        overlap = evaluation_ids.intersection(evidence_ids)
-        if overlap:
-            raise ValueError(f"evaluation tasks overlap experience evidence: {sorted(overlap)}")
-    h_summary = load_json(args.report_dir / "H" / "summary.json")
-    if experience is not None:
-        digest = hashlib.sha256(args.experience_file.read_bytes()).hexdigest()
-        if h_summary["run"]["experience_version"] != experience["version"]:
-            raise ValueError("H run experience version mismatch")
-        if h_summary["run"]["experience_sha256"] != digest:
-            raise ValueError("H run experience SHA-256 mismatch")
+        } | evidence_ids
+    overlap = evaluation_ids.intersection(evidence_ids)
+    if overlap:
+        raise ValueError(f"evaluation tasks overlap experience evidence: {sorted(overlap)}")
+    excluded_task_ids: set[str] = set()
+    for root in args.exclude_episodes_root:
+        for episode_path in sorted(root.rglob("episode.jsonl")):
+            rows = load_jsonl(episode_path)
+            if len(rows) != 1:
+                raise ValueError(f"{episode_path}: expected one episode")
+            excluded_task_ids.add(rows[0]["task"]["task_id"])
+    source_overlap = evaluation_ids.intersection(excluded_task_ids)
+    if source_overlap:
+        raise ValueError(f"evaluation tasks overlap excluded source tasks: {sorted(source_overlap)}")
+    for variant, experience_path in experience_paths.items():
+        summary = load_json(args.report_dir / variant / "summary.json")
+        experience = experiences[variant]
+        digest = hashlib.sha256(experience_path.read_bytes()).hexdigest()
+        if summary["run"]["experience_version"] != experience["version"]:
+            raise ValueError(f"{variant} run experience version mismatch")
+        if summary["run"]["experience_sha256"] != digest:
+            raise ValueError(f"{variant} run experience SHA-256 mismatch")
 
     public_results = [{k: v for k, v in result.items() if k != "task_ids"} for result in results]
     report = {
         "status": "passed",
         "report_dir": str(args.report_dir),
         "same_task_ids": True,
-        "experience_evidence_task_overlap": 0 if experience is not None else None,
+        "experience_evidence_task_overlap": 0 if experiences else None,
+        "excluded_source_task_overlap": 0 if args.exclude_episodes_root else None,
+        "excluded_source_task_count": len(excluded_task_ids),
         "variants": public_results,
         "totals": {
             "episodes": sum(item["episode_count"] for item in public_results),

@@ -17,7 +17,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     episodes = []
-    for path in sorted(args.episodes_root.glob("*/episode.jsonl")):
+    for path in sorted(args.episodes_root.rglob("episode.jsonl")):
         episodes.extend(EpisodeStore(path).load_all())
     experiences = extract_failure_experiences(episodes, version=args.version)
     save_experience_set(experiences, args.output)

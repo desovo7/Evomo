@@ -1,0 +1,22 @@
+{
+  "episode_id": "0bd642e1-0e1a-47d7-b29c-13a22930bcfc",
+  "task_id": "valid_train/pick_and_place_simple-KeyChain-None-ArmChair-318/trial_T20190909_114631_650488",
+  "goal": "Move the keys to the chair.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "seed": 52,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 21,
+    "format_compliant_actions": 21,
+    "fallback_actions": 8,
+    "repaired_actions": 1,
+    "experience_overrides": 0,
+    "repeated_actions": 6,
+    "unchanged_observations": 6,
+    "unique_actions": 13
+  }
+}

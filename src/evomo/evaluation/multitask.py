@@ -327,10 +327,18 @@ def render_comparison_markdown(comparison: dict) -> str:
         f"- Samples per task type: {comparison['per_type']}",
         f"- Stable task offset: {comparison.get('task_offset', 0)}",
         "- Integrity audit: [`audit.json`](audit.json)",
-        "",
-        "| Prompt | Success | Parsed actions | Repaired | Experience overrides | True fallback | Repeats | Unchanged obs |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
+    for summary in comparison["variants"]:
+        version = summary.get("run", {}).get("experience_version")
+        if version:
+            lines.append(f"- Prompt {summary['variant']} experience: `{version}`")
+    lines.extend(
+        [
+            "",
+            "| Prompt | Success | Parsed actions | Repaired | Experience overrides | True fallback | Repeats | Unchanged obs |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
     for summary in comparison["variants"]:
         totals = summary["totals"]
         lines.append(

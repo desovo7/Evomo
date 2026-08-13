@@ -1,0 +1,1346 @@
+{
+  "version": "exp-v3-from-h-offset2-failures",
+  "source_policy_id": "qwen3-1.7b-h-experience_guided_action",
+  "rules": [
+    {
+      "rule_id": "target-object-lock",
+      "kind": "target_object_lock",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_and_place_simple",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep",
+        "pick_two_obj_and_place"
+      ],
+      "instruction": "Use pddl_params.object_target as an invariant: do not take, transform, or deliver a different object type; release a wrongly held object first.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 2,
+          "action": "take pen 2 from desk 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 2,
+          "action": "take statue 2 from shelf 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 6,
+          "action": "take cup 1 from cabinet 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "8ce4bb11-1ad3-4bc3-ae57-a27b245a62da",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 8,
+          "action": "take saltshaker 2 from cabinet 3",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "d4df1558-a924-4f17-9b04-15367cc41ffb",
+          "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+          "step_index": 5,
+          "action": "take candle 2 from coffeetable 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 15,
+          "action": "take cup 1 from fridge 1",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 23,
+          "action": "take cup 1 from cabinet 2",
+          "observation": "The policy picked an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 7,
+          "action": "take statue 2 from shelf 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 14,
+          "action": "take statue 2 from shelf 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 20,
+          "action": "take cellphone 1 from shelf 3",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 27,
+          "action": "take cellphone 1 from shelf 3",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 3,
+          "action": "take soapbottle 2 from cabinet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 8,
+          "action": "take spraybottle 2 from cabinet 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 16,
+          "action": "take spraybottle 2 from cabinet 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 20,
+          "action": "take spraybottle 1 from cabinet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 27,
+          "action": "take spraybottle 2 from cabinet 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 7,
+          "action": "take laptop 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 9,
+          "action": "take pillow 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 11,
+          "action": "take laptop 2 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 14,
+          "action": "take pillow 2 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 16,
+          "action": "take laptop 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 19,
+          "action": "take laptop 2 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 21,
+          "action": "take laptop 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 24,
+          "action": "take laptop 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": 27,
+          "action": "take laptop 1 from bed 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 3,
+          "action": "take pen 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 7,
+          "action": "take pencil 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 11,
+          "action": "take pen 2 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 13,
+          "action": "take pen 3 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 15,
+          "action": "take pencil 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 21,
+          "action": "take pen 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 23,
+          "action": "take pencil 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": 29,
+          "action": "take pen 1 from desk 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 2,
+          "action": "take spraybottle 2 from toilet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 7,
+          "action": "take towel 1 from towelholder 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 11,
+          "action": "take spraybottle 2 from toilet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 14,
+          "action": "take soapbar 1 from sinkbasin 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 17,
+          "action": "take towel 1 from towelholder 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 20,
+          "action": "take spraybottle 2 from toilet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 23,
+          "action": "take soapbar 1 from sinkbasin 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 26,
+          "action": "take towel 1 from towelholder 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 29,
+          "action": "take spraybottle 2 from toilet 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 6,
+          "action": "take remotecontrol 1 from drawer 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 19,
+          "action": "take remotecontrol 1 from sofa 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 27,
+          "action": "take vase 1 from sidetable 1",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "d4df1558-a924-4f17-9b04-15367cc41ffb",
+          "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+          "step_index": 8,
+          "action": "take creditcard 1 from coffeetable 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "d4df1558-a924-4f17-9b04-15367cc41ffb",
+          "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+          "step_index": 10,
+          "action": "take statue 1 from coffeetable 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        },
+        {
+          "episode_id": "d4df1558-a924-4f17-9b04-15367cc41ffb",
+          "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+          "step_index": 12,
+          "action": "take candle 2 from coffeetable 2",
+          "observation": "The policy manipulated an object whose type did not match object_target."
+        }
+      ]
+    },
+    {
+      "rule_id": "novelty-before-revisit",
+      "kind": "novelty_exploration",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_and_place_simple",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep",
+        "pick_two_obj_and_place"
+      ],
+      "instruction": "While searching for the target or a required lamp, open the current closed receptacle, then prefer an unvisited location over a known empty or already explored location.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 10,
+          "action": "go to desk 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 10,
+          "action": "go to shelf 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 8,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 12,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "30179817-d902-4a65-bf7d-1601799eeb73",
+          "task_id": "valid_train/pick_two_obj_and_place-CD-None-Drawer-306/trial_T20190907_025539_829173",
+          "step_index": 10,
+          "action": "go to desk 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 19,
+          "action": "go to sidetable 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 24,
+          "action": "go to desk 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": 25,
+          "action": "go to sidetable 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 9,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 11,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 13,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 15,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 17,
+          "action": "go to cabinet 2",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 19,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 21,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 26,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 28,
+          "action": "go to cabinet 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": 29,
+          "action": "go to shelf 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 14,
+          "action": "go to fridge 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 21,
+          "action": "go to stoveburner 1",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": 22,
+          "action": "go to cabinet 2",
+          "observation": "The target was not held and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 28,
+          "action": "go to drawer 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 29,
+          "action": "go to drawer 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 15,
+          "action": "go to shelf 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 17,
+          "action": "go to shelf 3",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 22,
+          "action": "go to shelf 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 24,
+          "action": "go to shelf 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 26,
+          "action": "go to shelf 3",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 10,
+          "action": "go to cabinet 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 12,
+          "action": "go to cabinet 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 18,
+          "action": "go to cabinet 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 22,
+          "action": "go to cabinet 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 9,
+          "action": "go to toilet 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 16,
+          "action": "go to towelholder 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 19,
+          "action": "go to toilet 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 22,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 25,
+          "action": "go to towelholder 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": 28,
+          "action": "go to toilet 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 7,
+          "action": "go to sofa 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 10,
+          "action": "go to drawer 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 11,
+          "action": "go to drawer 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 18,
+          "action": "go to sofa 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 21,
+          "action": "go to drawer 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 22,
+          "action": "go to drawer 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": 28,
+          "action": "go to sofa 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "2bf24435-e802-470e-bcdf-2a698e273b2e",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+          "step_index": 3,
+          "action": "go to sinkbasin 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "2bf24435-e802-470e-bcdf-2a698e273b2e",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+          "step_index": 7,
+          "action": "go to drawer 1",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        },
+        {
+          "episode_id": "2bf24435-e802-470e-bcdf-2a698e273b2e",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+          "step_index": 8,
+          "action": "go to drawer 2",
+          "observation": "The target was not complete and the policy revisited an explored location."
+        }
+      ]
+    },
+    {
+      "rule_id": "ordered-task-recipe",
+      "kind": "ordered_subgoals",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_and_place_simple",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep",
+        "pick_two_obj_and_place"
+      ],
+      "instruction": "Follow the task recipe in order for the target object: acquire it, perform the required clean/cool/heat/light interaction, then deliver or examine it.",
+      "evidence": [
+        {
+          "episode_id": "bdd902de-4715-4a10-aef1-4487723b4e9e",
+          "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps after target acquisition."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "3dc0d978-e927-4bbe-b0ca-08f87bb8b180",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Bowl-None-Shelf-7/trial_T20190908_152949_169018",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        },
+        {
+          "episode_id": "9f58569a-17fa-4b0f-aee1-f1f75e9d2fdd",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Bowl-None-Cabinet-18/trial_T20190908_144624_086654",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        },
+        {
+          "episode_id": "8ce4bb11-1ad3-4bc3-ae57-a27b245a62da",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without acquiring the target object."
+        },
+        {
+          "episode_id": "d4df1558-a924-4f17-9b04-15367cc41ffb",
+          "task_id": "valid_train/pick_two_obj_and_place-Box-None-CoffeeTable-230/trial_T20190908_124255_946115",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "251a01b4-816d-47c8-8405-9b06b20594a5",
+          "task_id": "valid_train/look_at_obj_in_light-Bowl-None-DeskLamp-316/trial_T20190908_230650_245482",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Bed-321/trial_T20190908_231541_058766",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+          "task_id": "valid_train/pick_and_place_simple-CellPhone-None-Desk-316/trial_T20190911_203517_902296",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+          "task_id": "valid_train/pick_and_place_simple-Cloth-None-Toilet-417/trial_T20190908_163202_959027",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+          "task_id": "valid_train/pick_and_place_simple-CreditCard-None-Sofa-216/trial_T20190909_110455_224621",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "2bf24435-e802-470e-bcdf-2a698e273b2e",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "950b0b0f-441c-4f1b-ae69-ee8ffaf44a83",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-423/trial_T20190908_140728_318318",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "9ac35b5a-8a3d-4fa9-93c7-9efdc109ac54",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Fork-None-CounterTop-24/trial_T20190907_032458_736277",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "a1bd77f5-e3b0-47e1-8673-c173eee7f91a",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Fork-None-DiningTable-24/trial_T20190906_205216_940941",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "dad11413-6de4-421d-929b-c5cdfe17a674",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Kettle-None-DiningTable-17/trial_T20190909_023518_602816",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "fdae1ebc-ed8e-4515-86e3-97c073eae76d",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Egg-None-CounterTop-27/trial_T20190909_002015_890646",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "dccb0ea9-db54-44bf-993f-13adfd8a1d14",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Lettuce-None-CounterTop-24/trial_T20190908_015109_682752",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "4d6934fb-0319-489e-a1a6-f4e1c944d6c6",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Lettuce-None-DiningTable-18/trial_T20190909_122629_020439",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "f6aec6ed-16fe-4fd7-81ce-e9488b866c95",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Lettuce-None-DiningTable-24/trial_T20190908_062436_694989",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "b4e1a272-8df4-4179-beec-25e42c6746ed",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Pan-None-DiningTable-11/trial_T20190908_204414_053313",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "4ccec603-3df7-4d35-be12-f192fa7ffcad",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-22/trial_T20190906_184650_216044",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "30179817-d902-4a65-bf7d-1601799eeb73",
+          "task_id": "valid_train/pick_two_obj_and_place-CD-None-Drawer-306/trial_T20190907_025539_829173",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "4d2cb1de-b5d1-487b-9541-1418ebfaa052",
+          "task_id": "valid_train/pick_two_obj_and_place-CD-None-Dresser-303/trial_T20190908_085826_396748",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "b8cd9b23-2e39-46b5-9cbf-804bafb99a7a",
+          "task_id": "valid_train/pick_two_obj_and_place-Candle-None-CounterTop-406/trial_T20190908_045958_916084",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "7a4334f1-3d87-4962-8161-4d3b0aa3282b",
+          "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Desk-312/trial_T20190908_122230_946481",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "71589078-e7fc-44c3-955f-18e8e1067133",
+          "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-318/trial_T20190908_104535_936869",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "a5cae583-a98c-4755-8329-adbef251d268",
+          "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Dresser-330/trial_T20190909_060924_095249",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        },
+        {
+          "episode_id": "2d8b6fb0-8086-4fa9-becd-d3100ae3034a",
+          "task_id": "valid_train/pick_two_obj_and_place-Cloth-None-Drawer-411/trial_T20190908_190008_902235",
+          "step_index": null,
+          "action": null,
+          "observation": "Episode reached max_steps without completing the ordered task recipe."
+        }
+      ]
+    },
+    {
+      "rule_id": "diversify-location-types",
+      "kind": "location_type_diversity",
+      "task_types": [
+        "look_at_obj_in_light",
+        "pick_and_place_simple",
+        "pick_clean_then_place_in_recep",
+        "pick_cool_then_place_in_recep",
+        "pick_heat_then_place_in_recep",
+        "pick_two_obj_and_place"
+      ],
+      "instruction": "When searching and one location type has already been explored, prefer an unvisited location of a different type before trying more numbered instances of the same type.",
+      "evidence": [
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 10,
+          "action": "go to drawer 2",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 10,
+          "action": "go to shelf 1",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "2bf24435-e802-470e-bcdf-2a698e273b2e",
+          "task_id": "valid_train/pick_clean_then_place_in_recep-Cloth-None-Drawer-416/trial_T20190908_040722_151303",
+          "step_index": 8,
+          "action": "go to drawer 2",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "fdae1ebc-ed8e-4515-86e3-97c073eae76d",
+          "task_id": "valid_train/pick_cool_then_place_in_recep-Egg-None-CounterTop-27/trial_T20190909_002015_890646",
+          "step_index": 7,
+          "action": "go to cabinet 12",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 6,
+          "action": "go to cabinet 12",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "71589078-e7fc-44c3-955f-18e8e1067133",
+          "task_id": "valid_train/pick_two_obj_and_place-CellPhone-None-Drawer-318/trial_T20190908_104535_936869",
+          "step_index": 10,
+          "action": "go to desk 1",
+          "observation": "Visited location type 'desk' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 8,
+          "action": "go to cabinet 13",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 10,
+          "action": "go to cabinet 14",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 12,
+          "action": "go to cabinet 15",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 14,
+          "action": "go to cabinet 2",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 16,
+          "action": "go to cabinet 3",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 18,
+          "action": "go to cabinet 4",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 20,
+          "action": "go to cabinet 5",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 22,
+          "action": "go to cabinet 6",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 24,
+          "action": "go to cabinet 7",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 26,
+          "action": "go to cabinet 8",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "6dd13eb3-2420-47c4-abfd-8f04d8bac0aa",
+          "task_id": "valid_train/pick_heat_then_place_in_recep-Apple-None-Fridge-6/trial_T20190908_153841_522662",
+          "step_index": 28,
+          "action": "go to cabinet 9",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 12,
+          "action": "go to drawer 3",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 14,
+          "action": "go to drawer 4",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 16,
+          "action": "go to drawer 5",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 18,
+          "action": "go to drawer 6",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 20,
+          "action": "go to drawer 8",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 22,
+          "action": "go to drawer 7",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-323/trial_T20190908_051124_983144",
+          "step_index": 24,
+          "action": "go to drawer 9",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": 8,
+          "action": "go to drawer 4",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": 11,
+          "action": "go to drawer 5",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": 13,
+          "action": "go to drawer 6",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": 15,
+          "action": "go to drawer 7",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "7c8fdece-f607-4ea2-886b-5fda3be08025",
+          "task_id": "valid_train/look_at_obj_in_light-CD-None-DeskLamp-327/trial_T20190909_032921_008718",
+          "step_index": 16,
+          "action": "go to drawer 8",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 8,
+          "action": "go to drawer 4",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 10,
+          "action": "go to drawer 5",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 12,
+          "action": "go to drawer 6",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 14,
+          "action": "go to drawer 7",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "32246dab-2a80-42be-90a0-30028fc1827c",
+          "task_id": "valid_train/look_at_obj_in_light-KeyChain-None-DeskLamp-327/trial_T20190906_202538_399742",
+          "step_index": 16,
+          "action": "go to drawer 8",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 9,
+          "action": "go to drawer 3",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 11,
+          "action": "go to drawer 4",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 13,
+          "action": "go to drawer 5",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 15,
+          "action": "go to drawer 6",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 17,
+          "action": "go to drawer 7",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 19,
+          "action": "go to drawer 8",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "46662b60-c32c-4510-910e-69c20657adb9",
+          "task_id": "valid_train/look_at_obj_in_light-Laptop-None-DeskLamp-319/trial_T20190908_182720_056041",
+          "step_index": 21,
+          "action": "go to drawer 9",
+          "observation": "Visited location type 'drawer' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 15,
+          "action": "go to shelf 2",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 17,
+          "action": "go to shelf 3",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 22,
+          "action": "go to shelf 1",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 24,
+          "action": "go to shelf 2",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+          "task_id": "valid_train/pick_and_place_simple-CD-None-Shelf-319/trial_T20190908_061008_714389",
+          "step_index": 26,
+          "action": "go to shelf 3",
+          "observation": "Visited location type 'shelf' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 12,
+          "action": "go to cabinet 2",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        },
+        {
+          "episode_id": "b9867a69-7a72-496f-9ba3-097e19b200b9",
+          "task_id": "valid_train/pick_and_place_simple-Candle-None-Cabinet-428/trial_T20190907_024255_988230",
+          "step_index": 18,
+          "action": "go to cabinet 1",
+          "observation": "Visited location type 'cabinet' repeatedly while other unvisited location types remained admissible."
+        }
+      ]
+    }
+  ],
+  "source_episode_ids": [
+    "251a01b4-816d-47c8-8405-9b06b20594a5",
+    "ffd21a1b-e7c0-46ef-9b39-baaf584c497c",
+    "7c8fdece-f607-4ea2-886b-5fda3be08025",
+    "32246dab-2a80-42be-90a0-30028fc1827c",
+    "46662b60-c32c-4510-910e-69c20657adb9",
+    "20bf3273-dfe6-4281-bc0d-5900966aaadf",
+    "b9867a69-7a72-496f-9ba3-097e19b200b9",
+    "fe630e3c-9404-480e-b0de-ea6fcd90836a",
+    "fc0669e6-0395-4e6d-b44b-6f86a36c6a98",
+    "ece1d0d7-a892-4cc3-a7e1-2c954d6e7ebb",
+    "1b4df7bf-44c3-4b87-915d-96975d1d6fd3",
+    "2bf24435-e802-470e-bcdf-2a698e273b2e",
+    "950b0b0f-441c-4f1b-ae69-ee8ffaf44a83",
+    "9ac35b5a-8a3d-4fa9-93c7-9efdc109ac54",
+    "a1bd77f5-e3b0-47e1-8673-c173eee7f91a",
+    "dad11413-6de4-421d-929b-c5cdfe17a674",
+    "fdae1ebc-ed8e-4515-86e3-97c073eae76d",
+    "dccb0ea9-db54-44bf-993f-13adfd8a1d14",
+    "4d6934fb-0319-489e-a1a6-f4e1c944d6c6",
+    "f6aec6ed-16fe-4fd7-81ce-e9488b866c95",
+    "b4e1a272-8df4-4179-beec-25e42c6746ed",
+    "4ccec603-3df7-4d35-be12-f192fa7ffcad",
+    "d4df1558-a924-4f17-9b04-15367cc41ffb",
+    "30179817-d902-4a65-bf7d-1601799eeb73",
+    "4d2cb1de-b5d1-487b-9541-1418ebfaa052",
+    "b8cd9b23-2e39-46b5-9cbf-804bafb99a7a",
+    "7a4334f1-3d87-4962-8161-4d3b0aa3282b",
+    "71589078-e7fc-44c3-955f-18e8e1067133",
+    "a5cae583-a98c-4755-8329-adbef251d268",
+    "2d8b6fb0-8086-4fa9-becd-d3100ae3034a"
+  ],
+  "schema_version": 1,
+  "parent_version": "exp-v2-from-g-failures"
+}
