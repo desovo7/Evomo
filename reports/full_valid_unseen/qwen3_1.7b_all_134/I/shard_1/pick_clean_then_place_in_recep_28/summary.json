@@ -1,0 +1,22 @@
+{
+  "episode_id": "8bb488e7-3856-412c-b303-ce44077e565f",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Spatula-None-Drawer-10/trial_T20190907_080730_211959",
+  "goal": "Wash the spatula, put it in the first drawer",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 70,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 29,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 25,
+    "format_compliant_actions": 25,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 28,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 27
+  }
+}

@@ -8,6 +8,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from evomo.benchmarks.alfworld import discover_tasks
+
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -163,6 +165,11 @@ def main() -> None:
         help="Reject overlap with every episode task under this root (repeatable).",
     )
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--data-root",
+        type=Path,
+        help="For all_tasks runs, verify coverage against dataset discovery.",
+    )
     args = parser.parse_args()
 
     experience_paths = dict(args.variant_experience)
@@ -182,6 +189,21 @@ def main() -> None:
     ]
     if any(result["task_ids"] != results[0]["task_ids"] for result in results[1:]):
         raise ValueError("variants do not cover identical task IDs")
+    discovery_task_count = None
+    if args.data_root:
+        first_summary = load_json(args.report_dir / args.variants[0] / "summary.json")
+        if first_summary["run"].get("selection_mode") != "all_tasks":
+            raise ValueError("--data-root coverage audit requires selection_mode=all_tasks")
+        task_types = set(first_summary["run"]["task_types"])
+        discovered = discover_tasks(
+            args.data_root, splits=[first_summary["run"]["split"]]
+        ).tasks
+        discovered_ids = {
+            task.task_id for task in discovered if task.task_type in task_types
+        }
+        if set(results[0]["task_ids"]) != discovered_ids:
+            raise ValueError("all_tasks run does not cover dataset discovery exactly")
+        discovery_task_count = len(discovered_ids)
     evaluation_ids = set(results[0]["task_ids"])
     evidence_ids: set[str] = set()
     for experience in experiences.values():
@@ -220,6 +242,7 @@ def main() -> None:
         "experience_evidence_task_overlap": 0 if experiences else None,
         "excluded_source_task_overlap": 0 if args.exclude_episodes_root else None,
         "excluded_source_task_count": len(excluded_task_ids),
+        "discovery_task_count": discovery_task_count,
         "variants": public_results,
         "totals": {
             "episodes": sum(item["episode_count"] for item in public_results),

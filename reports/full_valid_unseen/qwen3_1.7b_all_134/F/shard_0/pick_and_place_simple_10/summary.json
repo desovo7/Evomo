@@ -1,0 +1,22 @@
+{
+  "episode_id": "df6ccab5-5f30-4627-ae8e-677a48452c96",
+  "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191445_723170",
+  "goal": "To acquire an odd item as place it where it is not useful.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 70,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 29,
+    "format_compliant_actions": 29,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 15
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "f3478923-f851-4490-b9e7-53a6530a1130",
+  "task_id": "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220656_510400",
+  "goal": "Pick a pencil up and turn the lamp on.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 59,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 26,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 25
+  }
+}

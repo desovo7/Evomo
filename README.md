@@ -573,3 +573,69 @@ three experience hashes and scopes, exact task matching, admissible actions,
 continuous transition chains, native success rewards, and zero overlap with
 experience evidence or source tasks. Full artifacts are under
 `reports/experience_v3/`.
+
+## Run the complete playable valid-unseen benchmark
+
+Balanced samples are useful for diagnosis but omit tasks when ALFWorld
+categories have different sizes. The runner now supports `--all-tasks`, which
+selects every playable task in stable task-type and task-ID order. The
+selection mode is part of the immutable run contract and shard merge
+invariants. A discovery-backed audit independently re-enumerates the dataset
+and requires exact task-ID equality, so a runner and summary cannot silently
+agree on the same incomplete subset.
+
+The complete local `valid_unseen` split contains 134 playable tasks:
+
+- 18 light, 24 simple pick/place, 31 clean, 21 cool, 23 heat, and 17
+  two-object tasks.
+
+F and I were each split across three GPUs by disjoint task types and run on
+the same 134 IDs, seeds, model, greedy decoding, history, token limit, and
+30-step budget. F uses state tracking and prerequisite repair without learned
+experience; I loads exp-v3.
+
+```bash
+REPORT=reports/full_valid_unseen/qwen3_1.7b_all_134
+
+PYTHONPATH=src python scripts/summarize_qwen_multitask.py \
+  --input-dir "$REPORT" \
+  --split valid_unseen \
+  --all-tasks \
+  --variants F I
+
+PYTHONPATH=src python scripts/audit_multitask_report.py \
+  --report-dir "$REPORT" \
+  --variants F I \
+  --variant-experience I=reports/experience_v2/exp_v3.json \
+  --exclude-episodes-root \
+    reports/generalization_60/qwen3_1.7b_valid_train_offset2_10_per_type/H \
+  --data-root /path/to/alfworld \
+  --output "$REPORT/audit.json"
+```
+
+| Task type | F | I / exp-v3 | Delta |
+| --- | ---: | ---: | ---: |
+| Look under light | 3/18 | 16/18 | +13 |
+| Simple pick/place | 12/24 | 21/24 | +9 |
+| Clean then place | 7/31 | 28/31 | +21 |
+| Cool then place | 1/21 | 19/21 | +18 |
+| Heat then place | 5/23 | 23/23 | +18 |
+| Place two objects | 4/17 | 7/17 | +3 |
+| **Overall** | **32/134 (23.9%)** | **114/134 (85.1%)** | **+82** |
+
+The paired comparison contains 86 I-only successes and four F-only successes
+(two-sided exact McNemar/binomial p=4.32e-21). Exp-v3 also reduces total
+environment steps from 3,489 to 2,351. This is the first result here covering
+every playable local `valid_unseen` task rather than a balanced subset.
+
+The audit validates 268 episodes and 5,840 transitions, exact discovery
+coverage of all 134 tasks, admissible actions, continuous chains, native
+success rewards, state snapshots, experience scope and hash, and source-task
+separation. The deterministic failure manifest classifies all 20 I failures:
+eight target-not-acquired, six destination-navigation loops, four retakes of
+an already delivered target, and two incomplete light interactions. These are
+the evidence candidates for exp-v4; no experience is learned from the same
+split during this benchmark run.
+
+Full trajectories and reports are under
+`reports/full_valid_unseen/qwen3_1.7b_all_134/`.

@@ -1,0 +1,22 @@
+{
+  "episode_id": "e5708f13-4adf-4ff8-9708-7a26c9d209ab",
+  "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133953_562557",
+  "goal": "Examine the bowl by the light on the desk.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 50,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 27,
+    "format_compliant_actions": 27,
+    "fallback_actions": 3,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 8,
+    "unchanged_observations": 8,
+    "unique_actions": 6
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "4823f77d-29b7-4eaa-81bf-bfe15bbc35ba",
+  "task_id": "valid_unseen/pick_two_obj_and_place-CD-None-Safe-308/trial_T20190907_051056_585414",
+  "goal": "Put the two disks from the desk into the safe.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 67,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 23,
+    "format_compliant_actions": 23,
+    "fallback_actions": 6,
+    "repaired_actions": 1,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 20
+  }
+}

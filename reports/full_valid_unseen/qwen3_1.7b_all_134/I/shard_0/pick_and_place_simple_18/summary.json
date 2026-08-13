@@ -1,0 +1,22 @@
+{
+  "episode_id": "750636f5-3616-46cc-a411-7c7d09bf7e5a",
+  "task_id": "valid_unseen/pick_and_place_simple-Vase-None-Safe-219/trial_T20190908_205204_244321",
+  "goal": "Put a vase in a safe.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 78,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 30,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 30,
+    "format_compliant_actions": 30,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 29,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 29
+  }
+}

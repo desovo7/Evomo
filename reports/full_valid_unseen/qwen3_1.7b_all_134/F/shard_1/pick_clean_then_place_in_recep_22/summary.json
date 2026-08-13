@@ -1,0 +1,22 @@
+{
+  "episode_id": "4aa70b00-5413-4537-9727-d58e4d0fd7cd",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-SoapBar-None-Cabinet-424/trial_T20190908_214926_337906",
+  "goal": "put a rinsed off bar of soap in to the cabinet",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 64,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 15,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 15,
+    "format_compliant_actions": 15,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 1,
+    "unchanged_observations": 1,
+    "unique_actions": 12
+  }
+}

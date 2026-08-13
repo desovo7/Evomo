@@ -1,0 +1,22 @@
+{
+  "episode_id": "93ec3e64-059c-4a1e-b88f-ca68148c6d1c",
+  "task_id": "valid_unseen/pick_two_obj_and_place-SoapBar-None-Cabinet-424/trial_T20190909_081746_857594",
+  "goal": "To move two bars of soap to the cabinet.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 77,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 28,
+    "format_compliant_actions": 28,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 21,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 25
+  }
+}

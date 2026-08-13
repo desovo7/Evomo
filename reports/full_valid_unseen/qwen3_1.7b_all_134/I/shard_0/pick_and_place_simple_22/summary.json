@@ -1,0 +1,22 @@
+{
+  "episode_id": "ea7634fd-e71b-40e5-9638-0c653e96b270",
+  "task_id": "valid_unseen/pick_and_place_simple-Watch-None-Safe-219/trial_T20190907_074556_124850",
+  "goal": "Move the watch from the cabinet to the safe",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 82,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 10,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 9,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 9
+  }
+}

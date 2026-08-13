@@ -1,0 +1,22 @@
+{
+  "episode_id": "a0bfcef4-17f6-4ade-9122-8b1309bea915",
+  "task_id": "valid_unseen/look_at_obj_in_light-Book-None-DeskLamp-308/trial_T20190908_020048_814402",
+  "goal": "Picking up a book and turning on a light to read it by",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 46,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 16,
+    "format_compliant_actions": 16,
+    "fallback_actions": 14,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 14,
+    "unchanged_observations": 14,
+    "unique_actions": 5
+  }
+}

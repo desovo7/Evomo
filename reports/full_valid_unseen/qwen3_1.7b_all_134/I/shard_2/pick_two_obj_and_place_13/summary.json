@@ -1,0 +1,22 @@
+{
+  "episode_id": "9e1dd3dc-8c42-4c54-9504-4e7c68505110",
+  "task_id": "valid_unseen/pick_two_obj_and_place-SoapBar-None-GarbageCan-424/trial_T20190909_064053_839817",
+  "goal": "Throw two bars of soap in the trash bin.",
+  "task_type": "pick_two_obj_and_place",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 78,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 26,
+    "format_compliant_actions": 26,
+    "fallback_actions": 0,
+    "repaired_actions": 1,
+    "experience_overrides": 21,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 22
+  }
+}

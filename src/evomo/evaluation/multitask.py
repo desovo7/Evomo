@@ -53,6 +53,32 @@ def select_tasks_by_type(
     return tuple(selected)
 
 
+def select_all_tasks_by_type(
+    tasks: Iterable[TaskSpec],
+    *,
+    task_types: tuple[str, ...] = CANONICAL_TASK_TYPES,
+) -> tuple[TaskSpec, ...]:
+    """Select every task of each requested type in stable type/ID order."""
+
+    if not task_types or len(task_types) != len(set(task_types)):
+        raise ValueError("task_types must be non-empty and unique")
+    unknown = set(task_types) - set(CANONICAL_TASK_TYPES)
+    if unknown:
+        raise ValueError(f"unknown task types: {sorted(unknown)}")
+    grouped: dict[str, list[TaskSpec]] = {task_type: [] for task_type in task_types}
+    for task in tasks:
+        if task.task_type in grouped:
+            grouped[task.task_type].append(task)
+    missing = [task_type for task_type, values in grouped.items() if not values]
+    if missing:
+        raise ValueError(f"task types have no tasks: {missing}")
+    return tuple(
+        task
+        for task_type in task_types
+        for task in sorted(grouped[task_type], key=lambda item: item.task_id)
+    )
+
+
 def load_completed_episode(
     task_directory: str | Path,
     *,
@@ -171,6 +197,7 @@ def merge_variant_summaries(shard_summaries: Iterable[dict]) -> dict:
     invariant_keys = (
         "model_id",
         "split",
+        "selection_mode",
         "per_type",
         "task_offset",
         "seed",
@@ -325,7 +352,11 @@ def render_comparison_markdown(comparison: dict) -> str:
         "",
         f"- Split: `{comparison['split']}`",
         f"- Tasks per prompt: {comparison['task_count_per_variant']}",
-        f"- Samples per task type: {comparison['per_type']}",
+        (
+            "- Task selection: all playable tasks"
+            if comparison["per_type"] is None
+            else f"- Samples per task type: {comparison['per_type']}"
+        ),
         f"- Stable task offset: {comparison.get('task_offset', 0)}",
         "- Integrity audit: [`audit.json`](audit.json)",
     ]
@@ -427,7 +458,7 @@ def build_cross_variant_comparison(
     variant_summaries: Iterable[dict],
     *,
     split: str,
-    per_type: int,
+    per_type: int | None,
 ) -> dict:
     summaries = tuple(variant_summaries)
     if not summaries:

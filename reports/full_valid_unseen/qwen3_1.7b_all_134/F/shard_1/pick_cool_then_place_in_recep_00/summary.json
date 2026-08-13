@@ -1,0 +1,22 @@
+{
+  "episode_id": "7629b627-5ad9-48b5-8ffd-5c90a0758f1c",
+  "task_id": "valid_unseen/pick_cool_then_place_in_recep-Bread-None-CounterTop-10/trial_T20190908_091747_866951",
+  "goal": "Cool some bread and the place it on the counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 73,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 25,
+    "format_compliant_actions": 25,
+    "fallback_actions": 5,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 4,
+    "unchanged_observations": 4,
+    "unique_actions": 19
+  }
+}

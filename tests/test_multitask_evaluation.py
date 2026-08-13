@@ -17,6 +17,7 @@ from evomo.evaluation import (
     merge_variant_summaries,
     persist_episode_artifacts,
     render_comparison_markdown,
+    select_all_tasks_by_type,
     select_tasks_by_type,
     summarize_variant,
 )
@@ -91,6 +92,37 @@ def test_select_tasks_by_type_validates_offset() -> None:
     tasks = [make_task(task_type, "a") for task_type in CANONICAL_TASK_TYPES]
     with pytest.raises(ValueError, match="offset=1"):
         select_tasks_by_type(tasks, offset=1)
+
+
+def test_select_all_tasks_by_type_is_complete_stable_and_scoped() -> None:
+    tasks = [
+        make_task(CANONICAL_TASK_TYPES[0], "z"),
+        make_task(CANONICAL_TASK_TYPES[1], "b"),
+        make_task(CANONICAL_TASK_TYPES[0], "a"),
+        make_task(CANONICAL_TASK_TYPES[1], "a"),
+    ]
+
+    selected = select_all_tasks_by_type(
+        reversed(tasks), task_types=tuple(CANONICAL_TASK_TYPES[:2])
+    )
+
+    assert [task.task_id.rsplit("/", 1)[-1] for task in selected] == ["a", "z", "a", "b"]
+    assert [task.task_type for task in selected] == [
+        CANONICAL_TASK_TYPES[0],
+        CANONICAL_TASK_TYPES[0],
+        CANONICAL_TASK_TYPES[1],
+        CANONICAL_TASK_TYPES[1],
+    ]
+
+
+def test_select_all_tasks_rejects_empty_or_duplicate_types() -> None:
+    task = make_task(CANONICAL_TASK_TYPES[0], "a")
+    with pytest.raises(ValueError, match="non-empty and unique"):
+        select_all_tasks_by_type([task], task_types=())
+    with pytest.raises(ValueError, match="non-empty and unique"):
+        select_all_tasks_by_type(
+            [task], task_types=(CANONICAL_TASK_TYPES[0], CANONICAL_TASK_TYPES[0])
+        )
 
 
 def test_atomic_persistence_round_trip_and_resume(tmp_path: Path) -> None:

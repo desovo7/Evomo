@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "source_root": "reports/full_valid_unseen/qwen3_1.7b_all_134/I",
+  "failure_count": 20,
+  "signature_counts": {
+    "destination_navigation_loop": 6,
+    "held_target_light_incomplete": 2,
+    "retake_delivered_target": 4,
+    "target_not_acquired": 8
+  },
+  "failure_counts_by_task_type": {
+    "look_at_obj_in_light": 2,
+    "pick_and_place_simple": 3,
+    "pick_clean_then_place_in_recep": 3,
+    "pick_cool_then_place_in_recep": 2,
+    "pick_two_obj_and_place": 10
+  },
+  "failures": [
+    {
+      "episode_id": "61e59336-0091-40fd-868f-1fbc4db59616",
+      "task_id": "valid_unseen/look_at_obj_in_light-AlarmClock-None-DeskLamp-308/trial_T20190908_222917_366542",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "alarmclock 1",
+      "last_actions": [
+        "go to shelf 1",
+        "examine alarmclock 1",
+        "go to shelf 2",
+        "go to shelf 3",
+        "examine alarmclock 1"
+      ]
+    },
+    {
+      "episode_id": "8b5045b2-b77f-4b57-b1fa-b9895a1cdafe",
+      "task_id": "valid_unseen/look_at_obj_in_light-Bowl-None-DeskLamp-308/trial_T20190907_133953_562557",
+      "task_type": "look_at_obj_in_light",
+      "signature": "held_target_light_incomplete",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "bowl 2",
+      "last_actions": [
+        "go to desk 1",
+        "examine bowl 2",
+        "go to desk 2",
+        "go to desk 1",
+        "look"
+      ]
+    },
+    {
+      "episode_id": "28320fcc-0333-48f4-ac44-a1c54e584179",
+      "task_id": "valid_unseen/pick_and_place_simple-PepperShaker-None-Drawer-10/trial_T20190918_154326_823501",
+      "task_type": "pick_and_place_simple",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "peppershaker 1",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "46654973-b412-43fd-aa51-bfffdf2bc580",
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191429_743650",
+      "task_type": "pick_and_place_simple",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to shelf 2",
+        "take saltshaker 1 from shelf 2"
+      ]
+    },
+    {
+      "episode_id": "099ab61b-a31e-46ae-8c54-03eca0df90cc",
+      "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021650_880235",
+      "task_type": "pick_and_place_simple",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "saltshaker 1",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "5c19d74c-b094-4149-a0d8-34becb4ae0e4",
+      "task_id": "valid_unseen/pick_clean_then_place_in_recep-Pan-None-CounterTop-10/trial_T20190908_032434_013084",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to shelf 2",
+        "go to shelf 3"
+      ]
+    },
+    {
+      "episode_id": "9f77a8c4-3209-49b0-846d-02f1e1cad53b",
+      "task_id": "valid_unseen/pick_clean_then_place_in_recep-Pan-None-CounterTop-10/trial_T20190908_032518_891433",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to shelf 2",
+        "go to shelf 3"
+      ]
+    },
+    {
+      "episode_id": "572833d1-9077-4876-b83b-549245a78a79",
+      "task_id": "valid_unseen/pick_clean_then_place_in_recep-Spatula-None-Drawer-10/trial_T20190907_080825_222432",
+      "task_type": "pick_clean_then_place_in_recep",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "spatula 1",
+      "last_actions": [
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1"
+      ]
+    },
+    {
+      "episode_id": "a05b41ec-f654-48a6-864a-d8f6e401e58c",
+      "task_id": "valid_unseen/pick_cool_then_place_in_recep-Pan-None-CounterTop-10/trial_T20190908_114545_244903",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to shelf 2",
+        "go to shelf 3"
+      ]
+    },
+    {
+      "episode_id": "b2286ae2-9dda-4af0-82c9-0f54d07626f8",
+      "task_id": "valid_unseen/pick_cool_then_place_in_recep-Pan-None-CounterTop-10/trial_T20190908_114656_768805",
+      "task_type": "pick_cool_then_place_in_recep",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to shelf 2",
+        "go to shelf 3"
+      ]
+    },
+    {
+      "episode_id": "12e43092-fd96-4cfd-888a-0d21ed75a568",
+      "task_id": "valid_unseen/pick_two_obj_and_place-CD-None-Safe-308/trial_T20190907_051056_585414",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to desk 1",
+        "take bowl 1 from desk 1",
+        "move bowl 1 to desk 1",
+        "go to safe 1",
+        "take cd 1 from safe 1"
+      ]
+    },
+    {
+      "episode_id": "92026a88-f671-4b28-88d9-2c19bb4a25e8",
+      "task_id": "valid_unseen/pick_two_obj_and_place-PepperShaker-None-Drawer-10/trial_T20190908_010306_215435",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "peppershaker 2",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "b54285a2-3b64-4331-a532-9334d094a36b",
+      "task_id": "valid_unseen/pick_two_obj_and_place-PepperShaker-None-Drawer-10/trial_T20190912_221016_460197",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "peppershaker 1",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "18b09037-bec2-4504-a625-b48b57ba49f2",
+      "task_id": "valid_unseen/pick_two_obj_and_place-PepperShaker-None-Drawer-10/trial_T20190912_221141_608117",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "destination_navigation_loop",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": "peppershaker 2",
+      "last_actions": [
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2",
+        "go to drawer 1",
+        "go to drawer 2"
+      ]
+    },
+    {
+      "episode_id": "4bbef77b-52c4-4d8e-a22b-b81a3b0198a0",
+      "task_id": "valid_unseen/pick_two_obj_and_place-Pillow-None-Sofa-219/trial_T20190907_163240_345855",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to drawer 4",
+        "open drawer 4",
+        "go to drawer 5",
+        "open drawer 5",
+        "go to shelf 10"
+      ]
+    },
+    {
+      "episode_id": "386c3899-aa5a-4fb4-8032-f53fb23e1543",
+      "task_id": "valid_unseen/pick_two_obj_and_place-Pillow-None-Sofa-219/trial_T20190907_163327_486300",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "open drawer 3",
+        "go to drawer 4",
+        "open drawer 4",
+        "go to drawer 5",
+        "open drawer 5"
+      ]
+    },
+    {
+      "episode_id": "91f0aaf3-e14e-4970-b5d5-39f76cd3490f",
+      "task_id": "valid_unseen/pick_two_obj_and_place-Pillow-None-Sofa-219/trial_T20190907_163408_914117",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "target_not_acquired",
+      "evidence_step_indices": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "go to drawer 4",
+        "open drawer 4",
+        "go to drawer 5",
+        "open drawer 5",
+        "go to shelf 10"
+      ]
+    },
+    {
+      "episode_id": "93ec3e64-059c-4a1e-b88f-ca68148c6d1c",
+      "task_id": "valid_unseen/pick_two_obj_and_place-SoapBar-None-Cabinet-424/trial_T20190909_081746_857594",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        22
+      ],
+      "terminal_inventory": null,
+      "last_actions": [
+        "take candle 1 from cabinet 2",
+        "move candle 1 to cabinet 2",
+        "close cabinet 2",
+        "examine cabinet 2",
+        "open cabinet 2"
+      ]
+    },
+    {
+      "episode_id": "9e1dd3dc-8c42-4c54-9504-4e7c68505110",
+      "task_id": "valid_unseen/pick_two_obj_and_place-SoapBar-None-GarbageCan-424/trial_T20190909_064053_839817",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        21,
+        25,
+        28
+      ],
+      "terminal_inventory": "soapbar 1",
+      "last_actions": [
+        "take soapbar 1 from garbagecan 1",
+        "move soapbar 1 to garbagecan 1",
+        "look",
+        "take soapbar 1 from garbagecan 1",
+        "move soapbar 1 to garbagecan 1"
+      ]
+    },
+    {
+      "episode_id": "0246bc87-acf9-4f37-a4e3-bfb83357f5d9",
+      "task_id": "valid_unseen/pick_two_obj_and_place-SoapBar-None-GarbageCan-424/trial_T20190909_064309_357168",
+      "task_type": "pick_two_obj_and_place",
+      "signature": "retake_delivered_target",
+      "evidence_step_indices": [
+        25,
+        28
+      ],
+      "terminal_inventory": "soapbar 1",
+      "last_actions": [
+        "take soapbar 1 from garbagecan 1",
+        "move soapbar 1 to garbagecan 1",
+        "examine garbagecan 1",
+        "take soapbar 1 from garbagecan 1",
+        "move soapbar 1 to garbagecan 1"
+      ]
+    }
+  ]
+}

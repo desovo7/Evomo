@@ -1,0 +1,22 @@
+{
+  "episode_id": "951b94c8-5ab1-47cf-a0e5-04272c90494e",
+  "task_id": "valid_unseen/look_at_obj_in_light-Pencil-None-DeskLamp-308/trial_T20190908_220545_153480",
+  "goal": "Examine a pencil under a lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 57,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 27,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 23,
+    "format_compliant_actions": 23,
+    "fallback_actions": 1,
+    "repaired_actions": 0,
+    "experience_overrides": 22,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 26
+  }
+}

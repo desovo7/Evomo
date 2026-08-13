@@ -1,0 +1,22 @@
+{
+  "episode_id": "8f2f7340-018e-4df8-80f1-1212449ebf99",
+  "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Drawer-10/trial_T20190909_021613_077537",
+  "goal": "Put a salt shaker in a drawer next to the oven.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 72,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 19,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 15,
+    "format_compliant_actions": 15,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 18,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 18
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "6b5638f6-01d0-412a-a787-e64f584a7873",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Plate-None-CounterTop-10/trial_T20190908_213420_728917",
+  "goal": "Put a clean plate on the counter.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-i-experience_guided_action",
+  "seed": 62,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 7,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 6,
+    "format_compliant_actions": 6,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 6,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 6
+  }
+}

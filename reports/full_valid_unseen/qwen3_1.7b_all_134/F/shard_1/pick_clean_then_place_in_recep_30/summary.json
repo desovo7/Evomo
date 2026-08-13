@@ -1,0 +1,22 @@
+{
+  "episode_id": "25883839-9c37-4246-834f-5d698e918874",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Spatula-None-Drawer-10/trial_T20190907_080825_222432",
+  "goal": "Clean a spatula to put it away.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 72,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 1,
+    "format_compliant_actions": 1,
+    "fallback_actions": 29,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 28,
+    "unchanged_observations": 28,
+    "unique_actions": 2
+  }
+}

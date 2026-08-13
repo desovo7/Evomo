@@ -1,0 +1,22 @@
+{
+  "episode_id": "7659d221-6ef9-49f8-aab1-18f98135b6d3",
+  "task_id": "valid_unseen/look_at_obj_in_light-Mug-None-DeskLamp-308/trial_T20190908_201444_037645",
+  "goal": "Examine a mug using the light of a desk lamp.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 56,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 8,
+    "format_compliant_actions": 8,
+    "fallback_actions": 22,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 16,
+    "unchanged_observations": 16,
+    "unique_actions": 5
+  }
+}

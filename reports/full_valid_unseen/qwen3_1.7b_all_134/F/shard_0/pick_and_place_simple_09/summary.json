@@ -1,0 +1,22 @@
+{
+  "episode_id": "147a5218-6654-4e34-b449-161c8638a750",
+  "task_id": "valid_unseen/pick_and_place_simple-SaltShaker-None-Cabinet-10/trial_T20190906_191429_743650",
+  "goal": "Place the salt shaker in the cabinet beside the fridge.",
+  "task_type": "pick_and_place_simple",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 69,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 18,
+    "format_compliant_actions": 18,
+    "fallback_actions": 12,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 6,
+    "unchanged_observations": 6,
+    "unique_actions": 9
+  }
+}

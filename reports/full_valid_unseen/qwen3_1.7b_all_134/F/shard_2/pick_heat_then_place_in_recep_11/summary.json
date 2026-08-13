@@ -1,0 +1,22 @@
+{
+  "episode_id": "598fb310-3f8d-4907-bc6a-321811011d92",
+  "task_id": "valid_unseen/pick_heat_then_place_in_recep-Egg-None-GarbageCan-10/trial_T20190908_113610_425142",
+  "goal": "To heat an egg and place it inside the black bin.",
+  "task_type": "pick_heat_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 53,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 17,
+    "format_compliant_actions": 17,
+    "fallback_actions": 13,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 8,
+    "unchanged_observations": 8,
+    "unique_actions": 12
+  }
+}

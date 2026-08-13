@@ -1,0 +1,22 @@
+{
+  "episode_id": "b6b2927f-44d0-41c2-bcb2-c8afa92e2a6a",
+  "task_id": "valid_unseen/pick_cool_then_place_in_recep-Lettuce-None-CounterTop-10/trial_T20190909_174840_771703",
+  "goal": "Put chilled lettuce on the counter.",
+  "task_type": "pick_cool_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 78,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 22,
+    "format_compliant_actions": 22,
+    "fallback_actions": 5,
+    "repaired_actions": 3,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 15
+  }
+}

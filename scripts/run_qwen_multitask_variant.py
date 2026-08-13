@@ -15,6 +15,7 @@ from evomo.evaluation import (
     ensure_run_config,
     load_completed_episode,
     persist_episode_artifacts,
+    select_all_tasks_by_type,
     select_tasks_by_type,
     summarize_variant,
     write_json,
@@ -42,7 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-path", type=Path, default=Path("../models/Qwen3-1.7B"))
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--split", default="valid_train")
-    parser.add_argument("--per-type", type=int, default=1)
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--per-type", type=int)
+    selection.add_argument(
+        "--all-tasks",
+        action="store_true",
+        help="Run every playable task of each requested task type.",
+    )
     parser.add_argument("--task-offset", type=int, default=0)
     parser.add_argument(
         "--task-types",
@@ -60,8 +67,14 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
     if not args.data_root:
         parser.error("--data-root is required when ALFWORLD_DATA is unset")
-    if args.per_type <= 0 or args.max_steps <= 0 or args.max_new_tokens <= 0:
-        parser.error("per-type, max-steps, and max-new-tokens must be positive")
+    if args.per_type is not None and args.per_type <= 0:
+        parser.error("per-type must be positive")
+    if args.max_steps <= 0 or args.max_new_tokens <= 0:
+        parser.error("max-steps and max-new-tokens must be positive")
+    if not args.all_tasks and args.per_type is None:
+        args.per_type = 1
+    if args.all_tasks and args.task_offset:
+        parser.error("task-offset is not valid with --all-tasks")
     if args.task_offset < 0:
         parser.error("task-offset must be non-negative")
     if args.max_history_items < 0:
@@ -85,11 +98,16 @@ def main() -> None:
         if args.experience_file
         else None
     )
-    selected = select_tasks_by_type(
-        discover_tasks(args.data_root, splits=[args.split]).tasks,
-        per_type=args.per_type,
-        offset=args.task_offset,
-        task_types=tuple(args.task_types),
+    discovered = discover_tasks(args.data_root, splits=[args.split]).tasks
+    selected = (
+        select_all_tasks_by_type(discovered, task_types=tuple(args.task_types))
+        if args.all_tasks
+        else select_tasks_by_type(
+            discovered,
+            per_type=args.per_type,
+            offset=args.task_offset,
+            task_types=tuple(args.task_types),
+        )
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     run_config = {
@@ -98,6 +116,7 @@ def main() -> None:
         "policy_id": policy_id,
         "model_id": args.model_path.name,
         "split": args.split,
+        "selection_mode": "all_tasks" if args.all_tasks else "per_type",
         "per_type": args.per_type,
         "task_offset": args.task_offset,
         "task_types": list(args.task_types),

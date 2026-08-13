@@ -1,0 +1,22 @@
+{
+  "episode_id": "5320d139-cf15-4a6d-a515-56c8a83c1b49",
+  "task_id": "valid_unseen/pick_clean_then_place_in_recep-Pan-None-CounterTop-10/trial_T20190908_032434_013084",
+  "goal": "Put a cleaned pan on the counter.",
+  "task_type": "pick_clean_then_place_in_recep",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 58,
+  "termination_reason": "max_steps",
+  "metrics": {
+    "steps": 30,
+    "success": false,
+    "total_reward": 0.0,
+    "parsed_actions": 24,
+    "format_compliant_actions": 24,
+    "fallback_actions": 6,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 3,
+    "unchanged_observations": 3,
+    "unique_actions": 13
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "episode_id": "65ee5221-f2cd-462c-8c43-00c6899a91eb",
+  "task_id": "valid_unseen/look_at_obj_in_light-CD-None-DeskLamp-308/trial_T20190908_142046_281296",
+  "goal": "Look at a CD under a lamp's light.",
+  "task_type": "look_at_obj_in_light",
+  "policy_id": "qwen3-1.7b-f-state_tracked_repaired_action",
+  "seed": 53,
+  "termination_reason": "success",
+  "metrics": {
+    "steps": 3,
+    "success": true,
+    "total_reward": 1.0,
+    "parsed_actions": 3,
+    "format_compliant_actions": 3,
+    "fallback_actions": 0,
+    "repaired_actions": 0,
+    "experience_overrides": 0,
+    "repeated_actions": 0,
+    "unchanged_observations": 0,
+    "unique_actions": 3
+  }
+}

@@ -17,7 +17,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--split", default="valid_train")
-    parser.add_argument("--per-type", type=int, default=1)
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--per-type", type=int)
+    selection.add_argument("--all-tasks", action="store_true")
     parser.add_argument("--task-offset", type=int, default=0)
     parser.add_argument("--variants", nargs="+", default=("B", "C", "D"))
     parser.add_argument(
@@ -28,6 +30,8 @@ def main() -> None:
         help="Override one variant summary path (repeatable).",
     )
     args = parser.parse_args()
+    if not args.all_tasks and args.per_type is None:
+        args.per_type = 1
     summary_paths = {}
     for item in args.summary:
         if "=" not in item:
@@ -47,7 +51,7 @@ def main() -> None:
     comparison = build_cross_variant_comparison(
         summaries,
         split=args.split,
-        per_type=args.per_type,
+        per_type=None if args.all_tasks else args.per_type,
     )
     comparison["task_offset"] = args.task_offset
     write_json(args.input_dir / "comparison.json", comparison)
