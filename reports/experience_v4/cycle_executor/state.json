@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "cycle_id": "exp-v3-to-exp-v4",
+  "config_sha256": "c8f9bd691b16254d8043e628dfb79fe763c7f4b01102011eebece0134912eeba",
+  "status": "complete",
+  "stages": {
+    "development_rollout": {
+      "status": "complete",
+      "completion_mode": "adopted_sealed_manifest",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+          "sha256": "6eef82a94a2befe1bf44684365f6b781e4ce00aa21953f1e117b51ea5c40b657",
+          "file_count": 807,
+          "bytes": 19856940
+        },
+        {
+          "kind": "file",
+          "path": "reports/experience_v4/development_trajectory_audit.json",
+          "sha256": "1ce97b4fcd7de4be48ac1506ca844853368d7ab553425c6b170e6bb41ce231cc",
+          "bytes": 2132
+        }
+      ]
+    },
+    "experience_evolution": {
+      "status": "complete",
+      "completion_mode": "adopted_sealed_manifest",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/experience_v4/exp_v4.json",
+          "sha256": "f7f6d2692daf069dbf141b6ec35505af6c303eb54d2376592618dee5730283a8",
+          "bytes": 106589
+        },
+        {
+          "kind": "file",
+          "path": "reports/experience_v4/evolution_audit.json",
+          "sha256": "1443dae4062b2ff3da5a107b008154220e120a3f6e7d298c07c5924488e1ddd9",
+          "bytes": 2742
+        }
+      ]
+    },
+    "paired_validation": {
+      "status": "complete",
+      "completion_mode": "adopted_sealed_manifest",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "reports/experience_v4/qwen3_1.7b_valid_seen_all_140",
+          "sha256": "16c66d8a7904b77914e85011b1079ef7ea9d975e3b41e210631cc0679f7831b9",
+          "file_count": 1137,
+          "bytes": 28292214
+        }
+      ]
+    },
+    "candidate_gate": {
+      "status": "complete",
+      "completion_mode": "adopted_sealed_manifest",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/experience_v4/decision.json",
+          "sha256": "d68d769eadcd11b83c3bfdc10654e0fd9244cd54800adbded151ab1479be4712",
+          "bytes": 3520
+        },
+        {
+          "kind": "file",
+          "path": "reports/experience_v4/cycle_manifest.json",
+          "sha256": "9a98852b76432f7cdd28f8a51d6aacb62600ea5d0132e16f3f7a8e0be34c8185",
+          "bytes": 3558
+        }
+      ]
+    }
+  },
+  "event_head_sha256": "143848c17e6c09d649c3e8811469c98058d240c16bb80c12aed42181cce2657f"
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "cycle_id": "exp-v3-to-exp-v4",
+  "workspace": ".",
+  "max_parallel": 3,
+  "adopt_manifest": "reports/experience_v4/cycle_manifest.json",
+  "stages": [
+    {
+      "stage_id": "development_rollout",
+      "depends_on": [],
+      "outputs": [
+        "reports/experience_v4/qwen3_1.7b_valid_train_all_200/I",
+        "reports/experience_v4/development_trajectory_audit.json"
+      ],
+      "jobs": []
+    },
+    {
+      "stage_id": "experience_evolution",
+      "depends_on": ["development_rollout"],
+      "outputs": [
+        "reports/experience_v4/exp_v4.json",
+        "reports/experience_v4/evolution_audit.json"
+      ],
+      "jobs": []
+    },
+    {
+      "stage_id": "paired_validation",
+      "depends_on": ["experience_evolution"],
+      "outputs": [
+        "reports/experience_v4/qwen3_1.7b_valid_seen_all_140"
+      ],
+      "jobs": []
+    },
+    {
+      "stage_id": "candidate_gate",
+      "depends_on": ["paired_validation"],
+      "outputs": [
+        "reports/experience_v4/decision.json",
+        "reports/experience_v4/cycle_manifest.json"
+      ],
+      "jobs": []
+    }
+  ]
+}

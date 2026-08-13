@@ -834,3 +834,44 @@ experience, comparison, audit, or gate decision invalidates the manifest.
 The cycle is therefore recoverable at explicit stage boundaries; the next
 increment can execute those stages automatically without weakening their
 existing evidence and evaluation separation.
+
+## Execute and resume the cycle
+
+`run_evolution_cycle.py` is the first cycle executor. Its JSON configuration
+defines ordered stages, dependencies, explicit `argv` jobs, environment
+variables, and content-addressed outputs. Up to three jobs in one stage run
+concurrently; a normal three-H800 rollout stage assigns
+`CUDA_VISIBLE_DEVICES=0`, `1`, and `2` to three task-type shards. Commands are
+passed directly to `subprocess` as argument arrays, never through a shell.
+
+After each job, stdout and stderr are stored in a dedicated log. After each
+stage, every output file or directory is hashed into `state.json`. The
+append-only `events.jsonl` records configuration and command hashes, job
+return codes, durations, output counts, and recovery decisions. Events form a
+SHA-256 chain anchored by `state.json`, so editing, deleting, or reordering an
+event is detected. A second invocation verifies output hashes and records
+`stage_recovered` without rerunning completed jobs. Changing the configuration
+after state exists is rejected.
+
+The existing exp-v4 artifacts predate the executor, so
+`configs/experience_v4_cycle_executor.json` uses `adopt_manifest`. Adoption is
+allowed only after replaying the sealed cycle manifest, and every adopted
+output must lie inside that manifest. Run and independently audit it with:
+
+```bash
+PYTHONPATH=src python scripts/run_evolution_cycle.py \
+  --config configs/experience_v4_cycle_executor.json \
+  --state-dir reports/experience_v4/cycle_executor
+
+PYTHONPATH=src python scripts/audit_evolution_cycle_run.py \
+  --config configs/experience_v4_cycle_executor.json \
+  --state-dir reports/experience_v4/cycle_executor \
+  --output reports/experience_v4/cycle_executor_audit.json
+```
+
+The checked-in log contains two invocations. The first replays the manifest
+and adopts four sealed stages; the second verifies and recovers all four.
+There are 13 hash-chained events, zero model jobs, and a final audit with
+`manifest_replay_verified: true`. New cycles omit `adopt_manifest` and provide
+jobs for every stage, so rollout, evolution, validation, gating, manifest
+construction, and audit use the same recovery mechanism from their first run.

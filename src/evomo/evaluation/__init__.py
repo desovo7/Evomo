@@ -32,15 +32,24 @@ from evomo.evaluation.evolution_cycle import (
     build_evolution_cycle_manifest,
     directory_sha256,
 )
+from evomo.evaluation.cycle_executor import (
+    CYCLE_EXECUTOR_SCHEMA_VERSION,
+    CycleExecutor,
+    audit_cycle_executor_state,
+    run_cycle_executor,
+)
 
 __all__ = [
     "CANONICAL_TASK_TYPES",
+    "CYCLE_EXECUTOR_SCHEMA_VERSION",
+    "CycleExecutor",
     "EpisodeMetrics",
     "ExperienceSelection",
     "EVOLUTION_CYCLE_SCHEMA_VERSION",
     "build_cross_variant_comparison",
     "build_paired_success_analysis",
     "audit_experience_candidate_decision",
+    "audit_cycle_executor_state",
     "audit_evolution_cycle_manifest",
     "build_evolution_cycle_manifest",
     "compute_episode_metrics",
@@ -49,6 +58,7 @@ __all__ = [
     "ensure_run_config",
     "file_sha256",
     "resolve_experience_selection",
+    "run_cycle_executor",
     "load_completed_episode",
     "merge_variant_summaries",
     "persist_episode_artifacts",

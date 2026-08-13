@@ -15,3 +15,10 @@ decision to 12 content-addressed artifact records. `cycle_manifest_audit.json`
 independently replays the semantic chain and the gate decision. It covers 480
 episodes and 1,954 files without reading any evaluation episode as learning
 evidence.
+
+The later `cycle_executor/` directory demonstrates safe adoption and resume
+of this pre-executor cycle. Its `events.jsonl` contains two runs and 13
+SHA-256-chained events: one sealed-manifest adoption followed by one complete
+four-stage recovery. `cycle_executor_audit.json` verifies the immutable config,
+stage output hashes, event chain and manifest replay. No model job was launched
+during adoption.
