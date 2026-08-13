@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Mapping, Protocol
 
@@ -13,6 +14,33 @@ from evomo.policies.contracts import ActionDecision, PolicyInput
 _ACTION_PATTERN = re.compile(r"<action>\s*(\d+)\s*</action>", re.IGNORECASE)
 _BARE_INDEX_PATTERN = re.compile(r"^\s*(\d+)\s*$")
 _INDEX_AND_ACTION_PATTERN = re.compile(r"^\s*(\d+)\s*:\s*(.+?)\s*$")
+_PLAN_ACTION_PATTERN = re.compile(
+    r"<plan>\s*(.*?)\s*</plan>\s*<action>\s*(\d+)\s*</action>",
+    re.IGNORECASE | re.DOTALL,
+)
+_THINK_ACTION_PATTERN = re.compile(
+    r"<think>\s*(.*?)\s*</think>\s*<action>\s*(.*?)\s*</action>",
+    re.IGNORECASE | re.DOTALL,
+)
+_ACTION_TEXT_PATTERN = re.compile(
+    r"<action>\s*(.*?)\s*</action>",
+    re.IGNORECASE | re.DOTALL,
+)
+
+ANTI_LOOP_SKILL = (
+    "If the previous action produced the same observation or no useful new "
+    "information, do not repeat it. Choose a different admissible action that "
+    "explores an unvisited location or directly advances the next task subgoal."
+)
+
+
+class PromptVariant(str, Enum):
+    """Controlled action-prompt variants used by the baseline ablation."""
+
+    INDEX_BASELINE = "index_baseline"
+    PLAN_THEN_INDEX = "plan_then_index"
+    THINK_THEN_ACTION_TEXT = "think_then_action_text"
+    ANTI_LOOP_SKILL = "anti_loop_skill"
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,7 +125,7 @@ class HuggingFaceQwenGenerator:
         return ModelGeneration(
             text=text,
             metadata={
-                "model_path": str(self.model_path),
+                "model_id": self.model_path.name,
                 "device": str(self._device),
                 "prompt_tokens": prompt_tokens,
                 "completion_tokens": int(generated_ids.shape[0]),
@@ -112,6 +140,8 @@ def build_action_messages(
     policy_input: PolicyInput,
     *,
     max_history_items: int,
+    prompt_variant: PromptVariant = PromptVariant.INDEX_BASELINE,
+    skill_text: str = "",
 ) -> list[dict[str, str]]:
     """Render a bounded ALFWorld action-selection prompt."""
 
@@ -129,15 +159,32 @@ def build_action_messages(
     action_text = "\n".join(
         f"{index}: {action}" for index, action in enumerate(policy_input.admissible_actions)
     )
-    user_content = (
+    context = (
         f"Goal: {policy_input.task.goal}\n"
         f"Task type: {policy_input.task.task_type}\n"
         f"Recent history:\n{history_text}\n\n"
         f"Current observation:\n{policy_input.observation}\n\n"
-        f"Admissible actions:\n{action_text}\n\n"
-        "Choose the single best next action. Reply only with "
-        "<action>INDEX</action>, where INDEX is one listed integer."
+        f"Admissible actions:\n{action_text}\n"
     )
+    if prompt_variant is PromptVariant.PLAN_THEN_INDEX:
+        instruction = (
+            "Write one short plan describing the immediate subgoal, then select the "
+            "single best listed action. Reply only with "
+            "<plan>SHORT PLAN</plan><action>INDEX</action>."
+        )
+    elif prompt_variant is PromptVariant.THINK_THEN_ACTION_TEXT:
+        instruction = (
+            "Reason briefly about the next subgoal, then copy exactly one complete "
+            "action from the admissible action list. Reply only with "
+            "<think>BRIEF REASONING</think><action>EXACT ACTION TEXT</action>."
+        )
+    else:
+        instruction = (
+            "Choose the single best next action. Reply only with "
+            "<action>INDEX</action>, where INDEX is one listed integer."
+        )
+    skill_section = f"\n\nEpisode-level skill:\n[{skill_text.strip()}]" if skill_text.strip() else ""
+    user_content = f"{context}{skill_section}\n\n{instruction}"
     return [
         {
             "role": "system",
@@ -163,12 +210,18 @@ class QwenPolicy:
         *,
         policy_id: str = "qwen3-1.7b-admissible-v1",
         max_history_items: int = 6,
+        prompt_variant: PromptVariant | str = PromptVariant.INDEX_BASELINE,
+        skill_text: str = "",
     ) -> None:
         if not isinstance(policy_id, str) or not policy_id.strip():
             raise ValueError("policy_id must be a non-empty string")
         if not isinstance(max_history_items, int) or max_history_items < 0:
             raise ValueError("max_history_items must be a non-negative integer")
         self._generator = generator
+        self._prompt_variant = PromptVariant(prompt_variant)
+        if self._prompt_variant is PromptVariant.ANTI_LOOP_SKILL and not skill_text.strip():
+            skill_text = ANTI_LOOP_SKILL
+        self._skill_text = skill_text.strip()
         self._policy_id = policy_id
         self._max_history_items = max_history_items
         self._task_id: str | None = None
@@ -197,30 +250,74 @@ class QwenPolicy:
         messages = build_action_messages(
             policy_input,
             max_history_items=self._max_history_items,
+            prompt_variant=self._prompt_variant,
+            skill_text=self._skill_text,
         )
         generation = self._generator.generate(messages)
-        tagged_match = _ACTION_PATTERN.fullmatch(generation.text.strip())
-        bare_match = _BARE_INDEX_PATTERN.fullmatch(generation.text)
-        indexed_match = _INDEX_AND_ACTION_PATTERN.fullmatch(generation.text)
-        parsed_index: int | None = None
-        parse_format: str | None = None
-        if tagged_match:
-            parsed_index = int(tagged_match.group(1))
-            parse_format = "tagged_index"
-        elif bare_match:
-            parsed_index = int(bare_match.group(1))
-            parse_format = "bare_index"
-        elif indexed_match:
-            candidate_index = int(indexed_match.group(1))
-            if (
-                candidate_index < len(policy_input.admissible_actions)
-                and indexed_match.group(2).strip().casefold()
-                == policy_input.admissible_actions[candidate_index].casefold()
-            ):
-                parsed_index = candidate_index
-                parse_format = "index_and_exact_action"
-        parse_ok = parsed_index is not None and parsed_index < len(policy_input.admissible_actions)
-        selected_index = parsed_index if parse_ok else 0
+        reasoning_text = ""
+        if self._prompt_variant is PromptVariant.THINK_THEN_ACTION_TEXT:
+            think_match = _THINK_ACTION_PATTERN.fullmatch(generation.text.strip())
+            selected_index = None
+            parse_format = None
+            required_format_ok = False
+            if think_match:
+                reasoning_text = think_match.group(1).strip()
+                action_text = think_match.group(2).strip()
+                required_format_ok = bool(reasoning_text)
+            else:
+                action_match = _ACTION_TEXT_PATTERN.fullmatch(generation.text.strip())
+                indexed_match = _INDEX_AND_ACTION_PATTERN.fullmatch(generation.text)
+                if action_match:
+                    action_text = action_match.group(1).strip()
+                    parse_format = "tagged_exact_action_without_think"
+                elif indexed_match:
+                    action_text = indexed_match.group(2).strip()
+                    parse_format = "index_and_exact_action_without_think"
+                else:
+                    action_text = ""
+            if action_text:
+                for index, candidate in enumerate(policy_input.admissible_actions):
+                    if action_text.casefold() == candidate.casefold():
+                        selected_index = index
+                        if think_match:
+                            parse_format = "think_and_exact_action"
+                        break
+            parse_ok = selected_index is not None
+            parsed_index = selected_index
+            selected_index = selected_index if parse_ok else 0
+        elif self._prompt_variant is PromptVariant.PLAN_THEN_INDEX:
+            plan_match = _PLAN_ACTION_PATTERN.fullmatch(generation.text.strip())
+            parsed_index = int(plan_match.group(2)) if plan_match else None
+            reasoning_text = plan_match.group(1).strip() if plan_match else ""
+            parse_format = "plan_and_tagged_index" if plan_match else None
+            parse_ok = parsed_index is not None and parsed_index < len(policy_input.admissible_actions)
+            required_format_ok = parse_ok and bool(reasoning_text)
+            selected_index = parsed_index if parse_ok else 0
+        else:
+            required_format_ok = False
+            tagged_match = _ACTION_PATTERN.fullmatch(generation.text.strip())
+            bare_match = _BARE_INDEX_PATTERN.fullmatch(generation.text)
+            indexed_match = _INDEX_AND_ACTION_PATTERN.fullmatch(generation.text)
+            parsed_index: int | None = None
+            parse_format: str | None = None
+            if tagged_match:
+                parsed_index = int(tagged_match.group(1))
+                parse_format = "tagged_index"
+            elif bare_match:
+                parsed_index = int(bare_match.group(1))
+                parse_format = "bare_index"
+            elif indexed_match:
+                candidate_index = int(indexed_match.group(1))
+                if (
+                    candidate_index < len(policy_input.admissible_actions)
+                    and indexed_match.group(2).strip().casefold()
+                    == policy_input.admissible_actions[candidate_index].casefold()
+                ):
+                    parsed_index = candidate_index
+                    parse_format = "index_and_exact_action"
+            parse_ok = parsed_index is not None and parsed_index < len(policy_input.admissible_actions)
+            selected_index = parsed_index if parse_ok else 0
+            required_format_ok = parse_ok and parse_format == "tagged_index"
         assert selected_index is not None
 
         return ActionDecision(
@@ -229,7 +326,11 @@ class QwenPolicy:
             source="model_generation" if parse_ok else "fallback_first_admissible",
             metadata={
                 "raw_response": generation.text,
+                "reasoning": reasoning_text,
+                "prompt_variant": self._prompt_variant.value,
+                "skill_text": self._skill_text,
                 "parse_ok": parse_ok,
+                "required_format_ok": required_format_ok,
                 "parse_format": parse_format,
                 "parsed_index": parsed_index,
                 "selected_index": selected_index,

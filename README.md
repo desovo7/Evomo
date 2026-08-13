@@ -138,3 +138,42 @@ about 21 seconds. All 50 outputs parsed to admissible actions and the JSONL
 round trip passed, but the untrained policy did not solve the task and ended
 at `max_steps`. This is a valid base-model measurement: infrastructure
 success and benchmark success are reported separately.
+
+## Compare four prompt variants with trajectory logs
+
+The controlled A/B/C/D runner loads Qwen once and executes the variants in
+order on the same task, environment, seed, history budget, and greedy decoding
+configuration:
+
+- A: action index only;
+- B: one short plan followed by an action index;
+- C: explicit reasoning followed by exact admissible action text;
+- D: action index with an independently written anti-loop skill.
+
+```bash
+export ALFWORLD_DATA=/path/to/alfworld
+CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python \
+  scripts/run_qwen_prompt_ablation.py \
+  --model-path ../models/Qwen3-1.7B \
+  --split valid_train \
+  --task-index 0 \
+  --seed 42 \
+  --max-steps 30 \
+  --output-dir reports/prompt_ablation/qwen3_1.7b_valid_train_task0
+```
+
+Each variant writes a summary JSON, step-level JSONL, and readable Markdown
+trace. A combined Episode JSONL and comparison JSON are also written. The
+checked-in first-task result is a prompt diagnostic, not a benchmark score:
+
+| Variant | Success | Parsed | Strict format | Repeats | Unchanged | Unique actions |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| A index | 0 | 30/30 | 0/30 | 29 | 29 | 1 |
+| B plan + index | 0 | 30/30 | 30/30 | 15 | 15 | 7 |
+| C reasoning + action text | 0 | 30/30 | 0/30 | 1 | 1 | 14 |
+| D anti-loop skill | 0 | 29/30 | 2/30 | 8 | 8 | 14 |
+
+C shows that exact action-text selection greatly reduced looping on this task,
+although Qwen3-1.7B omitted the requested `<think>` block. D also reduced
+looping substantially. None solved the task, so these observations must be
+validated on a fixed multi-task baseline before selecting a default prompt.

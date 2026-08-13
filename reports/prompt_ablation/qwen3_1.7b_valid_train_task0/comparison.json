@@ -1,0 +1,70 @@
+{
+  "task_id": "valid_train/look_at_obj_in_light-Book-None-DeskLamp-302/trial_T20190909_085137_911990",
+  "goal": "Pick up a book to look at under a lit lamp.",
+  "model_path": "../models/Qwen3-1.7B",
+  "seed": 42,
+  "max_steps": 30,
+  "variants": [
+    {
+      "label": "A",
+      "variant": "index_baseline",
+      "policy_id": "qwen3-1.7b-a-index_baseline",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 0,
+      "fallback_actions": 0,
+      "repeated_actions": 29,
+      "unchanged_observations": 29,
+      "unique_actions": 1
+    },
+    {
+      "label": "B",
+      "variant": "plan_then_index",
+      "policy_id": "qwen3-1.7b-b-plan_then_index",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 30,
+      "fallback_actions": 0,
+      "repeated_actions": 15,
+      "unchanged_observations": 15,
+      "unique_actions": 7
+    },
+    {
+      "label": "C",
+      "variant": "think_then_action_text",
+      "policy_id": "qwen3-1.7b-c-think_then_action_text",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 30,
+      "format_compliant_actions": 0,
+      "fallback_actions": 0,
+      "repeated_actions": 1,
+      "unchanged_observations": 1,
+      "unique_actions": 14
+    },
+    {
+      "label": "D",
+      "variant": "anti_loop_skill",
+      "policy_id": "qwen3-1.7b-d-anti_loop_skill",
+      "termination_reason": "max_steps",
+      "steps": 30,
+      "success": false,
+      "total_reward": 0.0,
+      "parsed_actions": 29,
+      "format_compliant_actions": 2,
+      "fallback_actions": 1,
+      "repeated_actions": 8,
+      "unchanged_observations": 8,
+      "unique_actions": 14
+    }
+  ],
+  "episode_round_trip_verified": true
+}

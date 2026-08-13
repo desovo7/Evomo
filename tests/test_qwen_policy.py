@@ -3,7 +3,13 @@ from __future__ import annotations
 import unittest
 
 from evomo.data import TaskSpec
-from evomo.policies import HistoryItem, ModelGeneration, PolicyInput, QwenPolicy
+from evomo.policies import (
+    HistoryItem,
+    ModelGeneration,
+    PolicyInput,
+    PromptVariant,
+    QwenPolicy,
+)
 from evomo.policies.qwen_policy import build_action_messages
 
 
@@ -46,6 +52,7 @@ class QwenPolicyTest(unittest.TestCase):
         self.assertTrue(decision.metadata["parse_ok"])
         self.assertEqual(decision.metadata["parsed_index"], 1)
         self.assertEqual(decision.metadata["generation"]["prompt_tokens"], 10)
+        self.assertTrue(decision.metadata["required_format_ok"])
 
     def test_invalid_format_falls_back_to_first_action(self) -> None:
         generator = FakeGenerator("I would go to the desk.")
@@ -78,6 +85,7 @@ class QwenPolicyTest(unittest.TestCase):
         decision = policy.decide(policy_input)
         self.assertEqual(decision.action, "look")
         self.assertEqual(decision.metadata["parse_format"], "bare_index")
+        self.assertFalse(decision.metadata["required_format_ok"])
 
     def test_accepts_index_with_exact_action_text(self) -> None:
         generator = FakeGenerator("1: go to bed 1")
@@ -109,6 +117,53 @@ class QwenPolicyTest(unittest.TestCase):
         self.assertIn("0: go to desk 1", user)
         self.assertIn("2: look", user)
         self.assertIn("<action>INDEX</action>", user)
+
+    def test_plan_variant_records_plan_and_index(self) -> None:
+        generator = FakeGenerator("<plan>Inspect the likely bed.</plan><action>1</action>")
+        policy_input = make_input()
+        policy = QwenPolicy(generator, prompt_variant=PromptVariant.PLAN_THEN_INDEX)
+        policy.reset(task=policy_input.task, seed=42)
+        decision = policy.decide(policy_input)
+        self.assertEqual(decision.action, "go to bed 1")
+        self.assertEqual(decision.metadata["reasoning"], "Inspect the likely bed.")
+        self.assertEqual(decision.metadata["parse_format"], "plan_and_tagged_index")
+
+    def test_think_variant_requires_exact_action_text(self) -> None:
+        generator = FakeGenerator(
+            "<think>The bed is a likely location.</think><action>go to bed 1</action>"
+        )
+        policy_input = make_input()
+        policy = QwenPolicy(generator, prompt_variant=PromptVariant.THINK_THEN_ACTION_TEXT)
+        policy.reset(task=policy_input.task, seed=42)
+        decision = policy.decide(policy_input)
+        self.assertEqual(decision.action, "go to bed 1")
+        self.assertEqual(decision.metadata["reasoning"], "The bed is a likely location.")
+        self.assertEqual(decision.metadata["parse_format"], "think_and_exact_action")
+        self.assertTrue(decision.metadata["required_format_ok"])
+
+    def test_think_variant_executes_exact_action_when_think_is_missing(self) -> None:
+        generator = FakeGenerator("<action>go to bed 1</action>")
+        policy_input = make_input()
+        policy = QwenPolicy(generator, prompt_variant=PromptVariant.THINK_THEN_ACTION_TEXT)
+        policy.reset(task=policy_input.task, seed=42)
+        decision = policy.decide(policy_input)
+        self.assertEqual(decision.action, "go to bed 1")
+        self.assertTrue(decision.metadata["parse_ok"])
+        self.assertFalse(decision.metadata["required_format_ok"])
+        self.assertEqual(
+            decision.metadata["parse_format"], "tagged_exact_action_without_think"
+        )
+
+    def test_anti_loop_variant_injects_skill(self) -> None:
+        generator = FakeGenerator("<action>0</action>")
+        policy_input = make_input()
+        policy = QwenPolicy(generator, prompt_variant=PromptVariant.ANTI_LOOP_SKILL)
+        policy.reset(task=policy_input.task, seed=42)
+        decision = policy.decide(policy_input)
+        user_prompt = generator.messages[0][1]["content"]
+        self.assertIn("Episode-level skill", user_prompt)
+        self.assertIn("do not repeat", user_prompt)
+        self.assertEqual(decision.metadata["prompt_variant"], "anti_loop_skill")
 
 
 if __name__ == "__main__":

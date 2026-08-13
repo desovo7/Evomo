@@ -4,6 +4,7 @@ from evomo.policies.contracts import ActionDecision, HistoryItem, Policy, Policy
 from evomo.policies.qwen_policy import (
     HuggingFaceQwenGenerator,
     ModelGeneration,
+    PromptVariant,
     QwenPolicy,
 )
 from evomo.policies.random_policy import RandomPolicy
@@ -15,6 +16,7 @@ __all__ = [
     "ModelGeneration",
     "Policy",
     "PolicyInput",
+    "PromptVariant",
     "QwenPolicy",
     "RandomPolicy",
 ]
