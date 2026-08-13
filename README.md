@@ -108,3 +108,33 @@ A random policy is expected to fail many tasks. A result such as
 `termination_reason=max_steps` is a valid completed rollout, not an
 infrastructure error. The next model-policy stage will replace only the
 action selection component while keeping the same runner and episode schema.
+
+## Run the local Qwen3-1.7B baseline
+
+`QwenPolicy` renders the task goal, current observation, up to six recent
+transitions, and the exact admissible action list. Qwen3 runs in non-thinking,
+deterministic mode and selects an action by index. The parser accepts a tagged
+index, a bare index, or an index followed by the exact action text. Any other
+response falls back to the first admissible action and records the raw output
+and parse failure in the episode rather than interrupting the environment.
+
+```bash
+python -m pip install -e '.[alfworld,qwen]'
+
+export ALFWORLD_DATA=/path/to/alfworld
+CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python \
+  scripts/run_qwen_alfworld_episode.py \
+  --model-path ../models/Qwen3-1.7B \
+  --device cuda:0 \
+  --split valid_train \
+  --task-index 0 \
+  --seed 42 \
+  --max-steps 50 \
+  --output outputs/episodes/qwen3_1.7b_baseline.jsonl
+```
+
+On the development machine, the first real baseline completed 50 steps in
+about 21 seconds. All 50 outputs parsed to admissible actions and the JSONL
+round trip passed, but the untrained policy did not solve the task and ended
+at `max_steps`. This is a valid base-model measurement: infrastructure
+success and benchmark success are reported separately.
