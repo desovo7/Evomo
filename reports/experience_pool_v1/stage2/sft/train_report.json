@@ -1,0 +1,38 @@
+{
+  "status": "complete",
+  "training_kind": "full_parameter_sft",
+  "base_model_path": "../models/Qwen3-1.7B",
+  "dataset_manifest_path": "reports/experience_pool_v1/stage2/sft/dataset_manifest.json",
+  "dataset_sha256": "1bb70aa425ee479b816caba612af7b58e30881891b9f170c0154bd75f366c18a",
+  "example_count": 32464,
+  "epochs": 1.0,
+  "learning_rate": 1e-05,
+  "per_device_batch_size": 2,
+  "gradient_accumulation": 8,
+  "world_size": 3,
+  "max_length": 4096,
+  "seed": 42,
+  "global_step": 677,
+  "metrics": {
+    "train_runtime": 1667.7204,
+    "train_samples_per_second": 19.466,
+    "train_steps_per_second": 0.406,
+    "total_flos": 3.5280655162435174e+17,
+    "train_loss": 0.03528733246655725,
+    "epoch": 1.0
+  },
+  "checkpoint_path": "runs/experience_pool_v1/stage2/sft/checkpoint",
+  "checkpoint_files": [
+    "added_tokens.json",
+    "chat_template.jinja",
+    "config.json",
+    "generation_config.json",
+    "merges.txt",
+    "model.safetensors",
+    "special_tokens_map.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "training_args.bin",
+    "vocab.json"
+  ]
+}

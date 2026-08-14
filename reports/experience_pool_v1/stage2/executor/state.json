@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "cycle_id": "experience-pool-v1-stage2-full-sft",
+  "config_sha256": "ffb60b7c0f6a280a34d637eb5b9eea09715f76968e1d44db466688279d7d2950",
+  "status": "complete",
+  "stages": {
+    "build_sft_dataset": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "runs/experience_pool_v1/stage2/sft/train.jsonl",
+          "sha256": "1bb70aa425ee479b816caba612af7b58e30881891b9f170c0154bd75f366c18a",
+          "bytes": 149523733
+        },
+        {
+          "kind": "file",
+          "path": "reports/experience_pool_v1/stage2/sft/dataset_manifest.json",
+          "sha256": "af818b6d8704982fc9f9f604dfa8e61a8ab612fcb120d7260e0ef98c9e81efa7",
+          "bytes": 941
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "build-full-planner-sft-data",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 12.478028,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/build_sft_dataset__build-full-planner-sft-data.log",
+          "log_sha256": "af818b6d8704982fc9f9f604dfa8e61a8ab612fcb120d7260e0ef98c9e81efa7"
+        }
+      ]
+    },
+    "full_parameter_sft": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "runs/experience_pool_v1/stage2/sft/checkpoint",
+          "sha256": "e9ffe9a67dd9ed8edfd7adba40e5da526ecd3194d7cfbbcc354f1710a14c24b1",
+          "file_count": 11,
+          "bytes": 3457075256
+        },
+        {
+          "kind": "file",
+          "path": "reports/experience_pool_v1/stage2/sft/train_report.json",
+          "sha256": "c9473bc39a027e69c90d9b56bedf072c1eaac4218b71190c4b491ac36529a28b",
+          "bytes": 1091
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "train-qwen-full-parameter-sft-3gpu",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 1691.056025,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/full_parameter_sft__train-qwen-full-parameter-sft-3gpu.log",
+          "log_sha256": "a17f8048085a333133af8c876211b3f74228d45a71bf2e0d9ad96af72f8b2dcf"
+        }
+      ]
+    },
+    "sft_planner_rollout": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "directory",
+          "path": "runs/experience_pool_v1/stage2/I/shard_0",
+          "sha256": "dad9e11d027bad31ee4dc172835ad671ffa6e6869d38ecae1248a34e44a6a6a6",
+          "file_count": 4742,
+          "bytes": 146107385
+        },
+        {
+          "kind": "directory",
+          "path": "runs/experience_pool_v1/stage2/I/shard_1",
+          "sha256": "57aed590e06a70a1ef7a287b1e72c44a4168fbc0bfac48385c09e61a82326109",
+          "file_count": 4738,
+          "bytes": 144207504
+        },
+        {
+          "kind": "directory",
+          "path": "runs/experience_pool_v1/stage2/I/shard_2",
+          "sha256": "4241ca4ed76f310c2c5e145aae179e7b1674b428468ce6b447ceb71cfe781592",
+          "file_count": 4738,
+          "bytes": 142501844
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "sft-planner-gpu-0",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 12831.335139,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/sft_planner_rollout__sft-planner-gpu-0.log",
+          "log_sha256": "3e428dc5f5cc7210a71239bf6f0714e3debe45eb60931d3cf69e7fb2539a1417"
+        },
+        {
+          "job_id": "sft-planner-gpu-1",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 12613.025286,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/sft_planner_rollout__sft-planner-gpu-1.log",
+          "log_sha256": "74eddc83ac2c24d30bad1767e46fdb28e19f83049abfc473d6351fbac88adbd7"
+        },
+        {
+          "job_id": "sft-planner-gpu-2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 12020.843085,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/sft_planner_rollout__sft-planner-gpu-2.log",
+          "log_sha256": "b0266a56b2f1e113b1dbb056df8ca2f8da0498bac1eb3de2ff0db3ac4ce6a13e"
+        }
+      ]
+    },
+    "merge": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "runs/experience_pool_v1/stage2/I/summary.json",
+          "sha256": "81db90933c4f34404f6a29eeb1bee93a17dd1e3c1ffd6d48e66c45180aa56f97",
+          "bytes": 2414714
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "merge-stage2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 0.313625,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/merge__merge-stage2.log",
+          "log_sha256": "81db90933c4f34404f6a29eeb1bee93a17dd1e3c1ffd6d48e66c45180aa56f97"
+        }
+      ]
+    },
+    "audit": {
+      "status": "complete",
+      "completion_mode": "executed",
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "reports/experience_pool_v1/stage2/audit.json",
+          "sha256": "4674d4f6668f7017fa44c3a1094c9ef316fedbd68c7b44b6423722025b47a01a",
+          "bytes": 2465
+        }
+      ],
+      "jobs": [
+        {
+          "job_id": "audit-stage2",
+          "attempt": 1,
+          "returncode": 0,
+          "duration_seconds": 6.184895,
+          "log_path": "reports/experience_pool_v1/stage2/executor/logs/audit__audit-stage2.log",
+          "log_sha256": "4674d4f6668f7017fa44c3a1094c9ef316fedbd68c7b44b6423722025b47a01a"
+        }
+      ]
+    }
+  },
+  "event_head_sha256": "4d776e8431cccb757678cb12794e7a0e5d2a35d3361f8b31f194d6862c6c917e"
+}

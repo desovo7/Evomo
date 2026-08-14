@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "stage": "sft_model_plus_experience_planner",
+  "status": "complete",
+  "task_count": 3553,
+  "success_count": 2820,
+  "success_rate": 0.7936954686180693,
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "task_count": 308,
+      "success_count": 105,
+      "success_rate": 0.3409090909090909,
+      "steps": 8138
+    },
+    "pick_and_place_simple": {
+      "task_count": 790,
+      "success_count": 748,
+      "success_rate": 0.9468354430379747,
+      "steps": 7342
+    },
+    "pick_clean_then_place_in_recep": {
+      "task_count": 650,
+      "success_count": 532,
+      "success_rate": 0.8184615384615385,
+      "steps": 9289
+    },
+    "pick_cool_then_place_in_recep": {
+      "task_count": 533,
+      "success_count": 438,
+      "success_rate": 0.8217636022514071,
+      "steps": 8250
+    },
+    "pick_heat_then_place_in_recep": {
+      "task_count": 459,
+      "success_count": 413,
+      "success_rate": 0.8997821350762527,
+      "steps": 5748
+    },
+    "pick_two_obj_and_place": {
+      "task_count": 813,
+      "success_count": 584,
+      "success_rate": 0.7183271832718328,
+      "steps": 16490
+    }
+  },
+  "summary": {
+    "path": "runs/experience_pool_v1/stage2/I/summary.json",
+    "sha256": "81db90933c4f34404f6a29eeb1bee93a17dd1e3c1ffd6d48e66c45180aa56f97",
+    "bytes": 2414714
+  },
+  "audit": {
+    "path": "reports/experience_pool_v1/stage2/audit.json",
+    "sha256": "4674d4f6668f7017fa44c3a1094c9ef316fedbd68c7b44b6423722025b47a01a",
+    "bytes": 2465
+  },
+  "audit_status": "passed",
+  "training": {
+    "status": "complete",
+    "training_kind": "full_parameter_sft",
+    "base_model_path": "../models/Qwen3-1.7B",
+    "dataset_manifest_path": "reports/experience_pool_v1/stage2/sft/dataset_manifest.json",
+    "dataset_sha256": "1bb70aa425ee479b816caba612af7b58e30881891b9f170c0154bd75f366c18a",
+    "example_count": 32464,
+    "epochs": 1.0,
+    "learning_rate": 1e-05,
+    "per_device_batch_size": 2,
+    "gradient_accumulation": 8,
+    "world_size": 3,
+    "max_length": 4096,
+    "seed": 42,
+    "global_step": 677,
+    "metrics": {
+      "train_runtime": 1667.7204,
+      "train_samples_per_second": 19.466,
+      "train_steps_per_second": 0.406,
+      "total_flos": 3.5280655162435174e+17,
+      "train_loss": 0.03528733246655725,
+      "epoch": 1.0
+    },
+    "checkpoint_path": "runs/experience_pool_v1/stage2/sft/checkpoint",
+    "checkpoint_files": [
+      "added_tokens.json",
+      "chat_template.jinja",
+      "config.json",
+      "generation_config.json",
+      "merges.txt",
+      "model.safetensors",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "training_args.bin",
+      "vocab.json"
+    ]
+  },
+  "training_report": {
+    "path": "reports/experience_pool_v1/stage2/sft/train_report.json",
+    "sha256": "c9473bc39a027e69c90d9b56bedf072c1eaac4218b71190c4b491ac36529a28b",
+    "bytes": 1091
+  }
+}
