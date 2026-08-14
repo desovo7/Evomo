@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "protocol_role": "development",
+  "report_dir": "runs/experience_pool_v1/stage1",
+  "same_task_ids": true,
+  "experience_evidence_task_overlap": 0,
+  "excluded_source_task_overlap": null,
+  "excluded_source_task_count": 0,
+  "discovery_task_count": 3553,
+  "manifest_coverage": {
+    "path": "configs/experience_pool_v1_tasks.jsonl",
+    "sha256": "545001e16fcad3f1e0f7b8a0622864eba3a2c08053a0da0482cb15fe359dd16f",
+    "task_count": 3553,
+    "exact": true
+  },
+  "variants": [
+    {
+      "variant": "I",
+      "episode_count": 3553,
+      "step_count": 55474,
+      "success_count": 2786,
+      "task_type_counts": {
+        "look_at_obj_in_light": 308,
+        "pick_and_place_simple": 790,
+        "pick_clean_then_place_in_recep": 650,
+        "pick_cool_then_place_in_recep": 533,
+        "pick_heat_then_place_in_recep": 459,
+        "pick_two_obj_and_place": 813
+      },
+      "experience_override_count": 47811,
+      "experience_overrides_by_task_type": {
+        "look_at_obj_in_light": 5851,
+        "pick_and_place_simple": 6537,
+        "pick_clean_then_place_in_recep": 8366,
+        "pick_cool_then_place_in_recep": 7443,
+        "pick_heat_then_place_in_recep": 5086,
+        "pick_two_obj_and_place": 14528
+      },
+      "experience_rule_use_counts": {
+        "diversify-location-types": 14768,
+        "novelty-before-revisit": 30419,
+        "ordered-task-recipe": 13223,
+        "target-object-lock": 4169
+      },
+      "experience_override_reason_counts": {
+        "deliver_completed_target": 3637,
+        "execute_required_clean": 583,
+        "execute_required_cool": 445,
+        "execute_required_heat": 416,
+        "explore_unvisited_location": 6534,
+        "explore_unvisited_location_type": 14768,
+        "navigate_to_clean_appliance": 583,
+        "navigate_to_cool_appliance": 448,
+        "navigate_to_heat_appliance": 417,
+        "navigate_to_target_destination": 6694,
+        "open_unsearched_current_receptacle": 9117,
+        "release_non_target_inventory": 201,
+        "take_visible_target_object": 3968
+      },
+      "used_experience_rule_ids": [
+        "diversify-location-types",
+        "novelty-before-revisit",
+        "ordered-task-recipe",
+        "target-object-lock"
+      ],
+      "experience_selection_source": "candidate_gate_decision",
+      "experience_decision_replay_verified": true
+    }
+  ],
+  "totals": {
+    "episodes": 3553,
+    "steps": 55474,
+    "successes": 2786
+  }
+}
